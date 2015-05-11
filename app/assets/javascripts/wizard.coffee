@@ -177,6 +177,15 @@ on_step_counter_click = ()->
   $step = $step_counter.closest(".wizard-step")
   $step.go_to_this_step()
 
+on_value_changed = ()->
+  $step = $(this).closest(".wizard-step")
+  if !$step.hasClass("active")
+    $active_step = $(".wizard-step.active")
+    $step.addClass("active")
+  if $step.check_whether_step_ready_to_proceed()
+    $step.next().addClass("ready-to-go-to-this-step")
+
+
 
 init_steps = ()->
   $steps = $('.wizard-step')
@@ -253,5 +262,5 @@ $(document).on "page:load ready", ()->
   $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
   $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
   $wizard_steps_container.on "completed", ".wizard-step", on_step_completed
-
+  $wizard_steps_container.on "change", "input, textarea", on_value_changed
 
