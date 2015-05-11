@@ -1,0 +1,10 @@
+= transition($transition-property, $transition-time, $method)
+  +transition_all("#{$transition-property} #{$transition-time} #{$method}")
+
+= transition_all($value)
+  $value: unquote($value)
+  -webkit-transition: $value
+  -moz-transition: $value
+  -ms-transition: $value
+  -o-transition: $value
+  transition: $value

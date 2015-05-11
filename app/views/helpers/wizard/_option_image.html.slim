@@ -1,0 +1,9 @@
+.option-image class="large-#{columns_count}"
+  input.option-image-input type="radio" name=name value=value id="#{name}__#{value}"
+  label for="#{name}__#{value}"
+    img src=image_path
+    span.name
+      = label
+    - if description.present?
+      .description
+        = description

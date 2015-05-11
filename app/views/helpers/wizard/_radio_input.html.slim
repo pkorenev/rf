@@ -1,0 +1,11 @@
+.input
+  input id="#{name}__#{value}" type="radio" name=name value=value checked=("checked" if checked )
+  label for="#{name}__#{value}"
+  label for="#{name}__#{value}"
+    = label
+  - if description
+    .description
+      = description
+  - if block
+    .input-related-content
+      = capture(&block)

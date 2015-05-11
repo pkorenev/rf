@@ -1,0 +1,11 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "foundation-apps": "latest",
+    "sass-flex-mixin": "latest",
+    "foundation": "latest",
+    "rivets": "latest",
+    "selectize": "latest",
+    "jquery.tagsinput": "latest"
+  }
+}

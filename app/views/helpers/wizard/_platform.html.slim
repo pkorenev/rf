@@ -1,0 +1,4 @@
+.platform class=("commentable" if commentable)
+  .name style=("background-image: url('#{image_path}');" if image_path) class=("with-bg-image" if image_path)
+    = name
+  = capture(&block)

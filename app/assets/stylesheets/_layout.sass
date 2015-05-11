@@ -1,0 +1,57 @@
+$header-height: rem-calc(80)
+
+$header-menu-item-color: $light-black-color
+$footer-background-color: $light-black-color
+$total-panel-background-color: $light-black-color
+
+$footer-height: rem-calc(200)
+
+$header-z-index: 10
+
+#header
+  height: $header-height
+  background: #f2f2f2
+  position: relative
+#fixed-header
+  position: fixed
+  height: inherit
+  width: 100%
+  background: inherit
+  z-index: $header-z-index
+
+#header-row
+  +grid-row
+  position: relative
+#header-logo
+  +grid-column(3)
+  height: $header-height
+  a
+    position: relative
+    height: 100%
+    display: inline-block
+    img
+      margin-top: rem-calc(5)
+
+#header-menu
+  +grid-column(8, $float: right)
+  height: $header-height
+.header-menu-item
+  +grid-column(3, $collapse: true)
+  //padding: 0 rem-calc(1)
+  height: $header-height
+  a
+    display: block
+    line-height: $header-height
+    height: $header-height
+    color: $header-menu-item-color
+    font-size: 1rem
+    font-weight: 600
+    text-decoration: none
+    text-align: center
+
+
+
+
+#footer
+  height: $footer-height
+  background-color: $footer-background-color

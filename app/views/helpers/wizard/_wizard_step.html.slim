@@ -1,0 +1,14 @@
+#step-type-of-tests.wizard-step
+  .wizard-step-line
+  /.wizard-step-line-overlay
+    .round
+    .line
+    .round
+  .wizard-step-counter data-number=step_number
+  .wizard-step-content
+    .wizard-step-content-overlay
+    - if step_title
+      .wizard-step-header.text-center
+        = step_title
+    /.wizard-step-content-content
+    = content_tag(:div, class: "wizard-step-content-content", &block)
