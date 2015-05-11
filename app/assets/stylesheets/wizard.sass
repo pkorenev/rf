@@ -202,6 +202,7 @@ $wizard-step-line-width: rem-calc(1)
   //&.completed:not(.review)
     .wizard-step-content
       opacity: 0.3
+
   .wizard-step-line
     position: absolute
     width: $wizard-step-line-width
@@ -269,6 +270,7 @@ $wizard-step-line-width: rem-calc(1)
       opacity: 0.3
     .wizard-step-content-overlay
       display: block
+      display: none
       position: absolute
       top: 0
       bottom: 0
@@ -336,6 +338,7 @@ $wizard-step-line-width: rem-calc(1)
         background-color: rgba($fire-orange-color, 0.3)
 
 .wizard-step-content
+  opacity: 1 !important
   padding-left: #{$wizard-step-counter-diameter + rem-calc(30)}
   position: relative
 .wizard-step-header
@@ -364,6 +367,7 @@ $wizard-step-line-width: rem-calc(1)
   .label
     cursor: pointer
 .go-back
+  display: none
   //+font-14-light
   //color: $light-gray-color
   font-size: 0.8rem
@@ -375,6 +379,7 @@ $wizard-step-line-width: rem-calc(1)
   height: rem-calc(94)
 .go-next-button
   +go-next-button
+  display: none
 
   img
     position: relative

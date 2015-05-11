@@ -186,7 +186,7 @@ init_steps = ()->
     $first_step.addClass('ready-to-proceed')
   else
     $next_steps = $first_step.nextAll()
-    $next_steps.addClass("unavailable")
+    #$next_steps.addClass("unavailable")
   $first_step.get_future_steps().addClass('future')
 
   $steps_container = $('#wizard-steps')
