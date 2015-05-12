@@ -11,19 +11,19 @@
               /input type="radio"
               .row
                 .input.required
-                  = option_image("rf-icon-functional-test", "test_type", "Functional test", "functional", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
-                  = option_image("rf-icon-functional-test", "test_type", "Localization test", "localization", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
-                  = option_image("rf-icon-functional-test", "test_type", "Usability test", "usability", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-functional-test", "test_type", "Functional test", "functional", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-localization-test", "test_type", "Localization test", "localization", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-usability-test", "test_type", "Usability test", "usability", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
 
           = question("For what type of product?", true) do
             form method="post" action=""
               /input type="radio"
               .row
                 .input.required
-                  = option_image("rf-icon-functional-test", "product_type", "Mobile apps", "mobile_apps", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
-                  = option_image("rf-icon-functional-test", "product_type", "Responsive website", "responsive_website", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
-                  = option_image("rf-icon-functional-test", "product_type", "Software", "software", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
-                  = option_image("rf-icon-functional-test", "product_type", "Games", "games", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-mobile-apps", "product_type", "Mobile apps", "mobile_apps", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-responsive", "product_type", "Responsive website", "responsive_website", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-software", "product_type", "Software", "software", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
+                  = option_image("rf-games", "product_type", "Games", "games", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
           .step-nav-buttons
             = configure_button click: "wizard.show_mini_summary = true; wizard.configure_mode = true; configure();", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'"
             /= next_step_button(3, "Platforms")
