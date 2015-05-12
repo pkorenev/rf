@@ -67,7 +67,7 @@ $.fn.get_future_steps = ()->
   return $step.nextAll()
 
 $.fn.go_to_this_step = ()->
-  $steps = $(".wizard-step")
+  $steps = $(".configuration-steps .wizard-step")
   $required_step = $(this).closest(".wizard-step")
   $active_step = $steps.filter(".active")
   if $required_step.length > 0 && (!$required_step.hasClass('unavailable') || $active_step.hasClass("ready-to-proceed") ) && !$required_step.hasClass('active')
@@ -96,7 +96,12 @@ $.fn.go_to_this_step = ()->
       $active_step.trigger("completed")
 
     required_step_top = $required_step.offset().top
+    required_step_top = $('.intro-step').offset().top + $('.intro-step').height()
     top_to_animate = required_step_top - $('#header').height() - 48
+    #alert(top_to_animate)
+
+
+
     $('body').animate({scrollTop: top_to_animate})
 
 
@@ -261,6 +266,6 @@ $(document).on "page:load ready", ()->
   $wizard_steps_container.on "click", ".go-back", on_prev_step
   $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
   $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
-  $wizard_steps_container.on "completed", ".wizard-step", on_step_completed
+  #$wizard_steps_container.on "completed", ".wizard-step", on_step_completed
   $wizard_steps_container.on "change", "input, textarea", on_value_changed
 

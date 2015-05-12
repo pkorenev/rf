@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  get "/svg_images", to: "home#svg_images"
   root to: 'home#index'
 
+  scope "ng" do
+    root to: "angular#index", as: :ng_root
+    get 'wizard', to: "angular#wizard"
+  end
+
+  get "/svg_images", to: "home#svg_images"
+
+
   get 'wizard', to: "wizard#index"
+  get "ng_wizard", to: "wizard#ng_wizard"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

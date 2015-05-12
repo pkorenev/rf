@@ -12,9 +12,13 @@
 //
 //= require jquery
 // require jquery_ujs
-//= require turbolinks
+// require turbolinks
+//= require angular/angular.min.js
 // require sifter
 // require microplugin
 // require selectize
 //= require jquery.tagsinput/src/jquery.tagsinput.js
-//= require_tree .
+//= require svg_images
+//= require wizard
+//= require ng_wizard
+// require_tree .

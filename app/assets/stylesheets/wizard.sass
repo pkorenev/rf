@@ -27,19 +27,21 @@ $wizard-step-line-width: rem-calc(1)
   max-width: rem-calc(600)
 
 
-= go-next-button
-  background: $fire-orange-color
+= go-next-button($background-image: true)
+  background-color: $fire-orange-color
   color: white
   width: $go-next-button-width
   height: $go-next-button-height
   display: block
   margin: $go-next-button-margin-top auto 0 auto
-  background-image: asset-url("rf-icon-rocket.svg")
-  background-repeat: no-repeat
-  background-position: rem-calc(34) rem-calc(10)
   cursor: pointer
   padding: rem-calc(7) 0 0 rem-calc(92)
   text-align: left
+
+  @if $background-image != false
+    background-image: asset-url("rf-icon-rocket.svg")
+    background-repeat: no-repeat
+    background-position: rem-calc(34) rem-calc(10)
 
 %go-next-button
   +go-next-button
@@ -256,7 +258,7 @@ $wizard-step-line-width: rem-calc(1)
   form
     +grid-row
     position: relative
-  &.future:not(.ready-to-go-to-this-step)
+  //&.future:not(.ready-to-go-to-this-step)
     /*
       color: $light-gray-text-color !important
       border-color: $light-gray-text-color !important
@@ -265,7 +267,7 @@ $wizard-step-line-width: rem-calc(1)
       background: $light-gray-text-color !important
     .wizard-step-content
       -webkit-filter: grayscale(1)
-  &:not(.active)
+  //&:not(.active)
     .wizard-step-content
       opacity: 0.3
     .wizard-step-content-overlay
@@ -279,7 +281,7 @@ $wizard-step-line-width: rem-calc(1)
       z-index: 1
 
   &:not(.ready-to-proceed)
-    .step-nav-buttons
+    //.step-nav-buttons
       *
         display: none
   &.future
@@ -361,11 +363,39 @@ $wizard-step-line-width: rem-calc(1)
     color: $light-gray-color
     +font-12-light-italic
     display: block
+    opacity: 0
+  img
+    opacity: 0.3
+  .label
+    cursor: pointer
+  svg
+    opacity: 0.3
   &:hover
     .name
       color: $yellow-orange-color
-  .label
-    cursor: pointer
+    .description
+      opacity: 1
+    img
+      opacity: 1
+    svg
+      opacity: 1
+
+
+.option-image-input
+  &:checked
+    & + label
+      .name
+        color: $yellow-orange-color
+      .description
+        opacity: 1
+      img
+        opacity: 1
+      svg
+        opacity: 1
+        ellipse
+          &:first-child
+            stroke-width: 3px
+
 .go-back
   display: none
   //+font-14-light
@@ -380,6 +410,20 @@ $wizard-step-line-width: rem-calc(1)
 .go-next-button
   +go-next-button
   display: none
+.configure-button
+  +go-next-button(false)
+  padding-top: 0
+  padding-left: 0
+  line-height: $go-next-button-height
+  svg
+    height: 100%
+    margin: 0 rem-calc(30)
+    vertical-align: top
+    display: inline-block
+  .button-label
+    display: inline-block
+    +font-28-bold
+    text-transform: uppercase
 
   img
     position: relative
@@ -599,11 +643,7 @@ button
     outline: none
 
 
-.option-image-input
-  &:checked
-    & + label
-      .name
-        color: $yellow-orange-color
+
 
 
 .inputs
@@ -621,9 +661,12 @@ button
       .text
         line-height: $text-header-height
 
+
   .text
     +font-21-semibold
     line-height: 50px
+    &.centered
+      text-align: center
 .input
   .description
     color: $light-gray-text-color
