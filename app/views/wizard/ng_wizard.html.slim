@@ -161,7 +161,7 @@
             #wizard-help-welcome
               |Welcome to the test wizard. Please choose type of test and platform to proceed.
           .footer
-            = go_button("Configure", class: "wizard.type_of_test && wizard.product_type ? 'visible' : 'hide'", click: "wizard.configure_mode = true; configure();" )
+            = go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();" )
 
 
       #wizard-summary ng-class="wizard.show_mini_summary ? 'visible' : 'hide'"

@@ -11,6 +11,8 @@ app.controller "WizardController", [
     #$scope.jQuery = jQuery
     $scope.configure = ()->
       $('.configuration-steps .wizard-step:first').go_to_this_step()
+      $scope.wizard.configure_mode = true
+      $scope.wizard.show_mini_summary = true
 
     $scope.next_question = ()->
       $('.next-question-button').removeClass("visible").addClass('hide')
