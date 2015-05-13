@@ -102,7 +102,7 @@ $.fn.go_to_this_step = ()->
 
 
 
-    $('body').animate({scrollTop: top_to_animate})
+    $('#body').animate({scrollTop: top_to_animate})
 
 
 

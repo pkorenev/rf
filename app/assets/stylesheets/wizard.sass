@@ -62,10 +62,42 @@ $wizard-step-line-width: rem-calc(1)
   +grid-row
   position: relative
   //padding-top: rem-calc(24)
-  margin-top: rem-calc(24)
+  //margin-top: rem-calc(24)
 #wizard-steps
   width: 100%
   padding-right: $wizard-summary-width
+
+#wizard-help
+  margin-top: $wizard-step-vertical-indent
+  width: $wizard-summary-width
+  height: auto
+  position: absolute
+  right: 0
+  top: 0
+
+  .content
+    +font-14-semibold
+    background: $white-color
+    padding: rem-calc(8) rem-calc(16)
+    position: relative
+
+  .go-button
+    margin: 0
+    svg
+      margin: 0 8px
+
+#wizard-help-fixed
+  position: relative
+  width: $wizard-summary-width
+  height: 100px
+  background: inherit
+
+  &.fixed-top
+    top: #{$header-height + $go-next-button-margin-top}
+    position: fixed
+
+
+
 #wizard-summary
   margin-top: $wizard-step-vertical-indent
   width: $wizard-summary-width
@@ -363,6 +395,7 @@ $wizard-step-line-width: rem-calc(1)
     color: $light-gray-color
     +font-12-light-italic
     display: block
+    display: none
     opacity: 0
   img
     opacity: 0.3
@@ -410,8 +443,9 @@ $wizard-step-line-width: rem-calc(1)
 .go-next-button
   +go-next-button
   display: none
-.configure-button
+.configure-button, .next-question-button, .go-button
   +go-next-button(false)
+  max-width: 100%
   padding-top: 0
   padding-left: 0
   line-height: $go-next-button-height
@@ -441,6 +475,7 @@ $wizard-step-line-width: rem-calc(1)
   +font-28-bold
   text-transform: uppercase
   line-height: 50px
+
 .option-image
   @extend .columns
 
@@ -693,3 +728,10 @@ body
       background-color: $white-color
       border: none
       color: $light-black-color
+
+.intro-step
+  .question
+    padding: 0
+
+#wizard-controller
+  min-height: calc(100vh - #{$header-height})

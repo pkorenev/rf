@@ -1,12 +1,12 @@
 #radok-app ng-app="radok"
-  #wizard-controller ng-controller="WizardController" ng-init="wizard.platforms = #{@platforms.to_json}"
+  #wizard-controller ng-controller="WizardController" ng-init="wizard.platforms = #{@platforms.to_json}; wizard.show_help = true;"
     /h1 ng-if="wizard.type_of_test && wizard.product_type"
       |{{wizard | json}}
     #wizard-banner
     #wizard-content
       #wizard-steps
         = intro_step do
-          = question("What type of tests are you looking for?", true) do
+          = question("What type of tests are you looking for?", {  }, true) do
             form method="post" action=""
               /input type="radio"
               .row
@@ -15,7 +15,10 @@
                   = option_image("rf-localization-test", "test_type", "Localization test", "localization", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
                   = option_image("rf-usability-test", "test_type", "Usability test", "usability", "wizard.type_of_test", 4, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
 
-          = question("For what type of product?", true) do
+          /.step-nav-buttons
+            = next_question_button class: "wizard.type_of_test && !wizard.configure_mode ? 'visible' : 'hide'", click: "next_question()"
+
+          = question("For what type of product?", { class: "wizard.type_of_test ? 'visible' : 'hide'" }, true) do
             form method="post" action=""
               /input type="radio"
               .row
@@ -25,7 +28,7 @@
                   = option_image("rf-software", "product_type", "Software", "software", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
                   = option_image("rf-games", "product_type", "Games", "games", "wizard.product_type", 3, "Responsive web design (RWD) is an approach to web design aimed at crafting sites to provide an optimal viewing experience")
           .step-nav-buttons
-            = configure_button click: "wizard.show_mini_summary = true; wizard.configure_mode = true; configure();", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'"
+            /= configure_button click: "wizard.show_mini_summary = true; wizard.configure_mode = true; configure();", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'"
             /= next_step_button(3, "Platforms")
             /= prev_step_button(1)
 
@@ -151,6 +154,14 @@
 
 
 
+
+      #wizard-help ng-class="wizard.show_help ? 'visible' : 'hide'"
+        #wizard-help-fixed
+          .content
+            #wizard-help-welcome
+              |Welcome to the test wizard. Please choose type of test and platform to proceed.
+          .footer
+            = go_button("Configure", class: "wizard.type_of_test && wizard.product_type ? 'visible' : 'hide'", click: "wizard.configure_mode = true; configure();" )
 
 
       #wizard-summary ng-class="wizard.show_mini_summary ? 'visible' : 'hide'"

@@ -3,6 +3,16 @@ module WizardHelper
     render "helpers/wizard/next_step_button", { step_number: step_number, step_name: step_name }
   end
 
+  def go_button(text = "Next", ng = {})
+    ng = Hash[ng.map {|k, v| ["ng-#{k}", v] }]
+    render "helpers/wizard/go_button", { text: text, ng: ng }
+  end
+
+  def next_question_button ng = {}
+    ng = Hash[ng.map {|k, v| ["ng-#{k}", v] }]
+    render "helpers/wizard/next_question_button", { ng: ng }
+  end
+
   def summary_button
     render "helpers/wizard/summary_button", {  }
   end
@@ -51,8 +61,9 @@ module WizardHelper
     render "helpers/wizard/checkbox_input", { name: name, label: label, value: value, checked: checked }
   end
 
-  def question(text, centered = false, &block)
-    render "helpers/wizard/question", { text: text, centered: centered, block: block }, &block
+  def question(text, ng = {}, centered = false , &block)
+    ng = Hash[ng.map {|k, v| ["ng-#{k}", v] }]
+    render "helpers/wizard/question", { text: text, centered: centered, ng: ng, block: block }, &block
   end
 
   def svg_placeholder(image_path)
