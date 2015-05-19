@@ -11,14 +11,32 @@
 // about supported directives.
 //
 //= require jquery
+// require jquery.tagsinput/src/jquery.tagsinput.js
+//= require waypoints/lib/jquery.waypoints.min
+//= require jquery.counterup.min
 // require jquery_ujs
 // require turbolinks
 //= require angular/angular.min.js
+//= require angular-ui-router/release/angular-ui-router.min
+//= require angular-animate/angular-animate.min.js
+//= require ng-tags-input/ng-tags-input.min.js
+//= require angular-attach-if/attach-if
 // require sifter
 // require microplugin
 // require selectize
-//= require jquery.tagsinput/src/jquery.tagsinput.js
+
+// jquery custom scripts
 //= require svg_images
 //= require wizard
-//= require ng_wizard
+// require ng_wizard
+//= require home
 // require_tree .
+
+
+//= require angular-rails-templates
+//= require angular/app
+//= require angular/routes
+//= require angular/
+//= require_tree ./angular/directives
+//= require_tree ./angular/controllers
+//= require_tree ../templates

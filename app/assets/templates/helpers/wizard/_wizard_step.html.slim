@@ -1,0 +1,12 @@
+.wizard-step ng-class="[(!step_number ? 'intro-step' : ''), (active ? 'active' : 'inactive')]"
+
+  .wizard-step-line ng-if="step_number"
+  .wizard-step-counter data-number="{{step_number}}" ng-if="step_number"
+  .wizard-step-content
+    .wizard-step-content-overlay ng-if="!(active)"
+
+    .wizard-step-header.text-center ng-if="step_title"
+      |{{step_title}}
+
+    /.wizard-step-content-content.transcluded-content
+    .wizard-step-content-content ng-transclude=""

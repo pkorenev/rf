@@ -1,5 +1,6 @@
 #radok-app ng-app="radok"
-  #wizard-controller ng-controller="WizardController" ng-init="wizard.platforms = #{@platforms.to_json}; wizard.show_help = true;"
+  /ng-init="wizard.platforms = #{@platforms.to_json}; wizard.show_help = true;"
+  #wizard-controller ng-controller="WizardController" ng-init="wizard.show_help = true;"
     /h1 ng-if="wizard.type_of_test && wizard.product_type"
       |{{wizard | json}}
     #wizard-banner
@@ -38,7 +39,15 @@
           = wizard_step(1, "On what platforms would you like your product to be tested?") do
             .row
               = blue_header("Platform / testers per platform", 12)
-              = platform("Browsers", asset_path("ie.svg")) do
+              .platform.commentable ng-repeat="platform in wizard.platforms"
+                .name
+                  |{{platform.name}}
+                .option-count ng-repeat="platform_subitem in platform.platform_subitems"
+                  label
+                    |{{platform_subitem.name}}
+                  input type="number" ng-model="platform_subitem.count" min="0"
+
+              /= platform("Browsers", asset_path("ie.svg")) do
                 - option_count_ng_model = "wizard.testers_per_platform"
                 = option_count("Internet Explorer 9", 0, option_count_ng_model)
                 = option_count("Internet Explorer 10", 0, option_count_ng_model)
@@ -47,7 +56,7 @@
                 = option_count("Latest version of Chrome", 0, option_count_ng_model)
                 = option_count("Latest version of Safari", 0, option_count_ng_model)
 
-              = platform("IOS", asset_path("apple.svg")) do
+              /= platform("IOS", asset_path("apple.svg")) do
                 = option_count("iPhone 4", 0)
                 = option_count("iPhone 5s", 0)
                 = option_count("iPad 2", 0)
@@ -55,7 +64,7 @@
                 = option_count("iPad mini", 0)
                 = option_count("iPhone 6 Plus", 0)
 
-              = platform("Android", asset_path("android.svg")) do
+              /= platform("Android", asset_path("android.svg")) do
                 = option_count("Android phone (Samsung)", 0)
                 = option_count("Android phone (Non-Samsung)", 0)
                 = option_count("Android tablet (Samsung)", 0)
@@ -65,11 +74,8 @@
                 p
                   |How much effort would you like each tester to spend testing tour product?
                 .available-hours
-                  .hour data-hours="1"
-                  .hour data-hours="2"
-                  .hour data-hours="3"
-                  .hour data-hours="4"
-                  .hour data-hours="5"
+                  label.hour for="hour-{{hour}}" data-hours="{{hour}}" ng-repeat="hour in hours"  ng-class="selected_hour == hour ? 'selected' : 'unselected' "
+                    input ng-model="selected_hour" type="radio" id="hour-{{hour}}"
             .step-nav-buttons
               = next_step_button(4, "Project info")
               = prev_step_button(2)

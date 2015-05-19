@@ -17,6 +17,7 @@ $font-size-30: rem-calc(30)
 $font-size-28: rem-calc(28)
 $font-size-21: rem-calc(21)
 $font-size-18: rem-calc(18)
+$font-size-16: rem-calc(16)
 $font-size-14: rem-calc(14)
 $font-size-12: rem-calc(12)
 
@@ -48,6 +49,8 @@ $font-size-12: rem-calc(12)
   font-size: $font-size-18
   +light
   +italic
+= font-16
+  font-size: $font-size-16
 = font-18-semibold
   font-size: $font-size-18
   +bold
@@ -63,6 +66,11 @@ $font-size-12: rem-calc(12)
 = font-14-semibold
   +semibold
   font-size: $font-size-14
+
+.font-14-semibold
+  +font-14-semibold
+
+
 
 
 = placeholder

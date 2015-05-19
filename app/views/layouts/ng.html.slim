@@ -1,0 +1,37 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=2.0"
+
+    title
+      /= content_for?(:title) ? yield(:title) : "foundation-rails"
+      = @title
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "modernizr"
+
+    /= javascript_include_tag 'ckeditor/ckeditor.js'
+    = csrf_meta_tags
+
+  body#body ng-app="app"
+    ng-include src="'/assets/header.html'"
+    /header#header
+      = render 'header'
+    main
+      /= content_for?(:admin_layout) ? yield(:admin_layout) : yield
+      /= yield
+      /ng-include src="'#{@template}'"
+      div ui-view=""
+
+    ng-include src="'/assets/footer.html'"
+    /footer#footer
+      = render 'footer'
+
+    = javascript_include_tag "application"
+      /javascript:
+      /$.getJSON("/svg_images", function(data){DATA = data})
+    /script type="text/javascript" src="/assets/angular/angular.min.js"
+    /script type="text/javascript" src="/assets/angular-ui-router/release/angular-ui-router.min"
+    /script type="text/javascript" src="/assets/angular-animate/angular-animate.min.js"
+
+    /script type="text/javascript" src="/assets/app.js"

@@ -1,0 +1,52 @@
+/#header
+  ul
+    li
+      a href="/"
+        |home
+    li
+      a href="/wizard"
+        |wizard
+header#header
+  #fixed-header
+    #header-row
+      #header-logo
+        a ui-sref="home"
+          img src="/assets/logo.png"
+      #header-menu
+        .header-menu-item
+          a ui-sref="wizard"
+            |Wizard
+        /.header-menu-item
+          a href="#"
+            |For clients
+        .header-menu-item
+          a href="#"
+            |How it works
+        .header-menu-item
+          a ui-sref="about"
+            |About us
+        .header-menu-item
+          a ui-sref="contact"
+            |Contact us
+
+
+
+/header#header
+  #fixed-header
+    #header-row
+      #header-logo
+        a ui-sref="#"
+          img src="/assets/logo.png"
+      #header-menu
+        /.header-menu-item
+          a ui-sref="#"
+            |For clients
+        /.header-menu-item
+          a ui-sref="#"
+            |How it works
+        .header-menu-item
+          a ui-sref="about"
+            |About us
+        .header-menu-item
+          a ui-sref="contact"
+            |Contact us

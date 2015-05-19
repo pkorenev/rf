@@ -19,8 +19,8 @@ init_wizard_summary_fixed = ()->
   $summary_fixed = $('#wizard-summary-fixed')
   scroll_top = $(window).scrollTop()
   $summary = $('#wizard-summary')
-  summary_top = $summary.offset().top
-
+  summary_offset = $summary.offset()
+  summary_top = if summary_offset then summary_offset.top else undefined
   #fixed = scroll_top >= summary_top
   #fixed = scroll_top >= $('#header').height() + $('#wizard-banner').height()
   fixed = scroll_top >= $('#wizard-banner').height()
@@ -43,14 +43,17 @@ init_number_options = ()->
 
 
 
+
 #$(document).on "keyup"
-$(document).on "focusin focusout", ".option-count .input-wrap input", (e)->
+$(document).on "focusin focusout", ".option-count .input-wrap", (e)->
   $option_count = $(this).closest('.option-count')
   focused = e.type == "focusin"
   if focused
     $option_count.addClass('focus')
   else
     $option_count.removeClass('focus')
+
+  console.log("event: ", e)
 
 $.fn.check_whether_step_ready_to_proceed = ()->
   $step = $(this)
@@ -182,13 +185,14 @@ on_step_counter_click = ()->
   $step = $step_counter.closest(".wizard-step")
   $step.go_to_this_step()
 
-on_value_changed = ()->
+on_value_changed = (event)->
   $step = $(this).closest(".wizard-step")
   if !$step.hasClass("active")
     $active_step = $(".wizard-step.active")
     $step.addClass("active")
   if $step.check_whether_step_ready_to_proceed()
     $step.next().addClass("ready-to-go-to-this-step")
+
 
 
 
@@ -228,6 +232,7 @@ for c in available_char_codes
 window.available_char_codes = _available_char_codes
 
 
+###
 $(document).on "keypress", "input", (e)->
 
   return if $(this).closest(".tagsinput").length > 0
@@ -239,33 +244,36 @@ $(document).on "keypress", "input", (e)->
     console.log("preventDefault: which: #{e.which}")
     e.preventDefault()
 
+###
+
 
 $(document).on "page:load ready", ()->
-  init_test()
-  init_number_options()
-  init_steps()
+  if $("#wizard-controller").length > 0
+    init_test()
+    init_number_options()
+    init_steps()
 
 
-  ###$(".selectize-tags-input input").selectize
-    delimiter: ',',
-    persist: false,
-    create: (input)->
-      return {
-        value: input,
-        text: input
-      }
-  ###
+    ###$(".selectize-tags-input input").selectize
+      delimiter: ',',
+      persist: false,
+      create: (input)->
+        return {
+          value: input,
+          text: input
+        }
+    ###
 
-  $(".selectize-tags-input input").tagsInput()
-
-
+    #$(".selectize-tags-input input").tagsInput()
 
 
-  $wizard_steps_container = $('#wizard-steps')
-  $wizard_steps_container.on "click", ".go-next-button", on_next_step
-  $wizard_steps_container.on "click", ".go-back", on_prev_step
-  $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
-  $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
-  #$wizard_steps_container.on "completed", ".wizard-step", on_step_completed
-  $wizard_steps_container.on "change", "input, textarea", on_value_changed
+
+
+    $wizard_steps_container = $('#wizard-steps')
+    $wizard_steps_container.on "click", ".go-next-button", on_next_step
+    $wizard_steps_container.on "click", ".go-back", on_prev_step
+    $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
+    $wizard_steps_container.on "click", ".wizard-step-counter", on_step_counter_click
+    #$wizard_steps_container.on "completed", ".wizard-step", on_step_completed
+    $wizard_steps_container.on "change", "input, textarea", on_value_changed
 

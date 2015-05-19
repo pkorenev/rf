@@ -17,6 +17,21 @@ $input-height: rem-calc(30)
 $text-header-height: rem-calc(50)
 $wizard-step-line-width: rem-calc(1)
 
+%banner
+  height: $wizard-banner-height
+  background-color: $wizard-banner-background-color
+  background-image: asset-url("wizard_banner_image.png")
+  background-repeat: no-repeat
+  .title
+    +font-36
+    color: $white-color
+  .description
+    color: $sky-blue-color
+    +font-14-light
+
+.banner
+  @extend %banner
+
 = input-base
   border: 1px solid $light-gray-text-color
   color: $light-black-color
@@ -48,16 +63,7 @@ $wizard-step-line-width: rem-calc(1)
 
 
 #wizard-banner
-  height: $wizard-banner-height
-  background-color: $wizard-banner-background-color
-  background-image: asset-url("wizard_banner_image.png")
-  background-repeat: no-repeat
-  .title
-    +font-36
-    color: $white-color
-  .description
-    color: $sky-blue-color
-    +font-14-light
+
 #wizard-content
   +grid-row
   position: relative
@@ -299,18 +305,17 @@ $wizard-step-line-width: rem-calc(1)
       background: $light-gray-text-color !important
     .wizard-step-content
       -webkit-filter: grayscale(1)
-  //&:not(.active)
+  &:not(.active)
     .wizard-step-content
       opacity: 0.3
-    .wizard-step-content-overlay
-      display: block
-      display: none
-      position: absolute
-      top: 0
-      bottom: 0
-      width: 100%
-      left: 0
-      z-index: 1
+  .wizard-step-content-overlay
+    display: block
+    position: absolute
+    top: 0
+    bottom: 0
+    width: 100%
+    left: 0
+    z-index: 1
 
   &:not(.ready-to-proceed)
     //.step-nav-buttons
@@ -372,7 +377,7 @@ $wizard-step-line-width: rem-calc(1)
         background-color: rgba($fire-orange-color, 0.3)
 
 .wizard-step-content
-  opacity: 1 !important
+  opacity: 1
   padding-left: #{$wizard-step-counter-diameter + rem-calc(30)}
   position: relative
 .wizard-step-header
@@ -513,6 +518,7 @@ $wizard-step-line-width: rem-calc(1)
       line-height: 1
       color: $light-gray-text-color
       vertical-align: bottom
+      margin: 0 rem-calc(2)
 
 
       &:before
@@ -526,6 +532,12 @@ $wizard-step-line-width: rem-calc(1)
         content: "hours"
         font-weight: 300
         font-size: 0.75rem
+
+      &.selected
+        border-color: $fire-orange-color
+        &:before, &:after
+          color: $fire-orange-color
+
 
       &:nth-child(1)
         width: 50px
@@ -560,6 +572,7 @@ $wizard-step-line-width: rem-calc(1)
   label
     float: left
   .input-wrap
+    position: relative
     float: right
     width: rem-calc(90)
     text-align: center
@@ -573,6 +586,18 @@ $wizard-step-line-width: rem-calc(1)
       input
         border-color: $sky-blue-color
         outline: none
+    .decrement
+      position: absolute
+      left: 0
+      color: $sky-blue-color
+
+      &:before
+        //content: "\2014"
+        display: block
+        content: "-"
+        font-weight: 600
+        line-height: 30px
+
 
 input, textarea
   +input-base
@@ -735,3 +760,13 @@ body
 
 #wizard-controller
   min-height: calc(100vh - #{$header-height})
+
+#wizard-summary
+  .go-next-button
+    display: block
+    float: left
+    width: 100%
+    margin-top: 10px
+    &.disabled
+      cursor: default
+      opacity: 0.3

@@ -48,3 +48,9 @@ gem "bower-rails"
 gem 'simple_form'
 
 gem "htmlcompressor"
+
+gem 'json_schema_builder'
+
+gem 'angular-rails-templates'
+
+gem 'thin'

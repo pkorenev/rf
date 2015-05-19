@@ -1,0 +1,74 @@
+$home-banner-height: rem-calc(500)
+#home-banner
+  height: $home-banner-height
+
+#home-how-it-works
+  background: $white-color
+  padding-bottom: rem-calc(130)
+  .section-header
+    text-align: center
+    color: $dark-gray-color
+    +font-16
+    height: rem-calc(75)
+    line-height: rem-calc(75)
+  .item
+    +grid-column(4)
+    text-align: center
+
+    svg
+      width: rem-calc(130)
+      height: rem-calc(130)
+
+    .header
+      color: $light-black-color
+      +font-18
+
+    .time
+      color: $yellow-orange-color
+      +font-14
+    .description
+      color: $dark-gray-color
+      +font-14-semibold
+
+
+#home-statistics
+  background-color: $light-black-color
+  padding-bottom: rem-calc(64)
+  .section-header
+    text-align: center
+    color: $dark-gray-color
+    height: rem-calc(50)
+    line-height: rem-calc(50)
+  .counter
+    display: inline-block
+    height: rem-calc(115)
+    line-height: rem-calc(115)
+    font-size: rem-calc(95)
+    //+semibold
+    color: white
+    border: 2px $sky-blue-color solid
+    padding: 0 rem-calc(20)
+  .text
+    color: $yellow-orange-color
+    text-transform: uppercase
+    +font-21
+    line-height: rem-calc(32)
+    display: inline-block
+
+
+.home-plan
+  .black-bg
+    background-color: $light-black-color
+  .price-and-text
+    .currency
+      color: $yellow-orange-color
+
+
+.home-plan-header
+  background-color: $sky-blue-color
+  color: $light-black-color
+  +font-18
+  text-transform: uppercase
+  text-align: center
+  height: rem-calc(64)
+  line-height: rem-calc(64)

@@ -1,0 +1,7 @@
+.option-count
+  label
+    |{{name}}
+  .input-wrap
+    label.decrement for="{{htmlId}}"
+    input id="{{html_id}}" ng-model="model.count" pattern="[0-9]*" type="text"
+    span.increment for="{{htmlId}}"

@@ -1,0 +1,254 @@
+#wizard-controller ng-controller="WizardController"
+  #wizard-banner
+  #wizard-content
+    /h1
+      |type_of_test: {{wizard.type_of_test}}
+
+    /input type="radio" value="functional" ng-model="wizard.type_of_test" name="input_type_of_test"
+    /input type="radio" value="localization" ng-model="wizard.type_of_test" name="input_type_of_test"
+    /input type="radio" value="usability" ng-model="wizard.type_of_test" name="input_type_of_test"
+
+    #wizard-steps
+      intro_step step-id="1" active-step-id="wizard.active_step_id" wizard="wizard" child-scope-source="controller"
+        question text="What type of tests are you looking for?" centered="true"
+          /h1
+            |type_of_test: {{wizard.type_of_test}}
+            br
+            |product_type: {{wizard.product_type}}
+          form method="post" action=""
+            .row
+              .input.required
+                option-image image-path="rf-functional-test" name="test_type"  label="Functional test" value="functional"  ng-model="wizard.type_of_test"  id="1"
+                option-image image-path="rf-localization-test" name="test_type" label="Localization test" value="localization" ng-model="wizard.type_of_test" id="2"
+                option-image image-path="rf-usability-test" name="test_type" label="Usability test" value="usability" ng-model="wizard.type_of_test" id="3"
+
+
+        question text="For what type of product?" ng-if= "wizard.type_of_test" centered="true"
+          form method="post" action=""
+            .row
+              .input.required
+                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile_apps" ng-model="wizard.product_type" columns-count="3" id="1"
+                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="responsive_website" ng-model="wizard.product_type" columns-count="3" id="2"
+                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.product_type" columns-count="3" id="3"
+                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.product_type" columns-count="3" id="4"
+        .step-nav-buttons
+
+      .configuration-steps class="hide"
+        wizard-step step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
+          .row
+            blue-header text="Platform / testers per platform" columns="12"
+            platform ng-model="platform"  ng-repeat="platform in wizard.platforms"
+              option-count html-id="platform{{$platform_index + 1}}-subitem-{{$subitem_index + 1}}" ng-repeat="option_count in platform.platform_subitems " ng-model="option_count"
+
+            /.platform.commentable ng-repeat="platform in wizard.platforms"
+              .name
+                |{{platform.name}}
+              .option-count ng-repeat="platform_subitem in platform.platform_subitems"
+                label
+                  |{{platform_subitem.name}}
+                input type="number" ng-model="platform_subitem.count" min="0"
+
+            /platform ng-repeat="platform in wizard.platforms" image-path="" name="platform-"
+
+
+            /= platform("Browsers", asset_path("ie.svg")) do
+              - option_count_ng_model = "wizard.testers_per_platform"
+              = option_count("Internet Explorer 9", 0, option_count_ng_model)
+              = option_count("Internet Explorer 10", 0, option_count_ng_model)
+              = option_count("Internet Explorer 11", 0, option_count_ng_model)
+              = option_count("Latest version of Firefox", 0, option_count_ng_model)
+              = option_count("Latest version of Chrome", 0, option_count_ng_model)
+              = option_count("Latest version of Safari", 0, option_count_ng_model)
+
+            /= platform("IOS", asset_path("apple.svg")) do
+              = option_count("iPhone 4", 0)
+              = option_count("iPhone 5s", 0)
+              = option_count("iPad 2", 0)
+              = option_count("iPad Air", 0)
+              = option_count("iPad mini", 0)
+              = option_count("iPhone 6 Plus", 0)
+
+            /= platform("Android", asset_path("android.svg")) do
+              = option_count("Android phone (Samsung)", 0)
+              = option_count("Android phone (Non-Samsung)", 0)
+              = option_count("Android tablet (Samsung)", 0)
+              = option_count("Android tablet (Non-Samsung)", 0)
+            .hours-per-tester
+              blue-header text="Time (hours per tester)"
+              /= blue_header("Time (hours per tester)")
+              p
+                |How much effort would you like each tester to spend testing tour product?
+              .available-hours
+                label.hour for="hour-{{hour}}" data-hours="{{hour}}" ng-repeat="hour in hours" ng-class="selected_hour == hour ? 'selected' : 'unselected' "
+                  input ng-model="selected_hour" type="radio" id="hour-{{hour}}"
+          .step-nav-buttons
+            /= next_step_button(4, "Project info")
+            /= prev_step_button(2)
+
+        wizard-step step-number="2" step-id="3" active-step-id="wizard.active_step_id" child-scope-source="controller"
+          .questions
+            /question text="Have you ever tested this project with us?"
+              .inputs
+                radio-input label="Yes, we tested a previous version of this project" name="tested_before" id="1" value="yes" ng-model="wizard.tested_before"
+                radio-input label="No, this is a completely new project" name="tested_before" id="2" value="no" ng-model="wizard.tested_before"
+            question text="What is the name of this wonderful project?"
+              input type="text" ng-model="wizard.project_name" placeholder="Type name of the project here..."
+            question text="What is version number of the new release that you'd like us to test?"
+              input type="text" placeholder="Type version number here..." ng-model="wizard.version_number"
+            question text="In what language(s) is the project?"
+              .inputs.horizontal
+                checkbox-input name="project_languages" value="{{language}}" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
+
+            question text="In what language(s) should the bugs be reported?"
+              .inputs.horizontal
+                checkbox-input name="report_languages" value="{{language}}" ng-model="wizard.report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
+
+
+        wizard-step step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
+          .questions
+            question text="What methodology are you looking for?"
+              .inputs
+                radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard.methodology_id" methodology-data="methodology" ng-repeat="methodology in wizard.available_methodology_types track by $index"
+                  textarea name="methodology_{{methodology.id}}_description" ng-model="methodology.description" placeholder="{{methodology.description_placeholder}}" id="methodology_{{methodology.id}}_description"
+
+            question text="What are the product's main components?"
+              p.light
+                |Optionally, you can provide a list of the main components of your product. This is used to group the bugs around certain aspects of your product. For example, these can be: Homepage, Contact us form, Main menu, Level 1 etc. or UI issues and functional issues.
+              /.selectize-tags-input
+                /input type="text" id="input-tags" class="demo-default" value="awesome,neat"
+              tags-input ng-model="wizard.product_main_components"
+        /= wizard_step(3) do
+          = question("What methodology are you looking for?") do
+            .inputs
+              = radio_input("methodology", "Exploratory", "exploratory", true, "This is unscripted testing. Our testers use your product like any normal user would.")
+                textarea placeholder="Please provide testing instructions for the testers here..." rows="3"
+                .actions
+                  button
+                    |ok
+              = radio_input("methodology", "Test-case driven", "test_case_driven", false, "You provide a specific list of steps that testers must execute.")
+                textarea placeholder="Please provide testing instructions for the testers here..." rows="3"
+                .actions
+                  button
+                    |ok
+          = question("What are the product's main components?") do
+            p.light
+              |Optionally, you can provide a list of the main components of your product. This is used to group the bugs around certain aspects of your product. For example, these can be: Homepage, Contact us form, Main menu, Level 1 etc. or UI issues and functional issues.
+            .selectize-tags-input
+              input type="text" id="input-tags" class="demo-default" value="awesome,neat"
+
+        /.step-nav-buttons
+            = next_step_button(6, "Project data")
+            = prev_step_button(4)
+
+
+
+        /= wizard_step(4) do
+          = question("Please provide the URL or file to be tested") do
+            input type="url" placeholder="http://domain.com"
+            |or
+            .button-upload
+          = question("Does the product require a username or password to be accessed?") do
+            .inputs
+              = radio_input("require_login", "No, it does not require a username or password", "no", true)
+              = radio_input("require_login", "Yes, here they are:", "yes")
+                input type="text"
+                input type="password"
+          .comment.optional
+            label.display-block
+              |Add a comment
+            textarea rows="3" placeholder="Type your instructions and additional information here..."
+            .actions
+              button
+                |ok
+
+      /.step-nav-buttons
+            = summary_button
+            = prev_step_button(5)
+
+
+
+
+
+    #wizard-help ng-if="wizard.show_help"
+      #wizard-help-fixed
+        .content
+          #wizard-help-welcome
+            |Welcome to the test wizard. Please choose type of test and platform to proceed.
+        .footer
+          /= go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();")
+          go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
+
+
+    #wizard-summary ng-show="wizard.show_mini_summary"
+      #wizard-summary-fixed
+        .header
+          |Summary
+        .content
+          .steps-completed
+            label
+              |Steps completed:
+            .progress-bar
+              .progress-area
+                .progress-line
+              .completed-step-number
+                |0
+              .total-steps
+                |6
+          /p.test-type-and-product-type
+            = raw "<span class='test-type'>You ordered <span class='test name'>Functional test</span></span><span class='product-type'> for <span class='name'>Responsive website</span></span>"
+
+          .platforms
+            .row.header
+              .columns.large-6
+                |Platforms:
+              .columns.large-3.icon.human
+                /= svg_placeholder "user"
+                ng-include src="'/assets/user.svg'"
+              .columns.large-3.icon.hours
+                /= svg_placeholder "clock"
+                ng-include src="'/assets/clock.svg'"
+            .rows
+              .row
+                .columns.large-6
+                  |Browsers
+                .columns.large-3
+                  |7
+                .columns.large-3
+                  |14
+
+              .row
+                .columns.large-6
+                  |IOS
+                .columns.large-3
+                  |7
+                .columns.large-3
+                  |14
+
+              .row
+                .columns.large-6
+                  |Android
+                .columns.large-3
+                  |7
+                .columns.large-3
+                  |14
+
+          /.total-price
+            |total price: {{wizard.total_price}}
+
+        .footer
+          .price-wrap
+            .total-cost-label
+              |Total cost:
+            .total-price
+              .currency
+                |$
+              |{{wizard.total_price}}
+          .button-go
+            /= svg_placeholder "rf-roket-up-right"
+            ng-include src="'/assets/rf-roket-up-right.svg'"
+          .save
+            /= svg_placeholder "download"
+            ng-include src="'/assets/download.svg'"
+            span.button-label
+              |Save this project
+          next-step-button step-number="2" step-name="test name" model-active-step="wizard.active_step" model-next-step="wizard.next_step" ng-click="next_step()"

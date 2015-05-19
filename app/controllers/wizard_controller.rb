@@ -1,6 +1,8 @@
 class WizardController < ApplicationController
   def index
+    @template = "/assets/wizard.html"
 
+    render template: "layouts/ng", layout: false
   end
 
   def ng_wizard
@@ -29,5 +31,13 @@ class WizardController < ApplicationController
             name: "Android", image_path: "android.svg"
         }
     ]
+
+    render file: Rails.root.join("app/assets/templates/wizard.html")
   end
 end
+
+
+
+#
+# rails g model Test platform:belongs_to test_type:belongs_to product_type:belongs_to
+#

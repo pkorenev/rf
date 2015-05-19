@@ -45,8 +45,9 @@ module WizardHelper
     render "helpers/wizard/blue_header", { text: text, columns: columns }
   end
 
-  def platform(name, image_path = nil, commentable = true, &block)
-    render "helpers/wizard/platform", { name: name, image_path: image_path, commentable: commentable, block: block }, &block
+  def platform(name, image_path = nil, ng = {}, commentable = true, &block)
+    ng = Hash[ng.map {|k, v| ["ng-#{k}", v] }]
+    render "helpers/wizard/platform", { name: name, image_path: image_path, ng: ng, commentable: commentable, block: block }, &block
   end
 
   def option_count(name, ng_model, count = 0)
