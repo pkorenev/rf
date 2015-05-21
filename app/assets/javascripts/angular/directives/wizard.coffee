@@ -277,7 +277,7 @@ $app.directive "optionCount", ()->
 
     scope.decrement = ()->
       console.log("count", scope.model.count)
-      val = scope.model.count - 1
+      val = parseInt(scope.model.count) - 1
       min = 0
       if val < min
         val = min
@@ -286,7 +286,7 @@ $app.directive "optionCount", ()->
 
     scope.increment = ()->
       console.log("count", scope.model.count)
-      scope.model.count = scope.model.count + 1
+      scope.model.count = parseInt(scope.model.count) + 1
 
     scope.focus = ()->
       #element.find("input").addClass("focus")
