@@ -1,7 +1,7 @@
 .wizard-step ng-class="[(!step_number ? 'intro-step' : ''), (active ? 'active' : 'inactive')]"
 
   .wizard-step-line ng-if="step_number"
-  .wizard-step-counter data-number="{{step_number}}" ng-if="step_number"
+  .wizard-step-counter data-number="{{step_number}}" ng-show="step_number" ng-click="wizard.go_to_step(step_id)"
   .wizard-step-content
     .wizard-step-content-overlay ng-if="!(active)"
 

@@ -780,11 +780,7 @@ button
     margin-left: 3px
 
 
-  .wizard-step-content-overlay + .wizard-step-content-content &
-    &:first-child
-      padding-top: 0
-      .text
-        line-height: $text-header-height
+
 
 
   .text
@@ -792,6 +788,12 @@ button
     line-height: 50px
     &.centered
       text-align: center
+.wizard-step-content-overlay + .wizard-step-content-content question
+  &:first-child
+    .question
+      padding-top: 0
+      .text
+        line-height: $text-header-height
 .input
   .description
     color: $light-gray-text-color
@@ -828,17 +830,80 @@ body
 
 #wizard-summary
   .go-next-button
+    position: relative
     display: block
     float: left
     width: 100%
     margin-top: 10px
+    padding-left: 50px
+    background-image: none
+    //background-color: $white-color
+    opacity: 1
+
+
+    .rocket-svg
+      position: absolute
+      left: 13px
+      top: 10px
+      svg
+        height: 40px
+
+
+
     &.disabled
       cursor: default
-      opacity: 0.3
+      opacity: 1
+      background-color: $white-color
+      .next-step
+        color: $inactive-button-text-color
+      .next-step-name
+        color: $inactive-button-text-color
+      .rocket-svg
+        path
+          fill: $inactive-button-text-color
 
+    .next-step
+      font-weight: 500
+      font-size: 28px
+      text-transform: uppercase
+      //color: $gray-text-color
+    .next-step-name
+      font-size: 14px
+      font-weight: 300
+      top: -8px
+      position: relative
+      //color: $gray-text-color
+  .go-back-button
+    width: 200px
+    float: left
+    //+font-14-light
+    font-size: 0.8rem
+    font-weight: 300
+
+    text-align: center
+    height: 40px
+    line-height: 40px
+    //color: $light-gray-color
+    color: $yellow-orange-color
+    cursor: pointer
+    -webkit-user-select: none
+
+
+#wizard-full-summary
+  padding-right: $wizard-summary-width
+
+  .property
+    padding: 16px 0
+
+#wizard-full-summary-inner
+  background: $white-color
+  padding-bottom: 40px
 
 #wizard-full-summary-row
-  background: $white-color
+  max-width: 640px
+  margin-left: auto
+  margin-right: auto
+
 
   .property-label
     +font-21-semibold

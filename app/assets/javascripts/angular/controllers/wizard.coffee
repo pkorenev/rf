@@ -32,15 +32,15 @@ window.$app.controller "WizardController", [
 
     $scope.$watch("wizard.active_step_id", (newValue)->
       $scope.wizard.active_step = $scope.wizard.steps.filter( (s)->
-        s.id == newValue
+        parseInt(s.id) == parseInt(newValue)
       )[0]
 
       $scope.wizard.next_step_id = newValue + 1
       $scope.wizard.next_step = $scope.wizard.steps.filter( (s)->
-        s.id == $scope.wizard.next_step_id
+        parseInt(s.id) == parseInt($scope.wizard.next_step_id)
       )[0]
 
-      if newValue == 3
+      if parseInt(newValue) == 3
         $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
     )
 
@@ -178,7 +178,11 @@ window.$app.controller "WizardController", [
     $scope.wizard.product_main_components = []
 
     $scope.wizard.url = null
-    $scope.wizard.auth_data = false
+    $scope.wizard.auth_data = {
+      username: ""
+      password: ""
+      require_auth: "false"
+    }
     $scope.wizard.comment = ""
 
 
@@ -189,8 +193,11 @@ window.$app.controller "WizardController", [
       $scope.$watch("wizard.#{field_name}", (newValue, oldValue)->
         console.log("triggered whatch on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
         if $scope.wizard.active_step_id == 3
-          $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
-          $scope.wizard.steps[2] = $scope.wizard.validate_step_3()
+          $scope.active_step ?= $scope.wizard.steps.filter((s)-> s.id == $scope.wizard.active_step_id )
+
+          if $scope.active_step
+            $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
+          $scope.wizard.steps[2].valid = $scope.wizard.validate_step_3()
       )
 
 
@@ -200,8 +207,9 @@ window.$app.controller "WizardController", [
         console.log("watchCollection")
         console.log("triggered whatchCollection on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
         if $scope.wizard.active_step_id == 3
+          $scope.active_step ?= $scope.wizard.steps.filter((s)-> s.id == $scope.wizard.active_step_id )
           $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
-          $scope.wizard.steps[2] = $scope.wizard.validate_step_3()
+          $scope.wizard.steps[2].valid = $scope.wizard.validate_step_3()
       )
 
     $scope.update = (user)->
@@ -241,6 +249,21 @@ window.$app.controller "WizardController", [
       ###
     )
 
+    $scope.wizard.go_to_step = (step_id)->
+      step_id = parseInt(step_id)
+      if (parseInt($scope.wizard.active_step_id) > step_id) || ($scope.wizard.active_step &&  $scope.wizard.active_step.valid && parseInt($scope.wizard.active_step_id) < step_id)
+        if $scope.wizard.active_step_id < step_id
+          prev_step = $scope.wizard.steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
+          if prev_step && prev_step.valid
+            $scope.wizard.active_step.proceeded = true
+          else
+            return false
+
+        $scope.wizard.active_step_id = step_id
+
+    $scope.go_back = ()->
+      $scope.wizard.active_step_id = $scope.wizard.active_step_id - 1
+
     $scope.next_question = ()->
       $('.next-question-button').removeClass("visible").addClass('hide')
       $question = $('.wizard-step').first().find(".question").eq(1)
@@ -251,7 +274,9 @@ window.$app.controller "WizardController", [
 
     $scope.next_step = ()->
       if $scope.wizard.active_step.valid
+        $scope.wizard.active_step.proceeded = true
         $scope.wizard.active_step_id = $scope.wizard.active_step_id + 1
+
 
 
     $scope.reset = ()->

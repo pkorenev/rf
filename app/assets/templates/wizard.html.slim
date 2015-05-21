@@ -37,7 +37,7 @@
         .step-nav-buttons
 
       .configuration-steps class="hide"
-        wizard-step step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard="wizard" step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
           .row
             blue-header text="Platform / testers per platform" columns="12"
             platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
@@ -94,7 +94,7 @@
             /= next_step_button(4, "Project info")
             /= prev_step_button(2)
 
-        wizard-step step-number="2" step-id="3" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard="wizard" step-number="2" step-id="3" active-step-id="wizard.active_step_id" child-scope-source="controller"
           .questions
             /question text="Have you ever tested this project with us?"
               .inputs
@@ -114,7 +114,7 @@
                 checkbox-input name="report_languages" value="{{language}}" model-count="wizard.report_languages_count" ng-model="wizard.report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
 
 
-        wizard-step step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard="wizard" step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
           .questions
             question text="What methodology are you looking for?"
               .inputs
@@ -127,34 +127,34 @@
               /.selectize-tags-input
                 /input type="text" id="input-tags" class="demo-default" value="awesome,neat"
               tags-input ng-model="wizard.product_main_components"
-        wizard-step step-number="4" step-id="5" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard="wizard" step-number="4" step-id="5" active-step-id="wizard.active_step_id" child-scope-source="controller"
           .questions
             question text="Please provide the URL or file to be tested?"
               .inputs
-                radio-input ""
+                input type="url" placeholder="http://domain.com"
+                |or
+                .button-upload
 
-        /= wizard_step(3) do
-          = question("What methodology are you looking for?") do
-            .inputs
-              = radio_input("methodology", "Exploratory", "exploratory", true, "This is unscripted testing. Our testers use your product like any normal user would.")
-                textarea placeholder="Please provide testing instructions for the testers here..." rows="3"
-                .actions
-                  button
-                    |ok
-              = radio_input("methodology", "Test-case driven", "test_case_driven", false, "You provide a specific list of steps that testers must execute.")
-                textarea placeholder="Please provide testing instructions for the testers here..." rows="3"
-                .actions
-                  button
-                    |ok
-          = question("What are the product's main components?") do
-            p.light
-              |Optionally, you can provide a list of the main components of your product. This is used to group the bugs around certain aspects of your product. For example, these can be: Homepage, Contact us form, Main menu, Level 1 etc. or UI issues and functional issues.
-            .selectize-tags-input
-              input type="text" id="input-tags" class="demo-default" value="awesome,neat"
+            question text="Does the product require a username or password to be accessed?"
+              .inputs
+                /radio-input name="require_auth" value="false" ng-model="wizard.auth_data.require_auth"
 
-        /.step-nav-buttons
-            = next_step_button(6, "Project data")
-            = prev_step_button(4)
+                .input
+                  input id="require_auth_1" type="radio" name="require_auth" value="false" placeholder="Username" ng-model="wizard.auth_data.require_auth"
+                  label for="require_auth_1"
+                  label for="require_auth_1"
+                    = "No, it does not require a username or password"
+
+                .input
+                  input id="require_auth_2" type="radio" name="{{name}}" value="{{value}}" ng-model="wizard.auth_data.require_auth" placeholder="password"
+                  label for="require_auth_2"
+                  label for="require_auth_2"
+                    = "Yes, here they are:"
+
+                  .input-related-content
+                    input type="text" ng-model="wizard.auth_data.username"
+                    input type="password" ng-model="wizard.auth_data.password"
+
 
 
 
@@ -183,73 +183,76 @@
 
 
     #wizard-full-summary ng-show="wizard.configure_mode"
-      #wizard-full-summary-row.row
-        .columns.large-6
-          .property
-            .property-label
-              |Project name
-            .property-value
-              |{{wizard.project_name}}
+      .row
+        #wizard-full-summary-inner.columns.large-12
+          #wizard-full-summary-row.row
 
-          .property
-            .property-label
-              |Version
-            .property-value
-              |{{wizard.version_number}}
+            .columns.large-6
+              .property
+                .property-label
+                  |Project name
+                .property-value
+                  |{{wizard.project_name}}
 
-        .columns.large-6
-          .property
-            .property-label
-              |Type of test
-            .property-value
-              |{{wizard.type_of_test}}
+              .property
+                .property-label
+                  |Version
+                .property-value
+                  |{{wizard.version_number}}
 
-          .property
-            .property-label
-              |Type of product
-            .property-value
-              |{{wizard.product_type}}
-        .columns.large-12
-          .row
-            .large-4 ng-repeat="platform in wizard.platforms"
-              .platform-name
-                |{{platform.name}}
-              .platform-subitems
-                .platform-subitem ng-repeat="subitem in platform.subitems"
-                  |{{subitem.name}}
-        .columns.large-12
-          .property-label
-            |Your product will be tested by:
-          .property-value
-            |{{wizard.total_testers_count}} testers
-            br
-            |{{wizard.selected_hour}}
+            .columns.large-6
+              .property
+                .property-label
+                  |Type of test
+                .property-value
+                  |{{wizard.type_of_test}}
+
+              .property
+                .property-label
+                  |Type of product
+                .property-value
+                  |{{wizard.product_type}}
+            .columns.large-12
+              /.row
+              .large-4 ng-repeat="platform in wizard.platforms"
+                .platform-name
+                  |{{platform.name}}
+                .platform-subitems
+                  .platform-subitem ng-repeat="subitem in platform.subitems"
+                    |{{subitem.name}}
+            .columns.large-12
+              .property-label
+                |Your product will be tested by:
+              .property-value
+                |{{wizard.total_testers_count}} testers
+                br
+                |{{wizard.selected_hour}} hours each
 
 
-        .columns.large-12
-          hr
+            .columns.large-12
+              hr
 
-        .columns.large-6
-          .property-label
-            |Your product is in:
-          .property-value
-            |{{wizard.project_languages.join(", ")}}
+            .columns.large-6
+              .property-label
+                |Your product is in:
+              .property-value
+                |{{wizard.project_languages.join(", ")}}
 
-        .columns.large-6
-          .property-label
-            |Bugs will be reported in:
-          .property-value
-            |{{wizard.report_languages.join(", ")}}
-        .columns.large-12
-          .property-label
-            |Here is project url:
-          .property-value
-            |{{wizard.url}}
-        .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
-          .property-label
-            |You've provided the following instructions:
-          .property-input-value
-            textarea ng-model="wizard.comment"
+            .columns.large-6
+              .property-label
+                |Bugs will be reported in:
+              .property-value
+                |{{wizard.report_languages.join(", ")}}
+            .columns.large-12 ng-show="wizard.url && wizard.url.length"
+              .property-label
+                |Here is project url:
+              .property-value
+                |{{wizard.url}}
+            .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
+              .property-label
+                |You've provided the following instructions:
+              .property-input-value
+                textarea ng-model="wizard.comment"
 
 
     #wizard-help ng-if="wizard.show_help"
@@ -335,3 +338,5 @@
             span.button-label
               |Save this project
           next-step-button step-number="2" step-name="test name" model-active-step="wizard.active_step" model-next-step="wizard.next_step" ng-click="next_step()"
+          .go-back-button ng-show="wizard.active_step_id > 2" ng-click="go_back()"
+            |go back to STEP {{wizard.active_step_id - 1}}
