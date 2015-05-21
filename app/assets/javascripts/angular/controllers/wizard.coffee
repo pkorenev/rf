@@ -11,6 +11,7 @@ window.$app.controller "WizardController", [
     $scope.wizard.selected_hour = $scope.wizard.hours[0] if !$scope.wizard.selected_hour
     $scope.wizard.show_help = true;
     $scope.wizard.type_of_test = false
+    $scope.wizard.total_testers_count = 0
 
     $scope.wizard.item_price = 20
 
@@ -38,11 +39,24 @@ window.$app.controller "WizardController", [
       $scope.wizard.next_step = $scope.wizard.steps.filter( (s)->
         s.id == $scope.wizard.next_step_id
       )[0]
+
+      if newValue == 3
+        $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
     )
 
     $scope.$watch("wizard.total_price", (newValue)->
       $scope.wizard.steps[1].valid = newValue > 0
     )
+
+    $scope.wizard.validate_step_3 = ()->
+      w = $scope.wizard
+      if w.project_name.length > 0 && w.version_number && w.version_number.length > 0 && w.project_languages.length > 0 && w.report_languages.length > 0
+        return true
+      return false
+
+
+
+
 
 
 
@@ -50,7 +64,7 @@ window.$app.controller "WizardController", [
 
 
     $scope.wizard.platforms = [
-      {id: 1, name: "Browsers", svg: "ie", price: 0, platform_subitems: [
+      {id: 1, name: "Browsers", svg: "ie", hours_count: 0, testers_count: 0, price: 0, comment: "", platform_subitems: [
         {name: "Internet Explorer 9", count: 0},
         { name: "Internet Explorer 10" },
         { name: "Internet Explorer 11" },
@@ -59,7 +73,7 @@ window.$app.controller "WizardController", [
         { name: "Latest version of Safari" }
       ] },
 
-      {id: 2, name: "IOS", svg: "apple", price: 0, platform_subitems: [
+      {id: 2, name: "IOS", svg: "apple", hours_count: 0, testers_count: 0, price: 0, comment: "", platform_subitems: [
         {name: "iPhone 4"},
         {name: "iPhone 5s"},
         {name: "iPad 2"},
@@ -67,7 +81,7 @@ window.$app.controller "WizardController", [
         {name: "iPad mini"},
         {name: "iPhone 6 Plus"}
       ]},
-      {id: 3, name: "Android", price: 0, svg: "android", platform_subitems: [
+      {id: 3, name: "Android", hours_count: 0, testers_count: 0, price: 0, svg: "android", comment: "", platform_subitems: [
         {name: "Android phone (Samsung)"},
         {name: "Android phone (Non-Samsung)"},
         {name: "Android tablet (Samsung)"}
@@ -82,9 +96,27 @@ window.$app.controller "WizardController", [
     for p, i in $scope.wizard.platforms
       for ps, j in p.platform_subitems
         $scope.$watch("wizard.platforms[#{i}].platform_subitems[#{j}].count", (newValue, oldValue)->
+          newValue = parseInt(newValue)
+          oldValue = parseInt(oldValue)
           difference = newValue - oldValue
-          platform_price = p.price + $scope.wizard.item_price * difference
-          p.price = platform_price
+          $scope.wizard.total_testers_count = $scope.wizard.total_testers_count + difference
+
+          for inner_p in $scope.wizard.platforms
+            platform_price = 0
+            platform_testers_count = 0
+            for inner_ps in inner_p.platform_subitems
+              platform_price += parseInt(inner_ps.count) * $scope.wizard.item_price * $scope.wizard.selected_hour
+              platform_testers_count += parseInt(inner_ps.count)
+            inner_p.price = platform_price
+            inner_p.testers_count = platform_testers_count
+            inner_p.hours_count = platform_testers_count * $scope.wizard.selected_hour
+
+
+          #difference = newValue - oldValue
+
+          #p = $scope.wizard.platforms[i]
+          #platform_price = p.price + $scope.wizard.item_price * difference * parseInt($scope.wizard.selected_hour)
+          #p.price = platform_price
         )
 
       $scope.$watch("wizard.platforms[#{i}].price", (newValue, oldValue)->
@@ -92,6 +124,12 @@ window.$app.controller "WizardController", [
         #alert("change platform price:\nplatform_index: #{i}\nnewValue: #{newValue}\noldValue: #{oldValue}")
         $scope.wizard.total_price = $scope.wizard.total_price + difference
       )
+
+    $scope.$watch("wizard.selected_hour", (newValue, oldValue)->
+      for p, i in $scope.wizard.platforms
+        p.price = p.price / (oldValue) * newValue
+        p.hours_count = p.testers_count * newValue
+    )
     ###
     $scope.step_3_questions = [
       question: "Have you ever tested this project with us?"
@@ -122,10 +160,12 @@ window.$app.controller "WizardController", [
 
 
     $scope.wizard.tested_before = 'no' #false
-    $scope.wizard.project_name = null
+    $scope.wizard.project_name ?= "Project 1"
     $scope.wizard.version_number = null
     $scope.wizard.project_languages = []
+    $scope.wizard.project_languages_count = 0
     $scope.wizard.report_languages = []
+    $scope.wizard.report_languages_count = 0
     $scope.wizard.methodology_id = 1
 
     $scope.wizard.available_methodology_types = [
@@ -144,6 +184,25 @@ window.$app.controller "WizardController", [
 
 
 
+    for field_name in ["project_name", "version_number", "project_languages", "report_languages", "project_languages_count", "report_languages_count"]
+      console.log("bind watch on wizard.#{field_name}" )
+      $scope.$watch("wizard.#{field_name}", (newValue, oldValue)->
+        console.log("triggered whatch on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
+        if $scope.wizard.active_step_id == 3
+          $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
+          $scope.wizard.steps[2] = $scope.wizard.validate_step_3()
+      )
+
+
+    for field_name in ["project_languages", "report_languages"]
+      console.log("bind watch on wizard.#{field_name}" )
+      $scope.$watchCollection("wizard.#{field_name}", (newValue, oldValue)->
+        console.log("watchCollection")
+        console.log("triggered whatchCollection on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
+        if $scope.wizard.active_step_id == 3
+          $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
+          $scope.wizard.steps[2] = $scope.wizard.validate_step_3()
+      )
 
     $scope.update = (user)->
       $scope.master = angular.copy(user)

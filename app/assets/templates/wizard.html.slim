@@ -8,6 +8,9 @@
     /input type="radio" value="localization" ng-model="wizard.type_of_test" name="input_type_of_test"
     /input type="radio" value="usability" ng-model="wizard.type_of_test" name="input_type_of_test"
 
+    /platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
+      option-count html-id="platform{{$platform_index + 1}}-subitem-{{$subitem_index + 1}}" ng-repeat="option_count in platform.platform_subitems track by $index" ng-model="option_count"
+
     #wizard-steps
       intro_step step-id="1" active-step-id="wizard.active_step_id" wizard="wizard" child-scope-source="controller"
         question text="What type of tests are you looking for?" centered="true"
@@ -37,9 +40,15 @@
         wizard-step step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
           .row
             blue-header text="Platform / testers per platform" columns="12"
-            platform ng-model="platform"  ng-repeat="platform in wizard.platforms"
-              option-count html-id="platform{{$platform_index + 1}}-subitem-{{$subitem_index + 1}}" ng-repeat="option_count in platform.platform_subitems " ng-model="option_count"
-
+            platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
+              option-count html-id="platform-{{$parent.$parent.$parent.$index + 1}}-subitem-{{$index + 1}}" ng-repeat="option_count in platform.platform_subitems track by $index" ng-model="option_count"
+              .comment-label ng-class="platform.comment.length == 0 ? 'empty' : 'filled' "
+                |Add a comment
+              .platform-price
+                .currency
+                  |$
+                .price
+                  |{{platform.price}}
             /.platform.commentable ng-repeat="platform in wizard.platforms"
               .name
                 |{{platform.name}}
@@ -79,8 +88,8 @@
               p
                 |How much effort would you like each tester to spend testing tour product?
               .available-hours
-                label.hour for="hour-{{hour}}" data-hours="{{hour}}" ng-repeat="hour in hours" ng-class="selected_hour == hour ? 'selected' : 'unselected' "
-                  input ng-model="selected_hour" type="radio" id="hour-{{hour}}"
+                label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard.hours" ng-class="wizard.selected_hour == hour ? 'selected' : 'unselected' "
+                  input ng-model="wizard.selected_hour" type="radio" id="hour-{{hour}}" value="{{hour}}"
           .step-nav-buttons
             /= next_step_button(4, "Project info")
             /= prev_step_button(2)
@@ -91,17 +100,18 @@
               .inputs
                 radio-input label="Yes, we tested a previous version of this project" name="tested_before" id="1" value="yes" ng-model="wizard.tested_before"
                 radio-input label="No, this is a completely new project" name="tested_before" id="2" value="no" ng-model="wizard.tested_before"
-            question text="What is the name of this wonderful project?"
+            question text="What is the name of this wonderful project?" required="true"
               input type="text" ng-model="wizard.project_name" placeholder="Type name of the project here..."
-            question text="What is version number of the new release that you'd like us to test?"
+            question text="What is version number of the new release that you'd like us to test?" required="true"
               input type="text" placeholder="Type version number here..." ng-model="wizard.version_number"
-            question text="In what language(s) is the project?"
+            question text="In what language(s) is the project?" required="true"
               .inputs.horizontal
-                checkbox-input name="project_languages" value="{{language}}" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
 
-            question text="In what language(s) should the bugs be reported?"
+                checkbox-input name="project_languages" value="{{language}}" model-count="wizard.project_languages_count" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
+                /checkbox-input-collection name="project_languages" model-count="wizard.project_languages_count" model-available="wizard.available_project_languages" ng-model="wizard.project_languages"
+            question text="In what language(s) should the bugs be reported?" required="true"
               .inputs.horizontal
-                checkbox-input name="report_languages" value="{{language}}" ng-model="wizard.report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
+                checkbox-input name="report_languages" value="{{language}}" model-count="wizard.report_languages_count" ng-model="wizard.report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
 
 
         wizard-step step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
@@ -117,6 +127,12 @@
               /.selectize-tags-input
                 /input type="text" id="input-tags" class="demo-default" value="awesome,neat"
               tags-input ng-model="wizard.product_main_components"
+        wizard-step step-number="4" step-id="5" active-step-id="wizard.active_step_id" child-scope-source="controller"
+          .questions
+            question text="Please provide the URL or file to be tested?"
+              .inputs
+                radio-input ""
+
         /= wizard_step(3) do
           = question("What methodology are you looking for?") do
             .inputs
@@ -166,7 +182,74 @@
             = prev_step_button(5)
 
 
+    #wizard-full-summary ng-show="wizard.configure_mode"
+      #wizard-full-summary-row.row
+        .columns.large-6
+          .property
+            .property-label
+              |Project name
+            .property-value
+              |{{wizard.project_name}}
 
+          .property
+            .property-label
+              |Version
+            .property-value
+              |{{wizard.version_number}}
+
+        .columns.large-6
+          .property
+            .property-label
+              |Type of test
+            .property-value
+              |{{wizard.type_of_test}}
+
+          .property
+            .property-label
+              |Type of product
+            .property-value
+              |{{wizard.product_type}}
+        .columns.large-12
+          .row
+            .large-4 ng-repeat="platform in wizard.platforms"
+              .platform-name
+                |{{platform.name}}
+              .platform-subitems
+                .platform-subitem ng-repeat="subitem in platform.subitems"
+                  |{{subitem.name}}
+        .columns.large-12
+          .property-label
+            |Your product will be tested by:
+          .property-value
+            |{{wizard.total_testers_count}} testers
+            br
+            |{{wizard.selected_hour}}
+
+
+        .columns.large-12
+          hr
+
+        .columns.large-6
+          .property-label
+            |Your product is in:
+          .property-value
+            |{{wizard.project_languages.join(", ")}}
+
+        .columns.large-6
+          .property-label
+            |Bugs will be reported in:
+          .property-value
+            |{{wizard.report_languages.join(", ")}}
+        .columns.large-12
+          .property-label
+            |Here is project url:
+          .property-value
+            |{{wizard.url}}
+        .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
+          .property-label
+            |You've provided the following instructions:
+          .property-input-value
+            textarea ng-model="wizard.comment"
 
 
     #wizard-help ng-if="wizard.show_help"
@@ -191,9 +274,9 @@
               .progress-area
                 .progress-line
               .completed-step-number
-                |0
+                |{{wizard.active_step_id - 1}}
               .total-steps
-                |6
+                |{{wizard.steps.length}}
           /p.test-type-and-product-type
             = raw "<span class='test-type'>You ordered <span class='test name'>Functional test</span></span><span class='product-type'> for <span class='name'>Responsive website</span></span>"
 
@@ -212,25 +295,25 @@
                 .columns.large-6
                   |Browsers
                 .columns.large-3
-                  |7
+                  |{{wizard.platforms[0].testers_count}}
                 .columns.large-3
-                  |14
+                  |{{wizard.platforms[0].hours_count}}
 
               .row
                 .columns.large-6
                   |IOS
                 .columns.large-3
-                  |7
+                  |{{wizard.platforms[1].testers_count}}
                 .columns.large-3
-                  |14
+                  |{{wizard.platforms[1].hours_count}}
 
               .row
                 .columns.large-6
                   |Android
                 .columns.large-3
-                  |7
+                  |{{wizard.platforms[2].testers_count}}
                 .columns.large-3
-                  |14
+                  |{{wizard.platforms[2].hours_count}}
 
           /.total-price
             |total price: {{wizard.total_price}}

@@ -504,6 +504,50 @@ $wizard-step-line-width: rem-calc(1)
       height: 40px
       line-height: 40px
 
+
+
+.platform-content
+  position: relative
+
+
+.platform-price
+  color: $yellow-orange-color
+
+  float: right
+  display: inline-block
+  width: 90px
+  height: 30px
+  line-height: 30px
+  text-align: center
+  font-weight: 500
+  .currency
+    display: inline-block
+    float: left
+    height: inherit
+    width: 20px
+    text-align: center
+  .price
+    background: $light-black-color
+    width: 50px
+    height: inherit
+    display: inline-block
+    float: left
+
+
+
+.comment-label
+  float: left
+  line-height: 49px
+  font-size: 0.7rem
+  font-weight: 300
+  &.empty
+    color: $sky-blue-color
+    text-decoration: dotted
+    vertical-align: bottom
+    height: $input-height
+    display: inline-block
+    border-bottom: 1px dotted
+
 .hours-per-tester
   +grid-column(6)
   margin-top: $platform-indent
@@ -572,6 +616,7 @@ $wizard-step-line-width: rem-calc(1)
   label
     float: left
   .input-wrap
+    -webkit-user-select: none
     position: relative
     float: right
     width: rem-calc(90)
@@ -581,22 +626,36 @@ $wizard-step-line-width: rem-calc(1)
       text-align: center
       border: 1px solid $white-color
 
-  &.focus
-    .input-wrap
-      input
+      &.focus
         border-color: $sky-blue-color
         outline: none
-    .decrement
+
+        ~ .decrement, ~ .increment
+          color: $sky-blue-color
+          //display: block
+          opacity: 1
+
+    .decrement, .increment
       position: absolute
-      left: 0
-      color: $sky-blue-color
+      display: block
+      top: 0
+      opacity: 0
+
 
       &:before
         //content: "\2014"
         display: block
-        content: "-"
         font-weight: 600
         line-height: 30px
+    .decrement
+      left: 0
+      &:before
+        content: "-"
+
+    .increment
+      right: 0
+      &:before
+        content: "+"
 
 
 input, textarea
@@ -715,6 +774,12 @@ button
 
 .question
   padding: 32px 0
+
+  .required-symbol
+    color: $yellow-orange-color
+    margin-left: 3px
+
+
   .wizard-step-content-overlay + .wizard-step-content-content &
     &:first-child
       padding-top: 0
@@ -770,3 +835,15 @@ body
     &.disabled
       cursor: default
       opacity: 0.3
+
+
+#wizard-full-summary-row
+  background: $white-color
+
+  .property-label
+    +font-21-semibold
+  .property-value
+    color: $yellow-orange-color
+    font-size: 18px
+    font-weight: 500
+    text-transform: uppercase

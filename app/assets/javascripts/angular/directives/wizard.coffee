@@ -149,7 +149,6 @@ $app.directive "wizardStep", ()->
   transclude: true
   templateUrl: "/assets/helpers/wizard/_wizard_step.html"
   scope:
-    transclude: true
     step_number: "@stepNumber"
     step_title: "@stepTitle"
     html_class: "@htmlClass"
@@ -206,7 +205,7 @@ helper "platform",
 
 ###
 
-###
+
 $app.directive "platform", ()->
   restrict: "E"
   require: "ngModel"
@@ -221,7 +220,17 @@ $app.directive "platform", ()->
     scope.commentable ?= true
     scope.name ?= scope.model.name
     scope.image_path ?= scope.model.image_path
-###
+
+    child_scope_source = attrs.childScopeSource || 'this'
+    child_scope = null
+    if child_scope_source == 'this'
+      child_scope = scope.$new()
+    else if child_scope_source == 'controller'
+      child_scope = $("[ng-controller]").scope().$new()
+
+    #transcludeFn child_scope, (clone, childScope)->
+    #  element.find('.yield').append(clone)
+
 
 ###
 helper "optionCount",
@@ -246,6 +255,50 @@ $app.directive "optionCount", ()->
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.name = scope.model.name
     scope.count = scope.model.count || 0
+    scope.focused = false
+
+    ###
+    scope.change_value = (e)->
+      alert("handler")
+      $label = $(this)
+      $input_wrap = $label.closest(".input-wrap")
+      $input = $input_wrap.find("input")
+      $input.addClass("focus")
+      increment = 1
+      decrement = 1
+      input_value = parseInt($input.val())
+      if $label.hasClass("increment")
+        #$input.val(input_value + increment)
+        scope.model.count = scope.model.count + increment
+      else if $label.hasClass("decrement")
+        #$input.val(input_value - decrement)
+        scope.model.count = scope.model.count + decrement
+    ###
+
+    scope.decrement = ()->
+      console.log("count", scope.model.count)
+      val = scope.model.count - 1
+      min = 0
+      if val < min
+        val = min
+      if val != scope.model.count
+        scope.model.count = val
+
+    scope.increment = ()->
+      console.log("count", scope.model.count)
+      scope.model.count = scope.model.count + 1
+
+    scope.focus = ()->
+      #element.find("input").addClass("focus")
+      scope.focused = true
+    element.find("input").bind("keypress", (e)->
+      if e.charCode < 48 || e.charCode > 57
+        e.preventDefault()
+    )
+
+    #element.find("div.option-count label, div.option-count input").bind "click",  scope.change_value
+
+
 
 $app.directive "radioInput", ()->
   templateUrl: "/assets/helpers/wizard/_radio_input.html"
@@ -316,6 +369,7 @@ $app.directive "checkboxInput", ()->
     label: "@"
     value: "@"
     id: "@"
+    model_count: "=modelCount"
   link: (scope, element, attrs, ctrl, transcludeFn)->
 #scope.name = scope.
     scope.full_id = "#{attrs.name}__#{attrs.id}"
@@ -326,20 +380,82 @@ $app.directive "checkboxInput", ()->
       checked = $input.filter(":checked").length > 0
       value = $input.val()
       #alert("checked: #{checked}\nvalue=#{value}")
+      arr = scope.model
       if checked
-        scope.model.push(value)
+        arr.push(value)
       else
-        scope.model.splice(scope.model.indexOf(value), 1)
+        arr.splice(arr.indexOf(value), 1)
+      arr_count = arr.length
+      scope.model = arr
+      scope.model_count = Math.random()
+      #scope.model = scope.model + 1
+
+      if scope.name == 'project_languages'
+        cs = angular.element("[ng-controller]").scope()
+        cs.project_languages_count = cs.project_languages_count + 1
+        cs.$apply()
+      if scope.name == 'report_languages'
+        cs = angular.element("[ng-controller]").scope()
+        cs.report_languages_count = cs.report_languages_count + 1
+        cs.$apply()
+
+$app.directive "checkboxInputCollection", ()->
+  templateUrl: "/assets/helpers/wizard/_checkbox_input_collection.html"
+  require: "ngModel"
+  transclude: false
+  replace: false
+  scope:
+    model: "=ngModel"
+    name: "@name"
+    #label: "@"
+    #value: "@"
+    #id: "@"
+    model_count: "=modelCount"
+    model_available: "=modelAvailable"
+  link: (scope, element, attrs, ctrl, transcludeFn)->
+#scope.name = scope.
+    scope
+    scope.full_id = "#{attrs.name}__#{attrs.id}"
+    scope.label ?= scope.value
+    element.find("input").on "change", ()->
+
+      $input = $(this)
+      checked = $input.filter(":checked").length > 0
+      value = $input.val()
+      #alert("checked: #{checked}\nvalue=#{value}")
+      arr = scope.model
+      if checked
+        arr.push(value)
+      else
+        arr.splice(arr.indexOf(value), 1)
+      arr_count = arr.length
+      scope.model = arr
+      scope.model_count = Math.random()
+#scope.model = scope.model + 1
 
 
+###
 helper "question",
   args:
     text: "@"
     centered: "@"
+    required: "@"
   linkFn: (scope, element, attrs, ctrl, transcludeFn)->
     scope.centered ?= false
+    scope.required = attrs.required || false
 
+###
 
+$app.directive "question", ()->
+  scope:
+    text: "@"
+    centered: "@"
+    required: "@"
+  templateUrl: "/assets/helpers/wizard/_question.html"
+  transclude: true
+  link: (scope, element, attrs, ctrl, transcludeFn)->
+    scope.centered ?= false
+    scope.required ?= false
 
 
 ###

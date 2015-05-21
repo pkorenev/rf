@@ -247,6 +247,54 @@ $(document).on "keypress", "input", (e)->
 ###
 
 
+
+window.mouse_is_down = false
+counter_interval = null
+$counter_input = null
+
+change_counter_value = ()->
+
+###
+$(document).on "mousedown", "div.option-count label, div.option-count input", (e)->
+  $label = $(this)
+  window.mouse_is_down = true
+  $input_wrap = $label.closest(".input-wrap")
+  $input = $input_wrap.find("input")
+  $input.addClass("focus")
+
+  increment = 1
+  decrement = 1
+  input_value = parseInt($input.val())
+
+  if counter_interval == null
+    if $label.hasClass("increment")
+      $counter_input = $input
+      counter_interval = setInterval( ()->
+        if window.mouse_is_down
+          $counter_input.val(parseInt($counter_input.val()) + 1)
+      , 200)
+    else if $label.hasClass("decrement")
+      $counter_input = $input
+      counter_interval = setInterval( ()->
+        if window.mouse_is_down
+          $counter_input.val(parseInt($counter_input.val()) - 1)
+      , 200)
+###
+
+###
+$(document).on "click", "*", (e)->
+#  window.mouse_is_down = false
+#  clearInterval(counter_interval)
+#  counter_interval = null
+
+  $this = $(this)
+  $option_count = $this.closest('.option-count')
+  if $option_count.length == 0
+    $option_count = $('.option-count input.focus')
+    console.log("hello", $option_count.length) if $option_count.length > 0
+    $option_count.removeClass("focus")
+###
+
 $(document).on "page:load ready", ()->
   if $("#wizard-controller").length > 0
     init_test()

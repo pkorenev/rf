@@ -1,8 +1,6 @@
 .platform ng-class="commentable ? 'commentable' : '' "
-  /ng-include src="image_path"
+  ng-include src="image_path"
   .name
-
-
     |{{name}}
   /.yield
-  div ng-transclude=""
+  div.platform-content ng-transclude=""

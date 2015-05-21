@@ -1,7 +1,9 @@
 .option-count
-  label
+  label for="{{html_id}}"
     |{{name}}
   .input-wrap
-    label.decrement for="{{htmlId}}"
-    input id="{{html_id}}" ng-model="model.count" pattern="[0-9]*" type="text"
-    span.increment for="{{htmlId}}"
+
+    input ng-click="focus();$event.stopPropagation();" id="{{html_id}}" ng-model="model.count" pattern="[0-9]*" type="text" ng-class="focused ? 'focus' : '' "
+    label.decrement for="{{html_id}}" ng-click="focus();decrement();$event.stopPropagation();"
+    label.increment for="{{html_id}}" ng-click="focus();increment();$event.stopPropagation();"
+

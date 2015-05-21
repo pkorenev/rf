@@ -1,4 +1,7 @@
 .question
   .text ng-class="centered ? 'centered' : ''"
     |{{text}}
-  .transcluded-content
+    span.required-symbol ng-if="required"
+      |*
+  /.transcluded-content
+  div ng-transclude=""

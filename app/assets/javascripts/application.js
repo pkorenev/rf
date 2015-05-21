@@ -21,6 +21,8 @@
 //= require angular-animate/angular-animate.min.js
 //= require ng-tags-input/ng-tags-input.min.js
 //= require angular-attach-if/attach-if
+//= require valdr/valdr.min
+//= require valdr/valdr-message.min
 // require sifter
 // require microplugin
 // require selectize
@@ -36,7 +38,7 @@
 //= require angular-rails-templates
 //= require angular/app
 //= require angular/routes
-//= require angular/
+//= require_tree ./angular/services
 //= require_tree ./angular/directives
 //= require_tree ./angular/controllers
 //= require_tree ../templates

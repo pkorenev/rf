@@ -1,4 +1,4 @@
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if' ])
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr" ])
 
 #$app.helper_method = (options)->
 #
@@ -78,6 +78,7 @@ window.helper = (directive_name, options = {})->
     scope: options.scope || true
     transclude: true
     templateUrl: template_url
+
     link: (scope, element, attrs, ctrl, transcludeFn)->
       for key, value of scope_variables
         if value[0] == '@'
@@ -104,7 +105,14 @@ window.helper = (directive_name, options = {})->
       transcluded = element.find('.yield').contents()
       scope.block_given = transcluded.length > 0
 
-      transcludeFn scope.$new(), (clone, childScope)->
+      child_scope_source = attrs.childScopeSource || 'this'
+      child_scope = null
+      if child_scope_source == 'this'
+        child_scope = scope.$new()
+      else if child_scope_source == 'controller'
+        child_scope = $("[ng-controller]").scope().$new()
+
+      transcludeFn child_scope, (clone, childScope)->
         element.find('.transcluded-content, .yield').append(clone)
         if options_transcludeFn
           options_transcludeFn.apply(this, arguments)
