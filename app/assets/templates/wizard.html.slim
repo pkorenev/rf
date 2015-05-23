@@ -42,13 +42,8 @@
             blue-header text="Platform / testers per platform" columns="12"
             platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
               option-count html-id="platform-{{$parent.$parent.$parent.$index + 1}}-subitem-{{$index + 1}}" ng-repeat="option_count in platform.platform_subitems track by $index" ng-model="option_count"
-              .comment-label ng-class="platform.comment.length == 0 ? 'empty' : 'filled' "
-                |Add a comment
-              .platform-price
-                .currency
-                  |$
-                .price
-                  |{{platform.price}}
+              comment-with-price model-comment="platform.comment" model-price="platform.price"
+
             /.platform.commentable ng-repeat="platform in wizard.platforms"
               .name
                 |{{platform.name}}
@@ -90,6 +85,12 @@
               .available-hours
                 label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard.hours" ng-class="wizard.selected_hour == hour ? 'selected' : 'unselected' "
                   input ng-model="wizard.selected_hour" type="radio" id="hour-{{hour}}" value="{{hour}}"
+
+          .wizard-step-footnotes
+            .footnote
+              |* Specify operation system if necessary
+
+
           .step-nav-buttons
             /= next_step_button(4, "Project info")
             /= prev_step_button(2)
@@ -215,11 +216,12 @@
             .columns.large-12
               /.row
               .large-4 ng-repeat="platform in wizard.platforms"
-                .platform-name
-                  |{{platform.name}}
-                .platform-subitems
-                  .platform-subitem ng-repeat="subitem in platform.subitems"
-                    |{{subitem.name}}
+                .platform ng-show="platform.testers_count"
+                  .platform-name
+                    |{{platform.name}}
+                  .platform-subitems
+                    .platform-subitem ng-repeat="subitem in platform.platform_subitems" ng-show="subitem.count"
+                      |{{subitem.name}}
             .columns.large-12
               .property-label
                 |Your product will be tested by:
@@ -257,12 +259,23 @@
 
     #wizard-help ng-if="wizard.show_help"
       #wizard-help-fixed
+        .header
+          |Welcome!
         .content
           #wizard-help-welcome
-            |Welcome to the test wizard. Please choose type of test and platform to proceed.
+            |Please choose&nbsp;
+            span.highlighted-text
+              |Type of test
+            |&nbsp;and&nbsp;
+            span.highlighted-text
+              |Platform
+            |&nbsp;to proceed with the test wizard
+
+
         .footer
           /= go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();")
-          go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
+          /go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
+          configure-button ng-show="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
 
 
     #wizard-summary ng-show="wizard.show_mini_summary"
@@ -270,18 +283,8 @@
         .header
           |Summary
         .content
-          .steps-completed
-            label
-              |Steps completed:
-            .progress-bar
-              .progress-area
-                .progress-line
-              .completed-step-number
-                |{{wizard.active_step_id - 1}}
-              .total-steps
-                |{{wizard.steps.length}}
-          /p.test-type-and-product-type
-            = raw "<span class='test-type'>You ordered <span class='test name'>Functional test</span></span><span class='product-type'> for <span class='name'>Responsive website</span></span>"
+          p.test-type-and-product-type
+            = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard.type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard.product_type}}</span></span>"
 
           .platforms
             .row.header
@@ -321,6 +324,12 @@
           /.total-price
             |total price: {{wizard.total_price}}
 
+        .save-button
+          /= svg_placeholder "download"
+          ng-include src="'/assets/download.svg'"
+          span.button-label
+            |Save this project
+
         .footer
           .price-wrap
             .total-cost-label
@@ -329,14 +338,25 @@
               .currency
                 |$
               |{{wizard.total_price}}
-          .button-go
+          .checkout-button ng-class="!wizard.ready_to_checkout ? 'disabled' : '' "
             /= svg_placeholder "rf-roket-up-right"
             ng-include src="'/assets/rf-roket-up-right.svg'"
-          .save
-            /= svg_placeholder "download"
-            ng-include src="'/assets/download.svg'"
-            span.button-label
-              |Save this project
+
+          .steps-completed
+            label
+              |Steps completed:
+            .progress-bar
+              .progress-area
+                .progress-steps
+                  .progress-step ng-repeat="step in wizard.steps track by $index" ng-class="step.proceeded ? 'proceeded' : '' " style="width: {{100 / wizard.steps.length}}%;"
+              /.completed-step-number
+                |{{wizard.active_step_id - 1}}
+              /.total-steps
+                |{{wizard.steps.length}}
+
+
           next-step-button step-number="2" step-name="test name" model-active-step="wizard.active_step" model-next-step="wizard.next_step" ng-click="next_step()"
-          .go-back-button ng-show="wizard.active_step_id > 2" ng-click="go_back()"
-            |go back to STEP {{wizard.active_step_id - 1}}
+          .or-go-back-wrap ng-show="wizard.active_step_id > 2"
+            |or
+            .go-back-button  ng-click="go_back()"
+              |go back to STEP {{wizard.active_step_id - 1}}

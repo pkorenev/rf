@@ -68,14 +68,27 @@ helper "goButton",
     text: "@"
   linkFn: (scope, element, attrs, ctrl, transcludeFn)->
     scope.text ?= "Next"
+    scope.image = '/assets/rf-icon-rocket.svg'
+    scope.button_class = "go-button"
+
+helper "configureButton",
+  template_name: "go_button"
+  args:
+    text: "@"
+  linkFn: (scope, element, attrs, ctrl, transcludeFn)->
+    scope.text ?= "Configure"
+    scope.image = '/assets/rf-icon-rocket.svg'
+    scope.button_class = "configure-button"
+
+
 helper "nextQuestionButton",
   template_name: "next_question_button"
 
 helper "summaryButton",
   template_name: "summary_button"
 
-helper "configureButton",
-  template_name: "configure_button"
+#helper "configureButton",
+#  template_name: "configure_button"
 
 helper "prevStepButton",
   template_name: "prev_step_button"
@@ -164,7 +177,13 @@ $app.directive "wizardStep", ()->
       #alert("activeStepId changed:\noldValue: #{oldValue}\nnewValue: #{newValue}")
       scope.active = parseInt(scope.step_id) == parseInt(newValue)
       #scope.active = true
+
     )
+
+    step_index = scope.step_id - 1
+    scope.proceeded = false
+    scope.$watch "wizard.steps[#{step_index}].proceeded", (newValue)->
+      scope.proceeded = newValue
 
 
     if scope.child_scope_source == "controller"
@@ -277,7 +296,7 @@ $app.directive "optionCount", ()->
 
     scope.decrement = ()->
       console.log("count", scope.model.count)
-      val = parseInt(scope.model.count) - 1
+      val = (parseInt(scope.model.count) || 0) - 1
       min = 0
       if val < min
         val = min
@@ -286,7 +305,7 @@ $app.directive "optionCount", ()->
 
     scope.increment = ()->
       console.log("count", scope.model.count)
-      scope.model.count = parseInt(scope.model.count) + 1
+      scope.model.count = (parseInt(scope.model.count) || 0) + 1
 
     scope.focus = ()->
       #element.find("input").addClass("focus")
@@ -298,6 +317,46 @@ $app.directive "optionCount", ()->
 
     #element.find("div.option-count label, div.option-count input").bind "click",  scope.change_value
 
+
+$app.directive "commentWithPrice", ()->
+  templateUrl: "/assets/helpers/wizard/_comment_with_price.html"
+  scope:
+    model_comment: "=modelComment"
+    model_price: "=modelPrice"
+  link: (scope, element, attrs, ctrl, transcludeFn)->
+    scope.in_edit = false
+    scope.in_new = false
+    scope.empty = false
+    scope.focusin = false
+
+    scope.$watch("model_comment", (newValue)->
+      scope.empty = !newValue.length
+    )
+
+    scope.$watch("focusin", (newValue)->
+      if newValue
+        element.find("textarea").focus()
+    )
+
+    scope.new = ()->
+      scope.in_new = true
+    scope.edit = ()->
+      scope.in_edit = true
+
+    scope.edit_or_create = ()->
+      if scope.model_comment && scope.model_comment.length
+        scope.edit()
+        scope.focusin = true
+      else
+        scope.new()
+        scope.focusin = true
+        #element.find("textarea").focus()
+
+
+    element.find("textarea").on "focusout", ()->
+      scope.in_edit = false
+      scope.in_new = false
+      scope.focusin = false
 
 
 $app.directive "radioInput", ()->

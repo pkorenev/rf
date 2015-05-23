@@ -17,6 +17,16 @@ $input-height: rem-calc(30)
 $text-header-height: rem-calc(50)
 $wizard-step-line-width: rem-calc(1)
 
+%right-window-header
+  +font-18-semibold
+  color: $light-black-color
+  height: $text-header-height
+  line-height: $text-header-height
+  text-align: center
+  text-transform: uppercase
+  background-color: $sky-blue-color
+
+
 %banner
   height: $wizard-banner-height
   background-color: $wizard-banner-background-color
@@ -81,16 +91,31 @@ $wizard-step-line-width: rem-calc(1)
   right: 0
   top: 0
 
+  .header
+    @extend %right-window-header
+
   .content
     +font-14-semibold
     background: $white-color
-    padding: rem-calc(8) rem-calc(16)
+    padding: rem-calc(8) rem-calc(16) rem-calc(48) rem-calc(16)
     position: relative
 
   .go-button
     margin: 0
     svg
       margin: 0 8px
+  .configure-button
+    margin: 0
+    text-align: center
+    .inner
+      display: inline-block
+    .svg-wrap
+      display: inline-block
+      svg
+        margin: 0
+    .button-label
+      display: inline-block
+      +font-21-semibold
 
 #wizard-help-fixed
   position: relative
@@ -112,7 +137,7 @@ $wizard-step-line-width: rem-calc(1)
   right: 0
   top: 0
   .progress-bar
-    height: rem-calc(26)
+    height: rem-calc(5)
     position: relative
     .completed-step-number, .total-steps
       position: absolute
@@ -120,7 +145,7 @@ $wizard-step-line-width: rem-calc(1)
     .total-steps
       right: 0
   .progress-area
-    background: $light-gray-text-color
+    //background: $light-gray-text-color
     height: rem-calc(5)
     .progress-line
       height: inherit
@@ -131,6 +156,24 @@ $wizard-step-line-width: rem-calc(1)
       top: 0
       left: 0
       +transition_all("width 0.3s")
+    .progress-steps
+      .progress-step
+        height: 5px
+        position: relative
+        float: left
+        padding-left: 1px
+        &:before
+          position: relative
+          display: block
+          width: 100%
+          height: 100%
+          content: ""
+          background: $light-gray-text-color
+
+        &.proceeded
+          &:before
+            background-color: $yellow-orange-color
+
   .platforms
     text-align: center
 
@@ -148,6 +191,10 @@ $wizard-step-line-width: rem-calc(1)
     color: $yellow-orange-color
     text-transform: uppercase
 
+  .go-button
+    .button-label
+      +font-21-semibold
+
 
 
 
@@ -162,13 +209,7 @@ $wizard-step-line-width: rem-calc(1)
     position: fixed
 
   > .header
-    +font-18-semibold
-    color: $light-black-color
-    height: $text-header-height
-    line-height: $text-header-height
-    text-align: center
-    text-transform: uppercase
-    background-color: $sky-blue-color
+    @extend %right-window-header
 
   .content
     +font-14-semibold
@@ -176,7 +217,10 @@ $wizard-step-line-width: rem-calc(1)
     padding: rem-calc(8) rem-calc(16)
     position: relative
 
+
+
   .footer
+    padding-top: 1px
     .price-wrap
       display: inline-block
       width: rem-calc(130)
@@ -193,19 +237,7 @@ $wizard-step-line-width: rem-calc(1)
         font-size: 1.2rem
         display: inline
         vertical-align: super
-    .button-go
-      height: rem-calc(70)
-      width: rem-calc(70)
-      background: $fire-orange-color
-      display: inline-block
-      cursor: pointer
-      float: left
-      svg
-        width: rem-calc(38)
-        height: rem-calc(38)
-        top: 16px
-        left: 16px
-        position: relative
+
     .total-cost-label
       +font-14
       line-height: 32px
@@ -214,25 +246,7 @@ $wizard-step-line-width: rem-calc(1)
       +font-30
       color: $yellow-orange-color
       line-height: 12px
-    .save
-      color: $gray-text-color
-      text-transform: uppercase
-      background-color: $white-color
-      display: inline-block
-      float: left
-      width: 100%
-      height: 30px
-      line-height: 30px
-      margin-top: 10px
-      position: relative
-      +font-14-semibold
 
-      svg
-        display: inline-block
-        fill: $gray-text-color
-        width: 24px
-        height: 16px
-        margin: 0 12px
 
 
 .wizard-step
@@ -242,6 +256,29 @@ $wizard-step-line-width: rem-calc(1)
   //&.completed:not(.review)
     .wizard-step-content
       opacity: 0.3
+
+  &:hover
+    .wizard-step-edit-tooltip
+      cursor: pointer
+      display: block
+      position: absolute
+      top: 52%
+      left: 55%
+      +transform(translate(-50%, -50%))
+      z-index: 1
+
+
+      svg
+        width: 80px
+        height: 80px
+
+        g
+          fill: #666
+
+  //&:not(.proceeded)
+    .wizard-step-edit-tooltip
+      display: none
+
 
   .wizard-step-line
     position: absolute
@@ -626,20 +663,25 @@ $wizard-step-line-width: rem-calc(1)
       text-align: center
       border: 1px solid $white-color
 
-      &.focus
-        border-color: $sky-blue-color
-        outline: none
+    &:hover
+      border-color: $sky-blue-color
+      outline: none
 
-        ~ .decrement, ~ .increment
-          color: $sky-blue-color
-          //display: block
-          opacity: 1
+    &:hover, input:focus ~
+      .decrement, .increment
+        //color: $sky-blue-color
+        //display: block
+        opacity: 1
+
+
 
     .decrement, .increment
       position: absolute
       display: block
       top: 0
       opacity: 0
+      color: $light-gray-text-color
+
 
 
       &:before
@@ -656,6 +698,15 @@ $wizard-step-line-width: rem-calc(1)
       right: 0
       &:before
         content: "+"
+
+    .decrement, .increment
+      &:hover
+        color: $sky-blue-color
+
+  &.empty
+    > label
+      color: $light-gray-text-color
+
 
 
 input, textarea
@@ -873,20 +924,28 @@ body
       top: -8px
       position: relative
       //color: $gray-text-color
-  .go-back-button
-    width: 200px
-    float: left
-    //+font-14-light
+
+  .or-go-back-wrap
+    display: block
+    text-align: center
     font-size: 0.8rem
     font-weight: 300
+    color: $light-gray-text-color
 
+  .go-back-button
+    width: 200px
+    float: none
+    //+font-14-light
+
+    display: inline
     text-align: center
     height: 40px
     line-height: 40px
     //color: $light-gray-color
-    color: $yellow-orange-color
+    color: $sky-blue-color
     cursor: pointer
     -webkit-user-select: none
+
 
 
 #wizard-full-summary
@@ -912,3 +971,81 @@ body
     font-size: 18px
     font-weight: 500
     text-transform: uppercase
+
+.wizard-step-edit-tooltip
+  display: none
+
+.intro-step
+  &.proceeded
+    .wizard-step-content
+      opacity: 1
+
+.intro-step.proceeded
+  .question > .text
+    opacity: 0.3
+
+  .option-image input:not(:checked) ~ *
+    opacity: 0.3
+
+
+.highlighted-text
+  color: $yellow-orange-color
+  text-transform: uppercase
+
+.save-button
+
+  color: $sky-blue-color
+  text-transform: uppercase
+  background-color: $white-color
+  display: inline-block
+  width: 100%
+  height: 30px
+  line-height: 30px
+  margin-top: 1px
+  position: relative
+  +font-14-semibold
+  text-align: center
+
+
+  svg
+    display: inline-block
+    fill: $sky-blue-color
+    width: 24px
+    height: 16px
+    margin: 0 5px 0 0px
+
+.checkout-button
+  height: rem-calc(70)
+  width: rem-calc(70)
+  background: $fire-orange-color
+  display: inline-block
+  cursor: pointer
+  float: left
+  svg
+    width: rem-calc(38)
+    height: rem-calc(38)
+    top: 16px
+    left: 16px
+    position: relative
+
+  &.disabled
+    background: $white-color
+    color: $inactive-button-text-color
+    svg
+      path
+        fill: $inactive-button-text-color
+
+.steps-completed
+  float: left
+  width: 100%
+  padding: 20px 15px 0 15px
+  +font-14-semibold
+
+.wizard-step-footnotes
+  +grid-row
+  color: $light-gray-text-color
+  //font-style: italic
+  +font-12-light-italic
+
+  .footnote
+    +grid-column(12)

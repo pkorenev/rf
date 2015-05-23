@@ -1,7 +1,6 @@
 window.$app.controller "WizardController", [
   "$scope", ($scope)->
 
-    $scope.selected_test_type = "functional"
     $scope.wizard = {}
     $scope.master = {}
     $scope.user = {}
@@ -12,6 +11,7 @@ window.$app.controller "WizardController", [
     $scope.wizard.show_help = true;
     $scope.wizard.type_of_test = false
     $scope.wizard.total_testers_count = 0
+    $scope.wizard.ready_to_checkout = false
 
     $scope.wizard.item_price = 20
 
@@ -23,12 +23,18 @@ window.$app.controller "WizardController", [
 
     $scope.wizard.active_step_valid = true
 
-    $scope.wizard.steps = [
-      {id: 1, intro: true}
-      {id: 2, name: "Step A name", number: 1, valid: true}
-      { id: 3, name: "step B name", number: 2, valid: true }
-      { id: 4, name: "step C name", number: 3, valid: true }
-    ]
+
+
+    $scope.wizard.get_configuration_steps = ()->
+
+
+    $scope.wizard.steps = {
+      intro_step: {id: 1, intro: true}
+      platforms: {id: 2, name: "Step A name", number: 1, valid: true}
+      project_information: {id: 3, name: "step B name", number: 2, valid: true}
+      test_plan: {id: 4, name: "step C name", number: 3, valid: true}
+      project_access: {id: 5, name: ""}
+    }
 
     $scope.$watch("wizard.active_step_id", (newValue)->
       $scope.wizard.active_step = $scope.wizard.steps.filter( (s)->
@@ -105,7 +111,7 @@ window.$app.controller "WizardController", [
             platform_price = 0
             platform_testers_count = 0
             for inner_ps in inner_p.platform_subitems
-              platform_price += parseInt(inner_ps.count) * $scope.wizard.item_price * $scope.wizard.selected_hour
+              platform_price += (parseInt(inner_ps.count) || 0) * $scope.wizard.item_price * $scope.wizard.selected_hour
               platform_testers_count += parseInt(inner_ps.count)
             inner_p.price = platform_price
             inner_p.testers_count = platform_testers_count
@@ -249,6 +255,20 @@ window.$app.controller "WizardController", [
       ###
     )
 
+
+    $scope.wizard.ready_go_to_step = (step_id)->
+      step_id = parseInt(step_id)
+      if (parseInt($scope.wizard.active_step_id) > step_id) || ($scope.wizard.active_step &&  $scope.wizard.active_step.valid && parseInt($scope.wizard.active_step_id) < step_id)
+        if $scope.wizard.active_step_id < step_id
+          prev_step = $scope.wizard.steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
+          if prev_step && prev_step.valid
+            return true
+          else
+            return false
+
+        return true
+
+
     $scope.wizard.go_to_step = (step_id)->
       step_id = parseInt(step_id)
       if (parseInt($scope.wizard.active_step_id) > step_id) || ($scope.wizard.active_step &&  $scope.wizard.active_step.valid && parseInt($scope.wizard.active_step_id) < step_id)
@@ -276,6 +296,7 @@ window.$app.controller "WizardController", [
       if $scope.wizard.active_step.valid
         $scope.wizard.active_step.proceeded = true
         $scope.wizard.active_step_id = $scope.wizard.active_step_id + 1
+
 
 
 
