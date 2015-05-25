@@ -10,12 +10,18 @@ $light-gray-color: #a7a9ac
 $gray-text-color: #bcbec0
 $light-gray-text-color: #d1d3d4
 $inactive-button-text-color: #ddd
+$home-text-header-color: #939598
+
+$description-text-gray-color: #75706b
 
 $white-color: #f2f2f2
 
+$font-size-100: rem-calc(100)
+$font-size-70: rem-calc(70)
 $font-size-36: rem-calc(36)
 $font-size-30: rem-calc(30)
 $font-size-28: rem-calc(28)
+$font-size-26: rem-calc(26)
 $font-size-21: rem-calc(21)
 $font-size-18: rem-calc(18)
 $font-size-16: rem-calc(16)
@@ -32,6 +38,13 @@ $font-size-12: rem-calc(12)
   font-style: italic
 
 
+= font-100
+  font-size: $font-size-100
+= font-70
+  font-size: $font-size-70
+= font-70-semibold
+  +font-70
+  +semibold
 = font-36
   font-size: $font-size-36
 = font-30
@@ -39,6 +52,8 @@ $font-size-12: rem-calc(12)
 = font-28-bold
   font-size: $font-size-28
   +bold
+= font-26
+  font-size: $font-size-26
 = font-21
   font-size: $font-size-21
 = font-21-semibold
@@ -46,17 +61,28 @@ $font-size-12: rem-calc(12)
   +semibold
 = font-18
   font-size: $font-size-18
+= font-18-light
+  +font-18
+  +light
 = font-18-light-italic
-  font-size: $font-size-18
+  +font-18
   +light
   +italic
 = font-16
   font-size: $font-size-16
+= font-16-light
+  +font-16
+  +light
 = font-18-semibold
   font-size: $font-size-18
   +bold
-= font-12-light-italic
+= font-12
   font-size: $font-size-12
+= font-12-light
+  +font-12
+  +light
+= font-12-light-italic
+  +font-12
   +light
   +italic
 = font-14
@@ -66,7 +92,7 @@ $font-size-12: rem-calc(12)
   font-size: $font-size-14
 = font-14-semibold
   +semibold
-  font-size: $font-size-14
+  +font-14
 
 .font-14-semibold
   +font-14-semibold
@@ -83,3 +109,59 @@ $font-size-12: rem-calc(12)
     @content
   &::-ms-input-placeholder
     @content
+
+
+.text-center
+  text-align: center
+
+
+= button-with-subtitle
+  position: relative
+  display: block
+  float: left
+  width: 100%
+  margin-top: 10px
+  padding-left: 50px
+  background-image: none
+  //background-color: $white-color
+  opacity: 1
+
+= button-title
+  font-weight: 500
+  font-size: 28px
+  text-transform: uppercase
+= button-svg-wrap
+  position: absolute
+  left: 13px
+  top: 10px
+= button-subtitle
+  text-transform: none
+= button-svg
+  height: 40px
+
+= ul-with-blue-markers
+  padding-left: 0
+  list-style: none
+  li
+    position: relative
+    padding-left: 16px
+    &:before
+      left: 0
+      content: "\2014"
+      color: $sky-blue-color
+      //margin-right: 5px
+      position: absolute
+      display: inline-block
+      font-weight: 400
+
+
+
+
+ul.with-blue-markers
+  +ul-with-blue-markers
+
+  &.outside-markers
+    li
+      padding-left: 0
+      &:before
+        left: -16px

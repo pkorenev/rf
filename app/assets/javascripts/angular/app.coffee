@@ -1,4 +1,16 @@
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr" ])
+(()->
+  orig = angular.module
+  angular.modules = []
+  angular.module = ()->
+      args = Array.prototype.slice.call(arguments);
+      if arguments.length > 1
+        angular.modules.push(arguments[0])
+
+      return orig.apply(null, args)
+
+)();
+
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel"])
 
 #$app.helper_method = (options)->
 #

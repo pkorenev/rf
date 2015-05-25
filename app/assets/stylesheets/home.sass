@@ -1,16 +1,23 @@
 $home-banner-height: rem-calc(500)
+#home-controller
+  color: $description-text-gray-color
+  line-height: 1.25
+
 #home-banner
   height: $home-banner-height
+
+.section-header
+  text-align: center
+  //color: $dark-gray-color
+  color: $home-text-header-color
+  +font-16
+  height: rem-calc(75)
+  line-height: rem-calc(75)
 
 #home-how-it-works
   background: $white-color
   padding-bottom: rem-calc(130)
-  .section-header
-    text-align: center
-    color: $dark-gray-color
-    +font-16
-    height: rem-calc(75)
-    line-height: rem-calc(75)
+
   .item
     +grid-column(4)
     text-align: center
@@ -21,14 +28,35 @@ $home-banner-height: rem-calc(500)
 
     .header
       color: $light-black-color
-      +font-18
+      +font-18-semibold
 
     .time
       color: $yellow-orange-color
       +font-14
+      margin-bottom: 20px
     .description
       color: $dark-gray-color
-      +font-14-semibold
+      +font-16-light
+
+
+#home-what-for-you
+  padding: 80px 0
+  .title
+    +font-70-semibold
+    color: $light-black-color
+
+  ul
+    +font-16-light
+    +ul-with-blue-markers
+
+
+  .svg-wrapper
+    text-align: center
+  svg
+    width: 200px
+    height: 200px
+    display: inline-block
+
 
 
 #home-statistics
@@ -48,27 +76,201 @@ $home-banner-height: rem-calc(500)
     color: white
     border: 2px $sky-blue-color solid
     padding: 0 rem-calc(20)
+    margin-right: 10px
   .text
     color: $yellow-orange-color
     text-transform: uppercase
-    +font-21
+    +font-30
     line-height: rem-calc(32)
     display: inline-block
 
+  .by
+    line-height: 115px
+    text-align: center
+    color: $sky-blue-color
+    +font-18-light
+    padding: 0
+
+
+#home-plans
+  padding-bottom: 115px
 
 .home-plan
   .black-bg
     background-color: $light-black-color
+    height: 145px
+    padding: 0 24px
   .price-and-text
+
     .currency
       color: $yellow-orange-color
+      display: inline
+      font-size: 48px
+      vertical-align: 32px
+    .price
+      color: $yellow-orange-color
+      +font-100
+      display: inline
+  .question-symbol
+    +font-100
+    color: $yellow-orange-color
+    display: inline
+  .price-per, .not-certain
+    display: inline-block
+    +font-26
+    color: white
+    line-height: 32px
+    text-transform: uppercase
+
+  .not-certain
+    padding-top: 15px
+
+  .content
+    height: 380px
+    background-color: $white-color
+    padding: 0 24px
+
+    .text-content
+      height: 245px
+      position: relative
+
+  &:first-child
+    .content
+      .text-center
+        padding-bottom: 32px
+        padding-top: 20px
+      .header
+      .header
+        color: $light-black-color
+        text-transform: uppercase
+        +font-16
+  &:nth-child(2)
+    .text-content
+      .columns
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+
+
+  .learn-more
+    +font-12-light
+    color: $description-text-gray-color
+
+
+
 
 
 .home-plan-header
   background-color: $sky-blue-color
   color: $light-black-color
-  +font-18
+  +font-21
   text-transform: uppercase
   text-align: center
   height: rem-calc(64)
   line-height: rem-calc(64)
+
+#home-feedbacks
+  background: $light-black-color
+  padding-bottom: 15px
+
+#home-carousel-wrapper
+  text-align: center
+  .rn-carousel-indicator
+    span
+      color: $home-text-header-color
+      width: 12px
+      height: 12px
+      margin: 0 15px
+      display: inline-block
+      line-height: 12px
+      font-size: 24px
+
+      &.active
+        color: $fire-orange-color
+
+#home-feedbacks-carousel
+  height: 300px
+
+
+.home-feedback
+  position: relative
+  height: 300px
+  //border: 10px solid white
+
+
+  .feedback-inner
+    max-width: 600px
+    //margin: 0 auto
+    +font-14-semibold
+    transform: translate(-50%, -50%)
+    top: 50%
+    left: 50%
+    position: absolute
+    .quote
+      color: $yellow-orange-color
+      text-align: center
+      padding-left: 50px
+      position: relative
+      &:before
+        //content: open-quote
+        content: "\201C"
+        color: #6D3D31
+        font-size: 120px
+        line-height: 45px
+        position: absolute
+        display: block
+        left: 0
+        line-height: 60px
+
+
+    .name, .position
+      text-align: right
+      +light
+    .name
+      color: $sky-blue-color
+    .position
+      text-transform: uppercase
+      color: $dark-gray-color
+
+
+  &:nth-child(2n+1)
+    //background: lightblue
+  &:nth-child(2n)
+    //background: lightsalmon
+
+#home-bottom-container
+  background: $white-color
+  padding: 50px 0 75px 0
+  .title
+    +font-18
+    +bold
+    color: $light-black-color
+  .button-container
+    padding-top: 32px
+
+
+
+button.start-now-button
+  height: auto
+
+  .button
+    +button-with-subtitle
+    width: 300px
+    height: 70px
+    text-align: left
+    padding-left: 80px
+    .button-title
+      +button-title
+    .button-subtitle
+      +button-subtitle
+      +font-14-light
+    .svg-wrap
+      +button-svg-wrap
+      svg
+        +button-svg
+        width: 40px
+        height: 40px
+        left: 15px
+.button-container
+  text-align: center

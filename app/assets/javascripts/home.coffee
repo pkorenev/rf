@@ -1,3 +1,4 @@
+###
 $(document).on "ready", ()->
   $counters = $("#home-statistics .counter")
   $counters.each ()->
@@ -7,3 +8,4 @@ $(document).on "ready", ()->
     #delay: 2000,
     time: 2000
   })
+###

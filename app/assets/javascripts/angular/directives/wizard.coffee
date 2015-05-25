@@ -238,7 +238,7 @@ $app.directive "platform", ()->
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.commentable ?= true
     scope.name ?= scope.model.name
-    scope.image_path ?= scope.model.image_path
+    scope.image_path ?= "/assets/#{scope.model.svg}.svg"
 
     child_scope_source = attrs.childScopeSource || 'this'
     child_scope = null
@@ -357,6 +357,22 @@ $app.directive "commentWithPrice", ()->
       scope.in_edit = false
       scope.in_new = false
       scope.focusin = false
+
+$app.directive "button", ()->
+  templateUrl: "/assets/helpers/wizard/_button.html"
+  scope:
+    svg: "@"
+    title: "@"
+    subtitle: "@"
+    class: "@"
+  link: (scope, element, attrs, ctrl, transcludeFn)->
+
+    scope.button_class = "button"
+    if scope.subtitle && scope.subtitle.length
+      scope.button_class += " button-with-subtitle"
+    if scope.class && scope.class.length
+      scope.button_class += " #{scope.class}"
+
 
 
 $app.directive "radioInput", ()->

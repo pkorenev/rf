@@ -184,77 +184,89 @@
 
 
     #wizard-full-summary ng-show="wizard.configure_mode"
-      .row
-        #wizard-full-summary-inner.columns.large-12
-          #wizard-full-summary-row.row
 
-            .columns.large-6
-              .property
-                .property-label
-                  |Project name
-                .property-value
-                  |{{wizard.project_name}}
 
-              .property
-                .property-label
-                  |Version
-                .property-value
-                  |{{wizard.version_number}}
+      #wizard-full-summary-inner
+        #wizard-full-summary-header
+          .wizard-full-summary-icon ng-include="'/assets/finish_flag.svg'"
+          .text
+            |Summary
+        #wizard-full-summary-content.row
 
-            .columns.large-6
-              .property
-                .property-label
-                  |Type of test
-                .property-value
-                  |{{wizard.type_of_test}}
+          .columns.large-6
+            .property
+              .property-label
+                |Project name
+              .property-value
+                |{{wizard.project_name}}
 
-              .property
-                .property-label
-                  |Type of product
-                .property-value
-                  |{{wizard.product_type}}
-            .columns.large-12
-              /.row
-              .large-4 ng-repeat="platform in wizard.platforms"
+            .property
+              .property-label
+                |Version
+              .property-value
+                |{{wizard.version_number}}
+
+          .columns.large-6
+            .property
+              .property-label
+                |Type of test
+              .property-value
+                |{{wizard.type_of_test}}
+
+            .property
+              .property-label
+                |Type of product
+              .property-value
+                |{{wizard.product_type}}
+          .columns.large-12
+
+            .row
+              .columns.large-4.platforms ng-repeat="platform in wizard.platforms"
                 .platform ng-show="platform.testers_count"
+                  .platform-svg ng-include=" '/assets/' + platform.svg + '.svg'"
                   .platform-name
                     |{{platform.name}}
                   .platform-subitems
                     .platform-subitem ng-repeat="subitem in platform.platform_subitems" ng-show="subitem.count"
                       |{{subitem.name}}
-            .columns.large-12
-              .property-label
-                |Your product will be tested by:
-              .property-value
+
+          .columns.large-12.total-testers-count
+            .property-label
+              |Your product will be tested by:
+            .property-value
+              .svg-wrap ng-include="'/assets/user.svg'"
+              .text
                 |{{wizard.total_testers_count}} testers
-                br
+              br
+              .svg-wrap ng-include="'/assets/clock.svg'"
+              .text
                 |{{wizard.selected_hour}} hours each
 
 
-            .columns.large-12
-              hr
+          .columns.large-12
+            hr
 
-            .columns.large-6
-              .property-label
-                |Your product is in:
-              .property-value
-                |{{wizard.project_languages.join(", ")}}
+          .columns.large-6
+            .property-label
+              |Your product is in:
+            .property-value
+              |{{wizard.project_languages.join(", ")}}
 
-            .columns.large-6
-              .property-label
-                |Bugs will be reported in:
-              .property-value
-                |{{wizard.report_languages.join(", ")}}
-            .columns.large-12 ng-show="wizard.url && wizard.url.length"
-              .property-label
-                |Here is project url:
-              .property-value
-                |{{wizard.url}}
-            .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
-              .property-label
-                |You've provided the following instructions:
-              .property-input-value
-                textarea ng-model="wizard.comment"
+          .columns.large-6
+            .property-label
+              |Bugs will be reported in:
+            .property-value
+              |{{wizard.report_languages.join(", ")}}
+          .columns.large-12 ng-show="wizard.url && wizard.url.length"
+            .property-label
+              |Here is project url:
+            .property-value
+              |{{wizard.url}}
+          .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
+            .property-label
+              |You've provided the following instructions:
+            .property-input-value
+              textarea ng-model="wizard.comment"
 
 
     #wizard-help ng-if="wizard.show_help"
@@ -286,7 +298,7 @@
           p.test-type-and-product-type
             = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard.type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard.product_type}}</span></span>"
 
-          .platforms
+          .platforms ng-show="wizard.total_testers_count"
             .row.header
               .columns.large-6
                 |Platforms:
@@ -297,29 +309,13 @@
                 /= svg_placeholder "clock"
                 ng-include src="'/assets/clock.svg'"
             .rows
-              .row
+              .row ng-repeat="platform in wizard.platforms" ng-show="platform.testers_count"
                 .columns.large-6
-                  |Browsers
+                  |{{platform.name}}
                 .columns.large-3
-                  |{{wizard.platforms[0].testers_count}}
+                  |{{platform.testers_count}}
                 .columns.large-3
-                  |{{wizard.platforms[0].hours_count}}
-
-              .row
-                .columns.large-6
-                  |IOS
-                .columns.large-3
-                  |{{wizard.platforms[1].testers_count}}
-                .columns.large-3
-                  |{{wizard.platforms[1].hours_count}}
-
-              .row
-                .columns.large-6
-                  |Android
-                .columns.large-3
-                  |{{wizard.platforms[2].testers_count}}
-                .columns.large-3
-                  |{{wizard.platforms[2].hours_count}}
+                  |{{platform.hours_count}}
 
           /.total-price
             |total price: {{wizard.total_price}}
@@ -359,4 +355,4 @@
           .or-go-back-wrap ng-show="wizard.active_step_id > 2"
             |or
             .go-back-button  ng-click="go_back()"
-              |go back to STEP {{wizard.active_step_id - 1}}
+              |go back to STEP {{wizard.active_step_id - 2}}

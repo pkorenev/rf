@@ -12,14 +12,17 @@
 //
 //= require jquery
 // require jquery.tagsinput/src/jquery.tagsinput.js
-//= require waypoints/lib/jquery.waypoints.min
-//= require jquery.counterup.min
+// require waypoints/lib/jquery.waypoints.min
+// require jquery.counterup.min
 // require jquery_ujs
 // require turbolinks
 //= require angular/angular.min.js
 //= require angular-ui-router/release/angular-ui-router.min
 //= require angular-animate/angular-animate.min.js
+//= require angular-touch/angular-touch.min.js
 //= require ng-tags-input/ng-tags-input.min.js
+//= require angular-count-to/build/angular-count-to.min
+//= require angular-carousel/dist/angular-carousel.min.js
 //= require angular-attach-if/attach-if
 //= require valdr/valdr.min
 //= require valdr/valdr-message.min
@@ -31,7 +34,7 @@
 //= require svg_images
 //= require wizard
 // require ng_wizard
-//= require home
+// require home
 // require_tree .
 
 

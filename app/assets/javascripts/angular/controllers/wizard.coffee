@@ -1,6 +1,7 @@
 window.$app.controller "WizardController", [
   "$scope", ($scope)->
 
+    $scope.selected_test_type = "functional"
     $scope.wizard = {}
     $scope.master = {}
     $scope.user = {}
@@ -23,17 +24,26 @@ window.$app.controller "WizardController", [
 
     $scope.wizard.active_step_valid = true
 
+    $scope.wizard.steps = [
+      {id: 1, intro: true}
+      {id: 2, name: "Step A name", number: 1, valid: true}
+      { id: 3, name: "step B name", number: 2, valid: true }
+      { id: 4, name: "step C name", number: 3, valid: true }
+    ]
 
-
-    $scope.wizard.get_configuration_steps = ()->
-
-
-    $scope.wizard.steps = {
-      intro_step: {id: 1, intro: true}
-      platforms: {id: 2, name: "Step A name", number: 1, valid: true}
-      project_information: {id: 3, name: "step B name", number: 2, valid: true}
-      test_plan: {id: 4, name: "step C name", number: 3, valid: true}
-      project_access: {id: 5, name: ""}
+    $scope.wizard.named_steps = {
+      preconfiguration_steps: {
+        type_of_test: {
+          type_of_test: false
+        }
+        type_of_product: {
+          type_of_product: false
+        }
+      }
+      configuration_steps: {
+        hours_per_tester: 1
+        
+      }
     }
 
     $scope.$watch("wizard.active_step_id", (newValue)->
@@ -49,6 +59,8 @@ window.$app.controller "WizardController", [
       if parseInt(newValue) == 3
         $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
     )
+
+
 
     $scope.$watch("wizard.total_price", (newValue)->
       $scope.wizard.steps[1].valid = newValue > 0

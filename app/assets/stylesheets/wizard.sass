@@ -16,6 +16,7 @@ $input-height: rem-calc(30)
 
 $text-header-height: rem-calc(50)
 $wizard-step-line-width: rem-calc(1)
+$wizard-step-side-padding: #{$wizard-step-counter-diameter + rem-calc(30)}
 
 %right-window-header
   +font-18-semibold
@@ -70,6 +71,22 @@ $wizard-step-line-width: rem-calc(1)
 
 %go-next-button
   +go-next-button
+
+
+= platform-name
+  display: inline-block
+  line-height: 40px
+  vertical-align: top
+  color: $yellow-orange-color
+  font-size: 18px
+  font-weight: 500
+  text-transform: uppercase
+  &.with-bg-image
+    padding-left: 50px
+    background-repeat: no-repeat
+    background-size: 40px 40px
+    height: 40px
+    line-height: 40px
 
 
 #wizard-banner
@@ -176,11 +193,19 @@ $wizard-step-line-width: rem-calc(1)
 
   .platforms
     text-align: center
-
-    svg
-      fill: $light-gray-text-color
-      height: 18px
-      width: 18px
+    > .header
+      svg
+        width: 18px
+        height: 18px
+        fill: $yellow-orange-color
+    .platform-svg
+      display: inline-block
+      height: 40px
+      width: 40px
+      svg
+        fill: $light-gray-text-color
+        height: 18px
+        width: 18px
 
     .columns
       padding: 0
@@ -362,7 +387,7 @@ $wizard-step-line-width: rem-calc(1)
 
 
 
-.wizard-step-counter
+.wizard-step-counter, .wizard-full-summary-icon
   background: #FFF
   border: 1px solid $dark-gray-color
   border-radius: 50%
@@ -383,7 +408,8 @@ $wizard-step-line-width: rem-calc(1)
     left: 3px
     width: 40px
     height: 40px
-    background-color: $dark-gray-color
+    //background-color: $dark-gray-color
+    background-color: $light-gray-text-color
     border-radius: 50%
     line-height: 40px
     color: white
@@ -413,9 +439,25 @@ $wizard-step-line-width: rem-calc(1)
         content: "x"
         background-color: rgba($fire-orange-color, 0.3)
 
+.wizard-full-summary-icon
+  svg
+    z-index: 1
+    position: relative
+    width: 25px
+    height: 25px
+    top: 11px
+    left: 12px
+
+    path.my-color
+      fill: white
+    line.my-color
+      stroke: white
+    .stroke-my-color
+      stroke: white
+
 .wizard-step-content
   opacity: 1
-  padding-left: #{$wizard-step-counter-diameter + rem-calc(30)}
+  padding-left: $wizard-step-side-padding
   position: relative
 .wizard-step-header
   +font-21-semibold
@@ -425,6 +467,7 @@ $wizard-step-line-width: rem-calc(1)
 
 
 .option-image
+
 
   text-align: center
   label
@@ -529,17 +572,26 @@ $wizard-step-line-width: rem-calc(1)
   +grid-column(6)
   margin-top: $platform-indent
   margin-bottom: $platform-indent
-  .name
-    color: $yellow-orange-color
-    font-size: 18px
-    font-weight: 500
-    text-transform: uppercase
-    &.with-bg-image
-      padding-left: 50px
-      background-repeat: no-repeat
-      background-size: 40px 40px
+
+  .human-svg-wrap
+    float: right
+    position: relative
+    width: 50px
+    margin-right: 20px
+    text-align: center
+    svg
+      fill: $yellow-orange-color
+      width: 30px
+      height: 30px
+  > .svg-wrap
+    display: inline-block
+    margin-right: 10px
+    svg
+      width: 40px
       height: 40px
-      line-height: 40px
+
+  > .name
+    +platform-name
 
 
 
@@ -650,6 +702,7 @@ $wizard-step-line-width: rem-calc(1)
 
 .option-count
   +grid-row
+  padding: 3px 0
   label
     float: left
   .input-wrap
@@ -839,7 +892,7 @@ button
     line-height: 50px
     &.centered
       text-align: center
-.wizard-step-content-overlay + .wizard-step-content-content question
+.wizard-step-content-content question
   &:first-child
     .question
       padding-top: 0
@@ -879,25 +932,18 @@ body
 #wizard-controller
   min-height: calc(100vh - #{$header-height})
 
+
+
 #wizard-summary
   .go-next-button
-    position: relative
-    display: block
-    float: left
-    width: 100%
-    margin-top: 10px
-    padding-left: 50px
-    background-image: none
-    //background-color: $white-color
-    opacity: 1
+    +button-with-subtitle
+
 
 
     .rocket-svg
-      position: absolute
-      left: 13px
-      top: 10px
+      +button-svg-wrap
       svg
-        height: 40px
+        +button-svg
 
 
 
@@ -914,9 +960,7 @@ body
           fill: $inactive-button-text-color
 
     .next-step
-      font-weight: 500
-      font-size: 28px
-      text-transform: uppercase
+      +button-title
       //color: $gray-text-color
     .next-step-name
       font-size: 14px
@@ -949,19 +993,34 @@ body
 
 
 #wizard-full-summary
+  position: relative
   padding-right: $wizard-summary-width
 
   .property
     padding: 16px 0
 
+
+#wizard-full-summary-header
+  padding: 0 $wizard-step-side-padding
+  .text
+    +font-21-semibold
+    color: $fire-orange-color
+    text-transform: uppercase
+    line-height: 48px
+
 #wizard-full-summary-inner
-  background: $white-color
+
   padding-bottom: 40px
 
-#wizard-full-summary-row
-  max-width: 640px
-  margin-left: auto
-  margin-right: auto
+
+
+#wizard-full-summary-content
+  //max-width: 640px
+  //margin-left: auto
+  //margin-right: auto
+  background: $white-color
+  padding: 0 #{($wizard-step-counter-diameter + rem-calc(30) - rem-calc(15))}
+
 
 
   .property-label
@@ -971,6 +1030,48 @@ body
     font-size: 18px
     font-weight: 500
     text-transform: uppercase
+
+
+
+  .platforms
+    .platform
+      width: 100%
+      padding: 0
+    .platform-name
+      +platform-name
+    .platform-svg
+      display: inline-block
+
+      svg
+        fill: $light-gray-text-color
+        height: 40px
+        width: 40px
+    .platform-name
+      display: inline-block
+
+  .total-testers-count
+    .svg-wrap
+
+      margin-right: 20px
+      display: inline-block
+      svg
+        width: 30px
+        height: 30px
+        fill: $yellow-orange-color
+    .text
+      display: inline-block
+      line-height: 30px
+      text-transform: uppercase
+      color: $yellow-orange-color
+      vertical-align: top
+
+
+#wizard-full-summary-header
+  margin-bottom: rem-calc(12)
+  .text
+    height: rem-calc(48)
+    color: $fire-orange-color
+
 
 .wizard-step-edit-tooltip
   display: none
@@ -1049,3 +1150,10 @@ body
 
   .footnote
     +grid-column(12)
+
+
+.intro-step
+  question
+    &:not(:first-child)
+      .question
+        padding-top: 3rem
