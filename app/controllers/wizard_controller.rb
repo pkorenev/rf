@@ -34,6 +34,17 @@ class WizardController < ApplicationController
 
     render file: Rails.root.join("app/assets/templates/wizard.html")
   end
+
+  def new_test_available_steps
+    steps = Wizard::Test.available_steps
+    render json: steps
+  end
+
+  def available_platforms_by_product_type
+    product_type = params[:product_type]
+    platforms = Wizard::Steps::Platforms.platforms_by_product_type(product_type)
+    render json: platforms
+  end
 end
 
 

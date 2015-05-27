@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get "wizard/new_test_available_steps"
+  get "wizard/available_platforms_by_product_type/:product_type", to: "wizard#available_platforms_by_product_type"
+
   scope "ng" do
     root to: "angular#index", as: :ng_root
     get 'wizard', to: "angular#wizard"

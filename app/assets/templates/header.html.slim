@@ -6,28 +6,30 @@
     li
       a href="/wizard"
         |wizard
-header#header
+header#header  ng-controller="NavigationController"
   #fixed-header
     #header-row
       #header-logo
-        a ui-sref="home"
+        a ui-sref="home" ng-class="navClass('home')"
           img src="/assets/logo.png"
       #header-menu
-        .header-menu-item
+        /.header-menu-item ng-class="navClass('wizard')"
           a ui-sref="wizard"
             |Wizard
-        /.header-menu-item
+        .header-menu-item.has-dropdown
           a href="#"
             |For clients
         .header-menu-item
           a href="#"
             |How it works
-        .header-menu-item
+        .header-menu-item ng-class="navClass('about')"
           a ui-sref="about"
             |About us
-        .header-menu-item
+        .header-menu-item ng-class="navClass('contact')"
           a ui-sref="contact"
             |Contact us
+
+      #header-user
 
 
 

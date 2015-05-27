@@ -18,6 +18,7 @@
 // require turbolinks
 //= require angular/angular.min.js
 //= require angular-ui-router/release/angular-ui-router.min
+//= require ng-resource/dist/ng-resource.min
 //= require angular-animate/angular-animate.min.js
 //= require angular-touch/angular-touch.min.js
 //= require ng-tags-input/ng-tags-input.min.js

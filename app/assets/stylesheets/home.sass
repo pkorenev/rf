@@ -1,10 +1,15 @@
 $home-banner-height: rem-calc(500)
 #home-controller
   color: $description-text-gray-color
-  line-height: 1.25
+  //line-height: 1.25
+  line-height: 1.4
 
 #home-banner
   height: $home-banner-height
+
+#home-slider-carousel
+  height: 100%
+  margin: 0
 
 .section-header
   text-align: center
@@ -16,7 +21,8 @@ $home-banner-height: rem-calc(500)
 
 #home-how-it-works
   background: $white-color
-  padding-bottom: rem-calc(130)
+  //padding-bottom: rem-calc(130)
+  padding-bottom: 60px
 
   .item
     +grid-column(4)
@@ -38,9 +44,16 @@ $home-banner-height: rem-calc(500)
       color: $dark-gray-color
       +font-16-light
 
+  @media #{$medium-down}
+    .item
+      width: grid-calc(12, 12)
+      margin-bottom: rem-calc(80)
+      &:last-child
+        margin-bottom: 0
+
 
 #home-what-for-you
-  padding: 80px 0
+  padding: 40px 0 50px 0
   .title
     +font-70-semibold
     color: $light-black-color
@@ -56,6 +69,9 @@ $home-banner-height: rem-calc(500)
     width: 200px
     height: 200px
     display: inline-block
+
+  @media #{$medium-down}
+
 
 
 
@@ -91,6 +107,15 @@ $home-banner-height: rem-calc(500)
     +font-18-light
     padding: 0
 
+  @media #{$medium-down}
+    > .row
+      text-align: center
+      .text
+        margin-top: 1rem
+        display: block
+        br
+          display: none
+
 
 #home-plans
   padding-bottom: 115px
@@ -100,7 +125,7 @@ $home-banner-height: rem-calc(500)
     background-color: $light-black-color
     height: 145px
     padding: 0 24px
-  .price-and-text
+
 
     .currency
       color: $yellow-orange-color
@@ -156,6 +181,16 @@ $home-banner-height: rem-calc(500)
   .learn-more
     +font-12-light
     color: $description-text-gray-color
+
+  @media #{$medium-down}
+    margin-bottom: 30px
+    .price-and-text
+      text-align: center
+    .price-per
+      text-align: left
+
+    &:last-child
+      margin-bottom: 0
 
 
 
@@ -217,10 +252,11 @@ $home-banner-height: rem-calc(500)
         content: "\201C"
         color: #6D3D31
         font-size: 120px
-        line-height: 45px
+
         position: absolute
         display: block
         left: 0
+        //line-height: 45px
         line-height: 60px
 
 

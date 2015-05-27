@@ -1,11 +1,26 @@
-window.$app.controller "WizardController", [
-  "$scope", ($scope)->
+#WizardTest = class WizardTest
+#  @step: null
+#  get_new: ()->
+#    $http.get('/wizard/new_test_available_steps').success (data)->
+#      angular.copy(data, @step)
 
-    $scope.selected_test_type = "functional"
+
+#$app.factory "WizardTest", ()->
+
+
+$app.controller "WizardController", [
+   "$scope", "WizardTest", ( $scope, WizardTest)->
+
+    $scope.wizard_test_data = WizardTest
+
+    if window.reopen_test
+      $scope.wizard_test = WizardTest.load()
+    #$scope.ajax_steps = new WizardTest()
+    #$scope.ajax_steps.get_new()
+
     $scope.wizard = {}
     $scope.master = {}
     $scope.user = {}
-    $scope.title = "Wizard"
     $scope.wizard.tester_hour_price = 20
     $scope.wizard.hours = [1, 2, 3, 4, 5]
     $scope.wizard.selected_hour = $scope.wizard.hours[0] if !$scope.wizard.selected_hour
@@ -244,7 +259,9 @@ window.$app.controller "WizardController", [
       $scope.wizard.show_help = false
       $scope.wizard.active_step_id = 2
       #$scope.wizard.configure_mode_class = ()->
+      #$scope.wizard.available_platforms = WizardTest.load_platforms($scope.wizard.product_type).platforms
 
+      $scope.wizard_test_data.load_platforms($scope.wizard.product_type)
 
 
 

@@ -6,6 +6,14 @@
         height: 100px
         line-height: 100px
   #home-banner.banner
+    ul#home-slider-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="carouselIndex2" rn-carousel-auto-slide="6"
+      li
+        .description-block
+          .title
+            |We test mobile, web apps, and games.
+          .description
+            |1500+ certified testers ready to start testing your product immediately.
+
 
   #home-page-content
     #home-how-it-works
@@ -41,7 +49,7 @@
           .counter count-to="{{statistics.tested_projects_count}}" value="0" duration="2"
             /|{{statistics.tested_projects_count}}
           .text
-            |Projects
+            |Projects&nbsp;
             br
             |tested
         .columns.large-1.by
@@ -50,7 +58,7 @@
           .counter count-to="{{statistics.testers_count}}" value="0" duration="2"
             /|{{statistics.testers_count}}
           .text
-            |Professional
+            |Professional&nbsp;
             br
             |testers
 
@@ -78,12 +86,12 @@
                   .columns.large-10.large-centered
                     .text-center
                       |Get your product tested on the most popular browsers, operating systems and mobile devices in your target markets.
-                  .columns.large-5
+                  .columns.large-5.medium-6.small-6
                     .header
                       |services:
                     div
                       |Functional, localization, or usability testing
-                  .columns.large-5
+                  .columns.large-5.medium-6.small-6
                     .header
                       |platforms:
                     div
@@ -97,9 +105,9 @@
             .home-plan-header
               |Managed
             .black-bg
-              .columns.large-2.question-symbol
+              .columns.large-2.medium-2.small-2.question-symbol
                 |?
-              .columns.large-10.not-certain
+              .columns.large-10.medium-10.small-10.not-certain
                 |Not certain what is needed for your app or product?
             .content
               .row
@@ -131,14 +139,14 @@
 
     #home-bottom-container
       .row
-        .columns.large-6
+        .columns.large-6.medium-9.medium-centered
           .title
             |{{who_we_are_best_for.title}}
           ul.with-blue-markers.outside-markers
             li ng-repeat="item in who_we_are_best_for.items"
               |{{item}}
 
-        .columns.large-6
+        .columns.large-6.medium-9.medium-centered
           .title
             |{{benefits.title}}
           ul.with-blue-markers.outside-markers

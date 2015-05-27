@@ -54,3 +54,6 @@ gem 'json_schema_builder'
 gem 'angular-rails-templates'
 
 gem 'thin'
+
+gem 'ancestry'
+
