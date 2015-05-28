@@ -5,18 +5,22 @@ module Wizard
       attr_accessor :hours_per_tester
 
       def self.available_platforms
-        {
+
+        platforms = {
             browsers: {
+                name: "Browsers",
                 svg: "ie",
                 subitems: ["Internet Explorer", "Firefox", "Chrome", "Safary"]
             },
             operation_systems: {
+                name: "Operation systems",
                 svg: nil,
                 subitems: [ "Windows 7", "Windows 8", "Mac OS X 10.9", "Mac OS X 10.10"]
             },
             ios: {
+                name: "iOS",
                 svg: "apple",
-                sibitems: [
+                subitems: [
                     "iPhone 3GS",
                     "iPhone 4",
                     "iPhone 4S",
@@ -38,6 +42,7 @@ module Wizard
                 ]
             },
             android: {
+                name: "Android",
                 svg: "android",
                 subitems: [
                     "Samsung Galaxy 2",
@@ -68,6 +73,7 @@ module Wizard
                 ]
             },
             windows_mobile: {
+                name: "Windows Mobile",
                 svg: nil,
                 subitems: [
                     "Nokia Lumia 520",
@@ -83,6 +89,7 @@ module Wizard
                 ]
             },
             game_consoles: {
+                name: "Games",
                 svg: nil,
                 subitems: [
                     "XBOX360",
@@ -93,6 +100,10 @@ module Wizard
                 ]
             }
         }
+
+        Hash[platforms.map{|k, v| v[:subitems].map!{|s| { name: s, count: 0 } }; v[:comment] ||= ""; v[:hours_count] ||= 0; v[:testers_count] ||= 0; v[:price] ||= 0;   [k, v] }]
+
+
       end
 
       def self.platforms_by_product_type(product_type)

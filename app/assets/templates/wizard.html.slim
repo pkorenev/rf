@@ -2,49 +2,49 @@
   #wizard-banner
   #wizard-content
     /h1
-      |type_of_test: {{wizard.type_of_test}}
+      |type_of_test: {{wizard_test.type_of_test}}
 
-    /input type="radio" value="functional" ng-model="wizard.type_of_test" name="input_type_of_test"
-    /input type="radio" value="localization" ng-model="wizard.type_of_test" name="input_type_of_test"
-    /input type="radio" value="usability" ng-model="wizard.type_of_test" name="input_type_of_test"
+    /input type="radio" value="functional" ng-model="wizard_test.type_of_test" name="input_type_of_test"
+    /input type="radio" value="localization" ng-model="wizard_test.type_of_test" name="input_type_of_test"
+    /input type="radio" value="usability" ng-model="wizard_test.type_of_test" name="input_type_of_test"
 
-    /platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
+    /platform ng-model="platform"  ng-repeat="platform in wizard_test.platforms track by platform.id"
       option-count html-id="platform{{$platform_index + 1}}-subitem-{{$subitem_index + 1}}" ng-repeat="option_count in platform.platform_subitems track by $index" ng-model="option_count"
 
     #wizard-steps
-      intro_step step-id="1" active-step-id="wizard.active_step_id" wizard="wizard" child-scope-source="controller"
+      intro_step step-id="0" active-step-id="wizard_test.active_step_order_number" wizard-test="wizard_test" child-scope-source="controller"
         question text="What type of tests are you looking for?" centered="true"
           /h1
-            |type_of_test: {{wizard.type_of_test}}
+            |type_of_test: {{wizard_test.type_of_test}}
             br
-            |product_type: {{wizard.product_type}}
+            |product_type: {{wizard_test.product_type}}
           form method="post" action=""
             .row
               .input.required
-                option-image image-path="rf-functional-test" name="test_type"  label="Functional test" value="functional"  ng-model="wizard.type_of_test"  id="1"
-                option-image image-path="rf-localization-test" name="test_type" label="Localization test" value="localization" ng-model="wizard.type_of_test" id="2"
-                option-image image-path="rf-usability-test" name="test_type" label="Usability test" value="usability" ng-model="wizard.type_of_test" id="3"
+                option-image image-path="rf-functional-test" name="test_type"  label="Functional test" value="functional"  ng-model="wizard_test.intro_step.type_of_test"  id="1" description="Functional testing is performed in order to verify that a program functions correctly according to its specifications."
+                option-image image-path="rf-localization-test" name="test_type" label="Localization test" value="localization" ng-model="wizard_test.intro_step.type_of_test" id="2" description="A process to check the customization for a market, culture, or locale. It involves verifying translation of all native language strings to the target language, and tests GUI customizing, so that it is appropriate for the target market."
+                option-image image-path="rf-usability-test" name="test_type" label="Usability test" value="usability" ng-model="wizard_test.intro_step.type_of_test" id="3" description="A method of evaluating user-friendliness of a system or its components and getting insights on how users perceive and use it."
 
 
-        question text="For what type of product?" ng-if= "wizard.type_of_test" centered="true"
+        question text="For what type of product?" ng-if= "wizard_test.intro_step.type_of_test" centered="true"
           form method="post" action=""
             .row
               .input.required
-                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard.product_type" columns-count="3" id="1"
-                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard.product_type" columns-count="3" id="2"
-                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.product_type" columns-count="3" id="3"
-                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.product_type" columns-count="3" id="4"
+                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard_test.intro_step.type_of_product" columns-count="3" id="1" description="Test your app or website for a mobile-friendly design."
+                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard_test.intro_step.type_of_product" columns-count="3" id="2" description="Make sure your users get optimal viewing experience on every device."
+                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard_test.intro_step.type_of_product" columns-count="3" id="3" description="Discover how your software performs under test to be certain its bug-free."
+                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard_test.intro_step.type_of_product" columns-count="3" id="4" description="Ensure your players have a complementary gaming experience."
         .step-nav-buttons
 
       .configuration-steps class="hide"
-        wizard-step wizard="wizard" step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard-test="wizard_test" step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="1" active-step-id="wizard_test.active_step_order_number" child-scope-source="controller" ng-show="wizard_test.configuration_steps.platforms"
           .row
             blue-header text="Platform / testers per platform" columns="12"
-            platform ng-model="platform"  ng-repeat="platform in wizard.platforms track by platform.id"
-              option-count html-id="platform-{{$parent.$parent.$parent.$index + 1}}-subitem-{{$index + 1}}" ng-repeat="option_count in platform.platform_subitems track by $index" ng-model="option_count"
+            platform ng-model="platform"  ng-repeat="(platform_key, platform) in wizard_test.platforms"
+              option-count html-id="platform-{{platform_key}}-subitem-{{$index + 1}}" ng-repeat="option_count in platform.subitems track by $index" ng-model="option_count"
               comment-with-price model-comment="platform.comment" model-price="platform.price"
 
-            /.platform.commentable ng-repeat="platform in wizard.platforms"
+            /.platform.commentable ng-repeat="platform in wizard_test.platforms"
               .name
                 |{{platform.name}}
               .option-count ng-repeat="platform_subitem in platform.platform_subitems"
@@ -52,11 +52,11 @@
                   |{{platform_subitem.name}}
                 input type="number" ng-model="platform_subitem.count" min="0"
 
-            /platform ng-repeat="platform in wizard.platforms" image-path="" name="platform-"
+            /platform ng-repeat="platform in wizard_test.platforms" image-path="" name="platform-"
 
 
             /= platform("Browsers", asset_path("ie.svg")) do
-              - option_count_ng_model = "wizard.testers_per_platform"
+              - option_count_ng_model = "wizard_test.testers_per_platform"
               = option_count("Internet Explorer 9", 0, option_count_ng_model)
               = option_count("Internet Explorer 10", 0, option_count_ng_model)
               = option_count("Internet Explorer 11", 0, option_count_ng_model)
@@ -83,8 +83,8 @@
               p
                 |How much effort would you like each tester to spend testing tour product?
               .available-hours
-                label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard.hours" ng-class="wizard.selected_hour == hour ? 'selected' : 'unselected' "
-                  input ng-model="wizard.selected_hour" type="radio" id="hour-{{hour}}" value="{{hour}}"
+                label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard_test.hours" ng-class="wizard_test.selected_hour == hour ? 'selected' : 'unselected' "
+                  input ng-model="wizard_test.selected_hour" type="radio" id="hour-{{hour}}" value="{{hour}}"
 
           .wizard-step-footnotes
             .footnote
@@ -95,31 +95,31 @@
             /= next_step_button(4, "Project info")
             /= prev_step_button(2)
 
-        wizard-step wizard="wizard" step-number="2" step-id="3" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard-test="wizard_test" step-number="2" step-id="2" active-step-id="wizard_test.active_step_order_number" child-scope-source="controller" ng-show="wizard_test.configuration_steps.project_information"
           .questions
             /question text="Have you ever tested this project with us?"
               .inputs
-                radio-input label="Yes, we tested a previous version of this project" name="tested_before" id="1" value="yes" ng-model="wizard.tested_before"
-                radio-input label="No, this is a completely new project" name="tested_before" id="2" value="no" ng-model="wizard.tested_before"
+                radio-input label="Yes, we tested a previous version of this project" name="tested_before" id="1" value="yes" ng-model="wizard_test.tested_before"
+                radio-input label="No, this is a completely new project" name="tested_before" id="2" value="no" ng-model="wizard_test.tested_before"
             question text="What is the name of this wonderful project?" required="true"
-              input type="text" ng-model="wizard.project_name" placeholder="Type name of the project here..."
+              input type="text" ng-model="wizard_test.project_name" placeholder="Type name of the project here..."
             question text="What is version number of the new release that you'd like us to test?" required="true"
-              input type="text" placeholder="Type version number here..." ng-model="wizard.version_number"
+              input type="text" placeholder="Type version number here..." ng-model="wizard_test.version_number"
             question text="In what language(s) is the project?" required="true"
               .inputs.horizontal
 
-                checkbox-input name="project_languages" value="{{language}}" model-count="wizard.project_languages_count" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
-                /checkbox-input-collection name="project_languages" model-count="wizard.project_languages_count" model-available="wizard.available_project_languages" ng-model="wizard.project_languages"
+                checkbox-input name="project_languages" value="{{language}}" model-count="wizard_test.project_languages_count" ng-model="wizard_test.project_languages" ng-repeat="language in wizard_test.available_project_languages track by $index" id="{{$index+1}}"
+                /checkbox-input-collection name="project_languages" model-count="wizard_test.project_languages_count" model-available="wizard_test.available_project_languages" ng-model="wizard_test.project_languages"
             question text="In what language(s) should the bugs be reported?" required="true"
               .inputs.horizontal
-                checkbox-input name="report_languages" value="{{language}}" model-count="wizard.report_languages_count" ng-model="wizard.report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
+                checkbox-input name="report_languages" value="{{language}}" model-count="wizard_test.report_languages_count" ng-model="wizard_test.report_languages" ng-repeat="language in wizard_test.available_report_languages track by $index" id="{{$index+1}}"
 
 
-        wizard-step wizard="wizard" step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
+        wizard-step wizard-test="wizard_test" step-number="3" step-id="4" active-step-id="wizard_test.active_step_order_number" child-scope-source="controller" ng-show="wizard_test.configuration_steps.test_plan"
           .questions
             question text="What methodology are you looking for?"
               .inputs
-                radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard.methodology_id" methodology-data="methodology" ng-repeat="methodology in wizard.available_methodology_types track by $index"
+                radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard_test.methodology_id" methodology-data="methodology" ng-repeat="methodology in wizard_test.available_methodology_types track by $index"
                   textarea name="methodology_{{methodology.id}}_description" ng-model="methodology.description" placeholder="{{methodology.description_placeholder}}" id="methodology_{{methodology.id}}_description"
 
             question text="What are the product's main components?"
@@ -127,8 +127,8 @@
                 |Optionally, you can provide a list of the main components of your product. This is used to group the bugs around certain aspects of your product. For example, these can be: Homepage, Contact us form, Main menu, Level 1 etc. or UI issues and functional issues.
               /.selectize-tags-input
                 /input type="text" id="input-tags" class="demo-default" value="awesome,neat"
-              tags-input ng-model="wizard.product_main_components"
-        wizard-step wizard="wizard" step-number="4" step-id="5" active-step-id="wizard.active_step_id" child-scope-source="controller"
+              tags-input ng-model="wizard_test.product_main_components"
+        wizard-step wizard-test="wizard_test" step-number="4" step-id="5" active-step-id="wizard_test.active_step_order_number" child-scope-source="controller" ng-show="wizard_test.configuration_steps.project_access"
           .questions
             question text="Please provide the URL or file to be tested?"
               .inputs
@@ -138,23 +138,23 @@
 
             question text="Does the product require a username or password to be accessed?"
               .inputs
-                /radio-input name="require_auth" value="false" ng-model="wizard.auth_data.require_auth"
+                /radio-input name="require_auth" value="false" ng-model="wizard_test.auth_data.require_auth"
 
                 .input
-                  input id="require_auth_1" type="radio" name="require_auth" value="false" placeholder="Username" ng-model="wizard.auth_data.require_auth"
+                  input id="require_auth_1" type="radio" name="require_auth" value="false" placeholder="Username" ng-model="wizard_test.auth_data.require_auth"
                   label for="require_auth_1"
                   label for="require_auth_1"
                     = "No, it does not require a username or password"
 
                 .input
-                  input id="require_auth_2" type="radio" name="{{name}}" value="{{value}}" ng-model="wizard.auth_data.require_auth" placeholder="password"
+                  input id="require_auth_2" type="radio" name="{{name}}" value="{{value}}" ng-model="wizard_test.auth_data.require_auth" placeholder="password"
                   label for="require_auth_2"
                   label for="require_auth_2"
                     = "Yes, here they are:"
 
                   .input-related-content
-                    input type="text" ng-model="wizard.auth_data.username"
-                    input type="password" ng-model="wizard.auth_data.password"
+                    input type="text" ng-model="wizard_test.auth_data.username"
+                    input type="password" ng-model="wizard_test.auth_data.password"
 
 
 
@@ -183,7 +183,7 @@
             = prev_step_button(5)
 
 
-    #wizard-full-summary ng-show="wizard.configure_mode"
+    #wizard-full-summary ng-show="wizard_test.configure_mode"
 
 
       #wizard-full-summary-inner
@@ -198,30 +198,30 @@
               .property-label
                 |Project name
               .property-value
-                |{{wizard.project_name}}
+                |{{wizard_test.project_name}}
 
             .property
               .property-label
                 |Version
               .property-value
-                |{{wizard.version_number}}
+                |{{wizard_test.version_number}}
 
           .columns.large-6
             .property
               .property-label
                 |Type of test
               .property-value
-                |{{wizard.type_of_test}}
+                |{{wizard_test.intro_step.type_of_test}}
 
             .property
               .property-label
                 |Type of product
               .property-value
-                |{{wizard.product_type}}
+                |{{wizard_test.intro_step.type_of_product}}
           .columns.large-12
 
             .row
-              .columns.large-4.platforms ng-repeat="platform in wizard.platforms"
+              .columns.large-4.platforms ng-repeat="platform in wizard_test.platforms"
                 .platform ng-show="platform.testers_count"
                   .platform-svg ng-include=" '/assets/' + platform.svg + '.svg'"
                   .platform-name
@@ -236,11 +236,11 @@
             .property-value
               .svg-wrap ng-include="'/assets/user.svg'"
               .text
-                |{{wizard.total_testers_count}} testers
+                |{{wizard_test.total_testers_count}} testers
               br
               .svg-wrap ng-include="'/assets/clock.svg'"
               .text
-                |{{wizard.selected_hour}} hours each
+                |{{wizard_test.selected_hour}} hours each
 
 
           .columns.large-12
@@ -250,26 +250,26 @@
             .property-label
               |Your product is in:
             .property-value
-              |{{wizard.project_languages.join(", ")}}
+              |{{wizard_test.project_languages.join(", ")}}
 
           .columns.large-6
             .property-label
               |Bugs will be reported in:
             .property-value
-              |{{wizard.report_languages.join(", ")}}
-          .columns.large-12 ng-show="wizard.url && wizard.url.length"
+              |{{wizard_test.report_languages.join(", ")}}
+          .columns.large-12 ng-show="wizard_test.url && wizard_test.url.length"
             .property-label
               |Here is project url:
             .property-value
-              |{{wizard.url}}
-          .columns.large-12 ng-show="wizard.comment && wizard.comment.length"
+              |{{wizard_test.url}}
+          .columns.large-12 ng-show="wizard_test.comment && wizard_test.comment.length"
             .property-label
               |You've provided the following instructions:
             .property-input-value
-              textarea ng-model="wizard.comment"
+              textarea ng-model="wizard_test.comment"
 
 
-    #wizard-help ng-if="wizard.show_help"
+    #wizard-help ng-if="wizard_test.show_help"
       #wizard-help-fixed
         .header
           |Welcome!
@@ -285,20 +285,20 @@
 
 
         .footer
-          /= go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();")
-          /go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
-          configure-button ng-show="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
+          /= go_button("Configure", class: "wizard_test.type_of_test && wizard_test.product_type && !wizard_test.configure_mode ? 'visible' : 'hide'", click: "configure();")
+          /go-button text="Configure"  ng-if="wizard_test.type_of_test && wizard_test.product_type && !wizard_test.configure_mode" ng-click="configure();"
+          configure-button ng-show="wizard_test.intro_step.type_of_test && wizard_test.intro_step.type_of_product && !wizard_test.configure_mode" ng-click="configure();"
 
 
-    #wizard-summary ng-show="wizard.show_mini_summary"
+    #wizard-summary ng-show="wizard_test.show_mini_summary"
       #wizard-summary-fixed
         .header
           |Summary
         .content
           p.test-type-and-product-type
-            = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard.type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard.product_type}}</span></span>"
+            = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard_test.intro_step.type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard_test.intro_step.type_of_product}}</span></span>"
 
-          .platforms ng-show="wizard.total_testers_count"
+          .platforms ng-show="wizard_test.total_testers_count"
             .row.header
               .columns.large-6
                 |Platforms:
@@ -309,7 +309,7 @@
                 /= svg_placeholder "clock"
                 ng-include src="'/assets/clock.svg'"
             .rows
-              .row ng-repeat="platform in wizard.platforms" ng-show="platform.testers_count"
+              .row ng-repeat="platform in wizard_test.configuration_steps.platforms" ng-show="platform.testers_count"
                 .columns.large-6
                   |{{platform.name}}
                 .columns.large-3
@@ -318,7 +318,7 @@
                   |{{platform.hours_count}}
 
           /.total-price
-            |total price: {{wizard.total_price}}
+            |total price: {{wizard_test.total_price}}
 
         .save-button
           /= svg_placeholder "download"
@@ -333,10 +333,10 @@
             .total-price
               .currency
                 |$
-              |{{wizard.total_price}}
-          .checkout-button ng-class="!wizard.ready_to_checkout ? 'disabled' : '' "
-            /= svg_placeholder "rf-roket-up-right"
-            ng-include src="'/assets/rf-roket-up-right.svg'"
+              |{{wizard_test.total_price}}
+          .checkout-button ng-class="!wizard_test.ready_to_checkout ? 'disabled' : '' "
+            /= svg_placeholder "rf-rocket-up-right"
+            ng-include src="'/assets/rf-rocket-up-right.svg'"
 
           .steps-completed
             label
@@ -344,15 +344,15 @@
             .progress-bar
               .progress-area
                 .progress-steps
-                  .progress-step ng-repeat="step in wizard.steps track by $index" ng-class="step.proceeded ? 'proceeded' : '' " style="width: {{100 / wizard.steps.length}}%;"
+                  .progress-step ng-repeat="step in wizard_test.steps track by $index" ng-class="step.proceeded ? 'proceeded' : '' " style="width: {{100 / wizard_test.steps.length}}%;"
               /.completed-step-number
-                |{{wizard.active_step_id - 1}}
+                |{{wizard_test.active_step_order_number - 1}}
               /.total-steps
-                |{{wizard.steps.length}}
+                |{{wizard_test.steps.length}}
 
 
-          next-step-button step-number="2" step-name="test name" model-active-step="wizard.active_step" model-next-step="wizard.next_step" ng-click="next_step()"
-          .or-go-back-wrap ng-show="wizard.active_step_id > 2"
+          next-step-button step-number="2" step-name="test name" model-active-step="wizard_test.active_step" model-next-step="wizard_test.next_step" ng-click="next_step()"
+          .or-go-back-wrap ng-show="wizard_test.active_step_order_number > 2"
             |or
             .go-back-button  ng-click="go_back()"
-              |go back to STEP {{wizard.active_step_id - 2}}
+              |go back to STEP {{wizard_test.active_step_order_number - 2}}

@@ -1,5 +1,5 @@
 .platform ng-class="commentable ? 'commentable' : '' "
-  .svg-wrap ng-include="image_path"
+  .svg-wrap ng-include="image_path" ng-if="image_path && image_path.length > 0"
   .human-svg-wrap ng-include="'/assets/user.svg'"
   .name
     |{{name}}

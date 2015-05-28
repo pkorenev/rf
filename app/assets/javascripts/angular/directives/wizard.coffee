@@ -49,8 +49,9 @@ $app.directive "nextStepButton", ()->
 #        return "disabled"
 #      else
 #        return "enabled"
-    scope.step_number = scope.model_next_step.number
-    scope.step_name = scope.model_next_step.name
+    if scope.model_next_step
+      scope.step_number = scope.model_next_step.number
+      scope.step_name = scope.model_next_step.name
 
 
     scope.$watch("model_active_step", (newValue)->
@@ -135,7 +136,7 @@ $app.directive "introStep", ()->
     html_class: "@htmlClass"
     step_id: "@stepId"
     model: "=activeStepId"
-    wizard: "="
+    wizard_test: "=wizardTest"
     child_scope_source: "@childScopeSource"
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.html_class ?= false
@@ -167,7 +168,7 @@ $app.directive "wizardStep", ()->
     html_class: "@htmlClass"
     step_id: "@stepId"
     model: "=activeStepId"
-    wizard: "="
+    wizard_test: "=wizardTest"
     child_scope_source: "@childScopeSource"
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.html_class ?= false
@@ -182,7 +183,7 @@ $app.directive "wizardStep", ()->
 
     step_index = scope.step_id - 1
     scope.proceeded = false
-    scope.$watch "wizard.steps[#{step_index}].proceeded", (newValue)->
+    scope.$watch "wizard_test.steps[#{step_index}].proceeded", (newValue)->
       scope.proceeded = newValue
 
 
@@ -238,7 +239,8 @@ $app.directive "platform", ()->
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.commentable ?= true
     scope.name ?= scope.model.name
-    scope.image_path ?= "/assets/#{scope.model.svg}.svg"
+
+    scope.image_path ?= if scope.model.svg then "/assets/#{scope.model.svg}.svg" else null
 
     child_scope_source = attrs.childScopeSource || 'this'
     child_scope = null
@@ -330,7 +332,7 @@ $app.directive "commentWithPrice", ()->
     scope.focusin = false
 
     scope.$watch("model_comment", (newValue)->
-      scope.empty = !newValue.length
+      scope.empty = !newValue || !newValue.length
     )
 
     scope.$watch("focusin", (newValue)->

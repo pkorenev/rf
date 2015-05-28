@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require functions
 // require jquery.tagsinput/src/jquery.tagsinput.js
 // require waypoints/lib/jquery.waypoints.min
 // require jquery.counterup.min
