@@ -1,0 +1,9 @@
+.menu
+  .menu-item ng-class="menuItemClass(menu_item)" ng-repeat="menu_item in menu"
+    a ui-sref="{{menuItemSref(menu_item)}}" ng-click="toggleDropdown(menu_item, $event)"
+      |{{menu_item.title}}
+    .dropdown ng-show="menu_item.subitems && menu_item.subitems.length"
+      ul
+        li ng-repeat="subitem in menu_item.subitems"
+          a ui-sref="{{subitem.sref}}" ng-if="subitem.sref && subitem.sref.length"
+            |{{subitem.title}}

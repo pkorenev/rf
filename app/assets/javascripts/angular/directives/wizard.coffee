@@ -533,6 +533,31 @@ $app.directive "question", ()->
     scope.required ?= false
 
 
+$app.directive "topNav", ()->
+  scope:
+    menu: "="
+    active: "="
+    menu_item_class: "@itemClass"
+  templateUrl: "/assets/helpers/wizard/_top_nav.html"
+  link: (scope, element, attrs, ctrl, transcludeFn)->
+    scope.menuItemClass = (menu_item)->
+      drop_down_class = if menu_item.subitems && menu_item.subitems.length then "has-dropdown" else ""
+      active_class = if scope.active then "active" else ""
+      opened_class = if scope.opened then "opened" else ""
+      return "#{drop_down_class} #{active_class} #{scope.menu_item_class} #{opened_class}"
+    scope.toggleDropdown = (menu_item, event)->
+      console.log("toggleDropdown")
+      if menu_item.subitems && menu_item.subitems.length
+        menu_item.opened = !menu_item.opened || false
+        event.preventDefault()
+        console.log("class: #{scope.menuItemClass(menu_item)}")
+        #scope.$apply()
+    scope.menuItemSref = (menu_item)->
+      if menu_item.sref && menu_item.sref.length
+        return menu_item.sref
+      else
+        return false
+
 ###
 $app.directive "svgImage", ()->
   replace: false

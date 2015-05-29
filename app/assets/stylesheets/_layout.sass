@@ -21,7 +21,7 @@ $header-z-index: 10
 
 #header-row
   +grid-row
-  position: relative
+  //position: relative
 #header-logo
   +grid-column(3)
   height: $header-height
@@ -40,7 +40,7 @@ $header-z-index: 10
   //padding: 0 rem-calc(1)
   height: $header-height
   padding-left: 1px
-  a
+  > a
     display: block
     line-height: $header-height
     height: $header-height
@@ -64,18 +64,113 @@ $header-z-index: 10
       z-index: 1
       +transition_all(all 0.5s)
   &.active
-    a
+    > a
       &:after
         width: 100%
         background: $fire-orange-color
+  .dropdown
+    display: none
+    height: 40px
+    position: absolute
+    width: 100%
+    background: $fire-orange-color
+    left: 0
+    text-align: center
+    ul
+      display: inline-block
+      padding: 0
+      margin: 0
+      list-style: none
+      text-align: center
+      li
+        display: inline-block
+        height: 40px
+        line-height: 40px
+        padding: 0 24px
+        a
+          color: #fff
+          text-decoration: none
+
+
+  &.has-dropdown
+    &.opened
+      .dropdown
+        display: block
+
+
 
 #header-user
 
+#wrap
+  min-height: 100%
+  padding-bottom: $footer-height
 
+$footer-text-color:  $dark-gray-color
 #footer
+  padding: 15px 0 0 0
+  margin-top: -#{$footer-height}
   height: $footer-height
   background-color: $footer-background-color
 
+  color: $footer-text-color
+  +font-14-light
+
+  .copyright
+    margin-top: 24px
+
+  .menu
+    ul
+      list-style: none
+      padding: 0
+    li
+      display: inline-block
+      &:after
+        display: inline-block
+        content: ""
+        border-left: 2px solid $white-color
+        width: 2px
+        height: 16px
+        margin: 0 10px
+      &:last-child
+        &:after
+          display: none
+
+    a
+      color: $sky-blue-color
+      text-transform: uppercase
+      +font-16-semibold
+      text-decoration: none
+      line-height: 16px
+      vertical-align: top
+  .sublinks
+    color: $footer-text-color
+    ul
+      list-style: none
+      padding: 0
+    li
+      display: inline-block
+      margin: 0 14px
+    a
+      color: $footer-text-color
+
+
+
+.subscribe-block
+  label.header
+    padding-bottom: 12px
+    display: inline-block
+  .copyright
+    margin-top: 24px
+#footer-subscribe-input
+  +white-input
+#subscribe-button
+  height: $simple-form-input-height
+  vertical-align: top
+  margin-left: 1px
+  .svg-wrap
+    top: 3px
+    position: relative
 .page-banner
   height: 230px
   background: $light-black-color
+

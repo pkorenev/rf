@@ -14,18 +14,13 @@ html lang="en"
     = csrf_meta_tags
 
   body#body ng-app="app"
-    ng-include src="'/assets/header.html'"
-    /header#header
-      = render 'header'
-    main
-      /= content_for?(:admin_layout) ? yield(:admin_layout) : yield
-      /= yield
-      /ng-include src="'#{@template}'"
-      div ui-view=""
+    #wrap
+      ng-include src="'/assets/header.html'"
+      main
+        div ui-view=""
 
     ng-include src="'/assets/footer.html'"
-    /footer#footer
-      = render 'footer'
+
     script src="http://maps.google.com/maps/api/js"
     = javascript_include_tag "application"
       /javascript:

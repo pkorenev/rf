@@ -21,6 +21,20 @@ label, button, input[type=submit], input[type=button]
   display: none !important
 
 
+$simple-form-input-height: 36px
+
+= white-input
+  border: none
+  height: $simple-form-input-height
+  +font-14-semibold
+
+  &:first-child
+    margin-top: 0
+
+  &:focus
+    color: white
+    background: $sky-blue-color
+
 %simple-contact-form-section
   background: $white-color
   padding: 40px 0 80px 0
@@ -34,20 +48,14 @@ label, button, input[type=submit], input[type=button]
     margin-top: 4rem
 
   input
-    height: 36px
+    height: $simple-form-input-height
     margin-top: 11px
+
   input, textarea
     border: none
 
   input:not([type=button])
-    +font-14-semibold
-
-    &:first-child
-      margin-top: 0
-
-    &:focus
-      color: white
-      background: $sky-blue-color
+    +white-input
   textarea
     height: 130px
   input:not([type=button]), textarea
@@ -87,3 +95,27 @@ label, button, input[type=submit], input[type=button]
     background-color: $white-color
     .image-column
       float: right
+
+
+= button-with-subtitle-and-header
+  height: auto
+
+  .button
+    +button-with-subtitle
+    width: 300px
+    height: 70px
+    text-align: left
+    padding-left: 80px
+    .button-title
+      +button-title
+    .button-subtitle
+      +button-subtitle
+      +font-14-light
+    .svg-wrap
+      +button-svg-wrap
+      svg
+        +button-svg
+        width: 40px
+        height: 40px
+        left: 15px
+        fill: #fff

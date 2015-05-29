@@ -16,6 +16,11 @@
 // require jquery.counterup.min
 // require jquery_ujs
 // require turbolinks
+
+// jquery plugins
+//= require parallax/deploy/parallax.min
+
+
 //= require angular/angular.min.js
 //= require angular-ui-router/release/angular-ui-router.min
 //= require ng-resource/dist/ng-resource.min

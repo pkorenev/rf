@@ -7,12 +7,28 @@
         line-height: 100px
   #home-banner.banner
     ul#home-slider-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="carouselIndex2" rn-carousel-auto-slide="6"
-      li
+      li.home-parallax-banner
+        .scene data-calibrate-x="false" data-calibrate-y="true" data-invert-x="false" data-invert-y="true" data-limit-y="8" id="scene1"
+          .layer data-depth="1"
+            img src="/assets/radok-web-banner-layer-1.png"
+          .layer data-depth="0.3"
+            img src="/assets/radok-web-banner-layer-2.png"
+          .layer data-depth="0.6"
+            img src="/assets/radok-web-banner-layer-3.png"
+
+
         .description-block
           .title
             |We test mobile, web apps, and games.
           .description
             |1500+ certified testers ready to start testing your product immediately.
+          .banner-button-wrap
+            button title="Start now!" subtitle="own package" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"
+            p
+              |or&nbsp;
+              a.link href="#"
+                |Sign in
+
 
 
   #home-page-content
@@ -116,11 +132,13 @@
                     .text-center
                       |We’ll help you define your testing needs for free!
                 .columns.large-12.button-container
-                  button title="SHEDULE" subtitle="a call" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"
+                  button title="SHEDULE" subtitle="a call" svg="/assets/rf-icon-shedule-a-call.svg" class="shedule-call-button"
 
 
     #home-feedbacks
       .row
+        .section-header
+          |Testemonials
         .columns.large-11.large-centered
           #home-carousel-wrapper
             ul#home-feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="3"

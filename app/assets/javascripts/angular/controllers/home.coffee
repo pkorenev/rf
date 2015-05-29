@@ -58,5 +58,8 @@ window.$app.controller "HomeController", [
       ]
     }
 
+    scene = angular.element('.home-parallax-banner').each ()->
+      parallax = new Parallax(this)
+
 
 ]

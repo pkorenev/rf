@@ -1,4 +1,5 @@
 $home-banner-height: rem-calc(500)
+$banner-title-color: #e6e7e9
 #home-controller
   color: $description-text-gray-color
   //line-height: 1.25
@@ -6,6 +7,93 @@ $home-banner-height: rem-calc(500)
 
 #home-banner
   height: $home-banner-height
+
+  .description-block
+    position: absolute
+    left: 50%
+    right: 0
+    width: 50%
+    top: 0
+    bottom: 0
+    max-width: 500px
+    color: $banner-title-color
+    padding: 40px 0 0 0
+    z-index: 1
+
+
+
+    .title
+      +font-70-semibold
+
+      line-height: 64px
+      max-width: 500px
+    .description
+      max-width: 400px
+      margin-top: 1rem
+
+      +font-16
+    .banner-button-wrap
+      margin-top: 50px
+      .button
+        width: 250px
+      .link
+        color: $sky-blue-color
+
+      p
+        +font-12
+        margin: 0
+        margin-left: 28px
+
+    @media #{$medium-down}
+      left: 0
+      max-width: 100%
+      margin: 0 auto
+      width: 640px
+      padding: 0 30px
+
+  .scene
+    position: absolute
+    left: 0
+    top: 0
+    bottom: 0
+    width: 100%
+    //width: 50%
+    //max-width: 1366px
+
+    @media #{$screen} and (min-width: 1400px)
+      //left: 10%
+    .layer
+      img
+        //width: 100% !important
+        width: auto !important
+        //width: 1366px !important
+        height: auto !important
+        //+transform(scale(0.6))
+    @media #{$screen} and (min-width: 1800px)
+      //left: 15%
+
+    @media #{$screen} and (max-width: 1440px)
+      +transform(translate(5%, 0%))
+    @media #{$medium-down}
+      display: none
+
+
+
+.home-parallax-banner
+  &:first-child
+    .layer
+
+      &:first-child
+        z-index: 2
+        img
+          +transform(translate(20%, 0%))
+
+      &:nth-child(2)
+        z-index: 1
+        img
+          +transform(translate(10%, 15%))
+      &:nth-child(3)
+
 
 #home-slider-carousel
   height: 100%
@@ -235,12 +323,12 @@ $home-banner-height: rem-calc(500)
         color: $fire-orange-color
 
 #home-feedbacks-carousel
-  height: 300px
+  height: 150px
 
 
 .home-feedback
   position: relative
-  height: 300px
+  height: 150px
   //border: 10px solid white
 
 
@@ -298,26 +386,7 @@ $home-banner-height: rem-calc(500)
 
 
 
-button.start-now-button
-  height: auto
-
-  .button
-    +button-with-subtitle
-    width: 300px
-    height: 70px
-    text-align: left
-    padding-left: 80px
-    .button-title
-      +button-title
-    .button-subtitle
-      +button-subtitle
-      +font-14-light
-    .svg-wrap
-      +button-svg-wrap
-      svg
-        +button-svg
-        width: 40px
-        height: 40px
-        left: 15px
+button.start-now-button, button.shedule-call-button
+  +button-with-subtitle-and-header
 .button-container
   text-align: center
