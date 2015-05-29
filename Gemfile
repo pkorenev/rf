@@ -57,3 +57,10 @@ gem 'thin'
 
 gem 'ancestry'
 
+gem "rails_admin"
+
+gem "ckeditor"
+
+gem "protected_attributes"
+
+gem "paperclip"

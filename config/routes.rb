@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'home#index'
+  get "about/leaders", to: "about#leaders"
+  post "contact_request", to: "contact#contact_request"
+  post "faq_request", to: "faq_articles#request_question"
+  get "faq_articles", to: "faq_articles#articles"
 
   get "wizard/new_test_available_steps"
   get "wizard/available_platforms_by_product_type/:product_type", to: "wizard#available_platforms_by_product_type"

@@ -1,0 +1,43 @@
+#faq-controller ng-controller="FaqController"
+  #faq-banner
+  #faq-content
+    #faq-menu-and-article
+      #faq-menu
+        #faq-menu-fixed
+          .header
+            |Top questions
+          .content
+            ul
+              li ng-repeat="article in faq_articles.articles track by $index" ng-class="faqMenuClass($index)" ng-click="openArticle($index)"
+                a
+                  |{{article[0]}}
+          .footer
+            button title="Add a question" subtitle="if you have one" svg="/assets/rf-icon-add-question.svg" class="add-question-button"
+
+      #article ng-show="active_article"
+        .article-name
+          |{{active_article[0]}}
+        .article-content ng-bind-html="active_article[1]"
+          /|{{active_article[1]}}
+        /.item ng-bind-html="item"
+      .clearfix
+
+    #faq-form
+      .row.faq-form-row
+        .columns.large-12
+          .header
+            |Still have questions?
+          .subheader
+            |Send us your question and we'll answer you as soon as possible
+        .columns.large-12
+          .row
+            form no-validate=""
+              .columns.large-6
+                input ng-model="question_request.name" required="" placeholder="Your name"
+                input ng-model="question_request.email" required="" placeholder="Your email"
+                input type="text" ng-model="question_request.question_title" required="" placeholder="Question title"
+              .columns.large-6
+                textarea ng-model="question_request.question_description" required="" placeholder="Type your question's subject here..."
+                input type="button" value="Add a question"  ng-click="submitQuestion(); $event.preventDefault()"
+
+

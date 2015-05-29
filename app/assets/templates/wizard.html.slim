@@ -21,19 +21,19 @@
           form method="post" action=""
             .row
               .input.required
-                option-image image-path="rf-functional-test" name="test_type"  label="Functional test" value="functional"  ng-model="wizard.type_of_test"  id="1"
-                option-image image-path="rf-localization-test" name="test_type" label="Localization test" value="localization" ng-model="wizard.type_of_test" id="2"
-                option-image image-path="rf-usability-test" name="test_type" label="Usability test" value="usability" ng-model="wizard.type_of_test" id="3"
+                option-image image-path="rf-functional-test" name="test_type"  label="Functional test" value="functional"  ng-model="wizard.type_of_test"  id="1" description=""
+                option-image image-path="rf-localization-test" name="test_type" label="Localization test" value="localization" ng-model="wizard.type_of_test" id="2" description=""
+                option-image image-path="rf-usability-test" name="test_type" label="Usability test" value="usability" ng-model="wizard.type_of_test" id="3" description=""
 
 
         question text="For what type of product?" ng-if= "wizard.type_of_test" centered="true"
           form method="post" action=""
             .row
               .input.required
-                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard.product_type" columns-count="3" id="1"
-                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard.product_type" columns-count="3" id="2"
-                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.product_type" columns-count="3" id="3"
-                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.product_type" columns-count="3" id="4"
+                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard.product_type" columns-count="3" id="1" description=""
+                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard.product_type" columns-count="3" id="2" description=""
+                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.product_type" columns-count="3" id="3" description=""
+                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.product_type" columns-count="3" id="4" description=""
         .step-nav-buttons
 
       .configuration-steps class="hide"
@@ -335,8 +335,8 @@
                 |$
               |{{wizard.total_price}}
           .checkout-button ng-class="!wizard.ready_to_checkout ? 'disabled' : '' "
-            /= svg_placeholder "rf-roket-up-right"
-            ng-include src="'/assets/rf-roket-up-right.svg'"
+            /= svg_placeholder "rf-rocket-up-right"
+            ng-include src="'/assets/rf-rocket-up-right.svg'"
 
           .steps-completed
             label

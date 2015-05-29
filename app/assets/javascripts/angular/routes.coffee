@@ -21,7 +21,14 @@ window.$app.config [
         url: '/contact'
         templateUrl: "/assets/contact.html"
         controller: "ContactController"
-
+      .state "faq",
+        url: "/faq"
+        templateUrl: "/assets/faq.html"
+        controller: "FaqController"
+      .state "how_it_works",
+        url: "/how-it-works"
+        templateUrl: "/assets/how_it_works.html"
+        controller: "HowItWorksController"
 
     $urlRouterProvider.otherwise '/home'
 ]

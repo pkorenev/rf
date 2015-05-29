@@ -19,3 +19,71 @@ label, button, input[type=submit], input[type=button]
   display: none !important
 //.invisible
   display: none !important
+
+
+%simple-contact-form-section
+  background: $white-color
+  padding: 40px 0 80px 0
+
+  .header
+    @extend %large-section-header-text
+  .subheader
+    @extend %section-subheader-text
+
+  form
+    margin-top: 4rem
+
+  input
+    height: 36px
+    margin-top: 11px
+  input, textarea
+    border: none
+
+  input:not([type=button])
+    +font-14-semibold
+
+    &:first-child
+      margin-top: 0
+
+    &:focus
+      color: white
+      background: $sky-blue-color
+  textarea
+    height: 130px
+  input:not([type=button]), textarea
+    width: 100%
+    background: #fff
+    max-width: none
+  input[type=button]
+    background: $fire-orange-color
+    color: white
+    text-transform: uppercase
+    +font-21-semibold
+    float: right
+    padding: 0 15px
+    width: auto
+  @media #{$medium-down}
+    textarea
+      margin-top: 11px
+
+= page-row-wrap
+  padding: 64px 0 100px 0
+  .header
+    +large-section-header-text
+    line-height: 64px
+
+  .time
+    color: $yellow-orange-color
+    +font-14
+  .description
+    +content-text
+    ul
+      @extend %ul-with-blue-markers
+  .subheader
+    +section-subheader-text
+  svg
+    max-width: 100%
+  &:nth-child(2n+2)
+    background-color: $white-color
+    .image-column
+      float: right

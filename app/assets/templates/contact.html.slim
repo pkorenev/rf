@@ -1,3 +1,60 @@
 .page.contact-page-content ng-controller="ContactController"
-  h1
-    |{{title}}
+  #contact-banner.page-banner
+  #contact-info-and-map
+    .columns.large-12
+      .header
+        |We are here
+    #contact-data.columns.large-6
+      .property
+        .property-header
+          |Our address
+        .text
+          |1470 Peel Suite
+          br
+          |Montreal, Quebec H3A 1T1
+      .property
+        .property-header
+          |Call us
+        .text
+          a href="tel:+15145858198"
+            |+1-514-585-8198
+      .property
+        .property-header
+          |Stay in touch with our social channels:
+        .social-icons
+          ul
+            li
+              a href="#"
+            li
+              a href="#"
+            li
+              a href="#"
+            li
+              a href="#"
+            li
+              a href="#"
+
+
+    #contact-map.columns.large-6
+      map zoom="11" center="[45.500706, -73.574401]" disable-default-u-i="true"
+        marker position="[45.500706, -73.574401]" title="Hello Marker"  draggable="true" visible="true"
+
+
+
+  #contact-feedback
+    .row.contact-form-row
+      .columns.large-12
+        .header
+          |Send us your feedback
+        .subheader
+          |For any question or comment contact us via the form below and we'll back to you quickly.
+      .columns.large-12
+        .row
+          form no-validate=""
+            .columns.large-6
+              input ng-model="contact_request.subject" required="" placeholder="Your name"
+              input ng-model="contact_request.name" required="" placeholder="Your email"
+              input type="text" ng-model="contact_request.email" required="" placeholder="Question title"
+            .columns.large-6
+              textarea ng-model="contact_request.description" required="" placeholder="Type your question's subject here..."
+              input type="button" value="Add a question"  ng-click="submitRequest(); $event.preventDefault()"

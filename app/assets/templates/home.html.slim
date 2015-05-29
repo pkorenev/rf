@@ -39,7 +39,7 @@
             li ng-repeat="item in what_for_you.items"
               |{{item}}
         .columns.large-4
-          .svg-wrapper ng-include="'/assets/rf-functional-test.svg'"
+          .svg-wrapper ng-include="'/assets/rf-icon-main-wheel.svg'"
 
     #home-statistics
       .row
@@ -97,7 +97,7 @@
                     div
                       |We test on every platform, we mean it, every.
                 .columns.large-12.button-container
-                  button title="Start now!" subtitle="own package" svg="/assets/rf-roket-up-right.svg" class="start-now-button"
+                  button title="Start now!" subtitle="own package" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"
                   .learn-more
                     |Learn more (leads to another page with explanation)
 
@@ -116,14 +116,14 @@
                     .text-center
                       |We’ll help you define your testing needs for free!
                 .columns.large-12.button-container
-                  button title="SHEDULE" subtitle="a call" svg="/assets/rf-roket-up-right.svg" class="start-now-button"
+                  button title="SHEDULE" subtitle="a call" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"
 
 
     #home-feedbacks
       .row
         .columns.large-11.large-centered
           #home-carousel-wrapper
-            ul#home-feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="carouselIndex2" rn-carousel-auto-slide="3" rn-carousel-controls=""
+            ul#home-feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="3"
               li.home-feedback ng-repeat="feedback in feedbacks"
                 .feedback-inner
                   .quote
@@ -132,25 +132,30 @@
                     |{{feedback.name}}
                   .position
                     |{{feedback.position}}
-            div rn-carousel-indicators="" ng-show="feedbacks.length > 1" slides="feedbacks" rn-carousel-index="carouselIndex2"
-            /.rn-carousel-indicator.custom-indicator
-              span ng-repeat="feedback in feedbacks" ng-class="{active: $index==$parent.carouselIndex2}" ng-click="$parent.carouselIndex2 = $index"
+            /div rn-carousel-indicators="" ng-show="feedbacks.length > 1" slides="feedbacks" rn-carousel-index="feedbacks_carousel_index"
+            .rn-carousel-control
+              .rn-carousel-control-prev ng-show="$parent.feedbacks_carousel_index > 0" ng-click="$parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index-1" ng-include="'/assets/rf-icon-arrow-left.svg'"
+              .rn-carousel-control-next ng-show="$parent.feedbacks_carousel_index < feedbacks.length - 1" ng-click="$parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index+1" ng-include="'/assets/rf-icon-arrow-right.svg'"
+
+            .rn-carousel-indicator.custom-indicator
+              span ng-repeat="feedback in feedbacks" ng-class="{active: $index==$parent.feedbacks_carousel_index}" ng-click="$parent.feedbacks_carousel_index = $index"
+                |●
 
 
     #home-bottom-container
       .row
-        .columns.large-6.medium-9.medium-centered
+        .columns.large-6.medium-9.medium-centered.large-uncentered
           .title
             |{{who_we_are_best_for.title}}
           ul.with-blue-markers.outside-markers
             li ng-repeat="item in who_we_are_best_for.items"
               |{{item}}
 
-        .columns.large-6.medium-9.medium-centered
+        .columns.large-6.medium-9.medium-centered.large-uncentered
           .title
             |{{benefits.title}}
           ul.with-blue-markers.outside-markers
             li ng-repeat="item in benefits.items"
               |{{item}}
         .columns.large-12.button-container
-          button title="Start now!" subtitle="no registration required" svg="/assets/rf-roket-up-right.svg" class="start-now-button"
+          button title="Start now!" subtitle="no registration required" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"

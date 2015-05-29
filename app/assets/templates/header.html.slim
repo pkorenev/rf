@@ -19,8 +19,8 @@ header#header  ng-controller="NavigationController"
         .header-menu-item.has-dropdown
           a href="#"
             |For clients
-        .header-menu-item
-          a href="#"
+        .header-menu-item ng-class="navClass('how_it_works')"
+          a href="#" ui-sref="how_it_works"
             |How it works
         .header-menu-item ng-class="navClass('about')"
           a ui-sref="about"

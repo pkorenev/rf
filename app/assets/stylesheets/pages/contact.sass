@@ -1,0 +1,25 @@
+#contact-info-and-map
+  +grid-row
+  .header
+    @extend %large-section-header-text
+    text-align: center
+
+  .property-header
+    color: $sky-blue-color
+    +font-18-semibold
+  .property
+    .text
+      &, a
+        color: $fire-orange-color
+        +font-16-light
+      a
+        text-decoration: none
+
+    .social-icons
+      ul
+        list-style: none
+
+
+#contact-feedback
+  @extend %simple-contact-form-section
+

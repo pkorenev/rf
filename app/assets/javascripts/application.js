@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery/dist/jquery.min.js
 // require jquery.tagsinput/src/jquery.tagsinput.js
 // require waypoints/lib/jquery.waypoints.min
 // require jquery.counterup.min
@@ -27,10 +27,14 @@
 //= require angular-attach-if/attach-if
 //= require valdr/valdr.min
 //= require valdr/valdr-message.min
+//= require angular-sanitize/angular-sanitize.min.js
+//= require ngmap/build/scripts/ng-map.min
 // require sifter
 // require microplugin
 // require selectize
 
+
+////////////////////////////////
 // jquery custom scripts
 //= require svg_images
 //= require wizard
@@ -44,6 +48,7 @@
 //= require angular/routes
 //= require_tree ./angular/services
 //= require_tree ./angular/directives
+//= require_tree ./angular/filters
 //= require_tree ./angular/controllers
 //= require_tree ../templates
 

@@ -136,6 +136,8 @@ $font-size-12: rem-calc(12)
   top: 10px
 = button-subtitle
   text-transform: none
+  position: relative
+  top: -5px
 = button-svg
   height: 40px
 
@@ -147,7 +149,8 @@ $font-size-12: rem-calc(12)
     padding-left: 16px
     &:before
       left: 0
-      content: "\2014"
+      //content: "\2014"
+      content: "●"
       color: $sky-blue-color
       //margin-right: 5px
       position: absolute
@@ -157,7 +160,7 @@ $font-size-12: rem-calc(12)
 
 
 
-ul.with-blue-markers
+%ul-with-blue-markers
   +ul-with-blue-markers
 
   &.outside-markers
@@ -167,3 +170,24 @@ ul.with-blue-markers
       padding-top: 6px
       &:before
         left: -16px
+
+ul.with-blue-markers
+  @extend %ul-with-blue-markers
+
+= large-section-header-text
+  +font-70-semibold
+  color: $light-black-color
+  line-height: 95px
+
+= section-subheader-text
+  +font-18-light
+  color: $sky-blue-color
+
+%large-section-header-text
+  +large-section-header-text
+%section-subheader-text
+  +section-subheader-text
+
+= content-text
+  color: $home-text-header-color
+  +font-16-light

@@ -1,0 +1,107 @@
+$faq-menu-width: 300px
+
+#faq-banner
+  height: 230px
+  background: $light-black-color
+
+#faq-content
+
+
+
+#faq-menu-and-article
+  +grid-row
+  position: relative
+  margin-top: $wizard-step-vertical-indent
+  margin-bottom: 75px
+
+#faq-menu
+
+  width: $faq-menu-width
+  height: auto
+  position: relative
+  left: 0
+  top: 0
+  float: left
+
+  .header
+    @extend %right-window-header
+
+  .content
+    +font-14-semibold
+    background: $white-color
+    //padding: rem-calc(8) rem-calc(16) rem-calc(48) rem-calc(16)
+    padding: 1rem
+    position: relative
+
+
+
+    ul
+      padding: 0
+      margin: 0
+      list-style: none
+      li
+        padding: 8px 0
+      a
+        color: $home-text-header-color
+        +font-16-light
+      li.active
+        a
+          color: $fire-orange-color
+          +semibold
+
+
+#faq-menu-fixed
+  position: relative
+  width: $faq-menu-width
+  //height: 100px
+  background: inherit
+
+  &.fixed-top
+    top: #{$header-height + rem-calc(50)}
+    position: fixed
+
+#article
+  float: left
+  width: calc(100% - #{$faq-menu-width + 30px})
+  margin-left: 30px
+
+  .article-name
+    +font-21-semibold
+    line-height: 50px
+  .article-content
+    +content-text
+
+    ul
+      @extend %ul-with-blue-markers
+
+button.add-question-button
+  //width: 300px
+  //height: 70px
+  height: auto
+  padding: 0
+  svg
+    width: 36px
+    height: 36px
+  .button
+    +button-with-subtitle
+    width: 300px
+    height: 70px
+    text-align: left
+    //padding-left: 80px
+    padding-left: 77px
+    .button-title
+      +button-title
+    .button-subtitle
+      +button-subtitle
+      +font-14-light
+    .svg-wrap
+      +button-svg-wrap
+      svg
+        +button-svg
+        width: 40px
+        height: 40px
+        left: 23px
+
+#faq-form
+  @extend %simple-contact-form-section
+
