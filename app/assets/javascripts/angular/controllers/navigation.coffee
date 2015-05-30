@@ -3,7 +3,8 @@ $app.controller 'NavigationController', [
   '$location'
   "Auth"
   "ngDialog"
-  ($scope, $location, Auth, ngDialog) ->
+  "$state"
+  ($scope, $location, Auth, ngDialog, $state) ->
 
 #    $scope.navClass = (page) ->
 #      currentRoute = $location.path().substring(1) or 'home'
@@ -53,7 +54,7 @@ $app.controller 'NavigationController', [
     ]
 
     logged_user_menu = [
-      {title: "My dashboard"}
+      {title: "My dashboard", sref: "dashboard"}
       {title: "For clients", subitems: [
         {title: "Testing services", sref: ""}
         {title: "How it works", sref: "how_it_works"}
@@ -123,10 +124,12 @@ $app.controller 'NavigationController', [
         preCloseCallback: (result)->
           Auth.currentUser().then(
             (user)->
-
+              #alert("success")
               $scope.logged_in = true
-
+            (error)->
+              #alert("error")
           )
       });
-
+    $scope.goToDashboard = ()->
+      $state.go("dashboard")
 ]

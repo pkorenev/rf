@@ -29,6 +29,10 @@ window.$app.config [
         url: "/how-it-works"
         templateUrl: "/assets/how_it_works.html"
         controller: "HowItWorksController"
+      .state "dashboard",
+        url: "/dashboard"
+        templateUrl: "/assets/dashboard.html"
+        controller: "DashboardController"
 
     $urlRouterProvider.otherwise '/home'
 ]

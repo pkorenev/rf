@@ -40,6 +40,5 @@ window.$app.controller "SignInController", [
         (loggedUser)->
           result = {signed_in: true}
           $scope.closeThisDialog(result)
-          alert("welcome, #{loggedUser.first_name}")
       )
 ]
