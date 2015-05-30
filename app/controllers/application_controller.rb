@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :exception
   protect_from_forgery
 
+  respond_to :html, :json
+
   after_filter :set_csrf_cookie_for_ng
 
   def set_csrf_cookie_for_ng

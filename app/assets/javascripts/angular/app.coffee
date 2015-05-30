@@ -10,7 +10,7 @@
 
 )();
 
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap"])
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick"])
 
 #$app.helper_method = (options)->
 #

@@ -34,6 +34,8 @@
 //= require valdr/valdr-message.min
 //= require angular-sanitize/angular-sanitize.min.js
 //= require ngmap/build/scripts/ng-map.min
+// require angular-click-outside/clickoutside.directive
+//= require angular-off-click/offClick
 // require sifter
 // require microplugin
 // require selectize

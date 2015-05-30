@@ -64,3 +64,5 @@ gem "ckeditor"
 gem "protected_attributes"
 
 gem "paperclip"
+
+gem 'devise'

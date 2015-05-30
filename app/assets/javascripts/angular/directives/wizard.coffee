@@ -533,7 +533,7 @@ $app.directive "question", ()->
     scope.required ?= false
 
 
-$app.directive "topNav", ()->
+$app.directive "topNav", ['$location', ($location)->
   scope:
     menu: "="
     active: "="
@@ -542,21 +542,49 @@ $app.directive "topNav", ()->
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.menuItemClass = (menu_item)->
       drop_down_class = if menu_item.subitems && menu_item.subitems.length then "has-dropdown" else ""
-      active_class = if scope.active then "active" else ""
-      opened_class = if scope.opened then "opened" else ""
+      active_class = scope.menuItemActiveClass(menu_item)
+      opened_class = if menu_item.opened then "opened" else ""
       return "#{drop_down_class} #{active_class} #{scope.menu_item_class} #{opened_class}"
+
+    scope.menuItemActiveClass = (menu_item)->
+      currentRoute = $location.path().substring(1) or 'home'
+      active = if scope.menuItemSref(menu_item) == currentRoute then true else false
+      klass = if active then 'active' else ''
+      return klass
+    scope.closeDropdown = (menu_item, event)->
+      console.log("closeDropdown")
+      if menu_item.subitems && menu_item.subitems.length
+        menu_item.opened = false
+
     scope.toggleDropdown = (menu_item, event)->
-      console.log("toggleDropdown")
       if menu_item.subitems && menu_item.subitems.length
         menu_item.opened = !menu_item.opened || false
         event.preventDefault()
         console.log("class: #{scope.menuItemClass(menu_item)}")
         #scope.$apply()
+
     scope.menuItemSref = (menu_item)->
       if menu_item.sref && menu_item.sref.length
         return menu_item.sref
       else
         return false
+]
+
+###
+$app.directive 'outsideClick', ($document) ->
+  {
+  restrict: 'A'
+  link: (scope, elem, attr, ctrl) ->
+    elem.bind 'click', (e) ->
+      e.stopPropagation()
+      return
+    $document.bind 'click', ->
+      scope.$apply attr.outsideClick
+      return
+    return
+
+  }
+###
 
 ###
 $app.directive "svgImage", ()->
