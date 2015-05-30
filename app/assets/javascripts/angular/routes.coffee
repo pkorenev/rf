@@ -18,7 +18,7 @@ window.$app.config [
         templateUrl: "/assets/about.html"
         controller: "AboutController"
       .state "contact",
-        url: '/contact'
+        url: '/contact-us'
         templateUrl: "/assets/contact.html"
         controller: "ContactController"
       .state "faq",

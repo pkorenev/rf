@@ -36,6 +36,9 @@
 //= require ngmap/build/scripts/ng-map.min
 // require angular-click-outside/clickoutside.directive
 //= require angular-off-click/offClick
+//= require angular-devise/lib/devise-min
+//= require ngDialog/js/ngDialog.min
+//= require ng-caps-lock/ng-caps-lock.min
 // require sifter
 // require microplugin
 // require selectize

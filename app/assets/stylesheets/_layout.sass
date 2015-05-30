@@ -97,9 +97,87 @@ $header-z-index: 10
       .dropdown
         display: block
 
-
+top-nav
+  display: inline-block
+  float: left
+  width: calc(100% - 80px)
 
 #header-user
+  width: 80px
+  height: 80px
+  display: inline-block
+  float: right
+  cursor: pointer
+
+
+
+  .inner
+    +font-14-light
+    vertical-align: middle
+    display: inline-block
+    line-height: 16px
+    .svg-wrap
+      svg
+        fill: #fff
+        width: 35px
+        height: 35px
+    .subtitle
+      color: #fff
+
+  .user-icon
+    text-align: center
+    line-height: 80px
+    width: 80px
+    height: 80px
+    position: relative
+    &:after
+      content: ""
+      // css triangle
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 10px 40px 0 40px
+      border-color: $sky-blue-color transparent transparent transparent
+      position: absolute
+      top: 80px
+      left: 0
+      z-index: 1
+
+  .dropdown
+    width: 220px
+    height: 120px
+    background: $white-color
+    position: relative
+    top: 1px
+    left: -70px
+    padding: 12px
+
+    button.my-dashboard-button-link
+      margin: 24px 0 16px 0
+
+    .links
+      a
+        color: $sky-blue-color
+        +font-12-light
+
+  &.unlogged
+    background: $sky-blue-color
+
+
+
+  &.logged-in
+    background: $light-gray-text-color
+
+    .user-icon
+      &:after
+        border-top-color: $light-gray-text-color
+
+    &.no-avatar
+      svg
+        width: 40px
+        height: 40px
+
+
 
 #wrap
   min-height: 100%
@@ -174,3 +252,21 @@ $footer-text-color:  $dark-gray-color
   height: 230px
   background: $light-black-color
 
+button.my-dashboard-button-link
+  width: 100%
+  height: 36px
+  position: relative
+  padding: 0 0 0 40px
+  .svg-wrap
+    display: inline-block
+    position: absolute
+    left: 0
+    top: 0
+    height: 36px
+    width: 36px
+    svg
+      //width:
+      height: 24px
+      margin-left: 6px
+  .button-title
+    +semibold

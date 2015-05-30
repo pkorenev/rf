@@ -1,0 +1,160 @@
+.ngdialog.ngdialog-theme-rf-light-gray
+  .ngdialog-content
+    font-family: $fira-sans-font-family
+    width: 540px
+    padding: 0
+
+    .ngdialog-close
+      height: 50px
+      width: 50px
+      &:before
+        top: 17px
+        left: 17px
+        height: 16px
+        width: 16px
+        font-size: 35px
+        line-height: 16px
+        color: #F5EFEF
+
+.popup
+  > .header
+    height: 50px
+    background: $sky-blue-color
+    color: $light-black-color
+    text-transform: uppercase
+    +font-18-semibold
+    line-height: 50px
+    padding: 0 30px
+  > .content
+    background: $white-color
+    padding: 0 30px
+    color: $light-black-color
+    +font-14-light
+
+    .light-text-color
+      color: $gray-text-color
+    a
+      text-decoration: none
+      color: $sky-blue-color
+
+  .oauth-login
+    padding-top: 24px
+    text-align: center
+    +font-16-semibold
+
+    ul
+      list-style: none
+      padding: 0
+      margin: 20px 0 32px 0
+    li
+      display: inline-block
+      width: 32px
+      height: 32px
+      margin-left: 20px
+      //background: red
+      border-radius: 50%
+      &:first-child
+        margin-left: 0
+
+
+
+  .form
+    .input
+      padding-bottom: 16px
+      &:last-child
+        padding-bottom: 0
+      label
+        +font-14-light
+      input
+        border: 1px $gray-text-color solid
+        height: 30px
+        width: 100%
+        display: inline-block
+        max-width: none
+        background: rgba(0,0,0,0)
+
+        +semibold
+        &:focus
+          background-color: $sky-blue-color
+          color: #fff
+          ~ .show-password-button, ~ .hide-password-button
+            svg
+              path
+                fill: rgba(255, 255, 255, 0.8)
+            &:hover
+              svg
+                path
+                  fill: rgba(255, 255, 255, 1)
+      select
+        height: 30px
+        background: rgba(0, 0, 0, 0)
+      .input-wrap
+        position: relative
+      .show-password-button, .hide-password-button
+        position: absolute
+        right: 9px
+        top: 2px
+        cursor: pointer
+
+
+        svg
+          width: 26px
+          height: 26px
+          path
+            fill: $gray-text-color
+        &:hover
+          svg
+            path
+              fill: $sky-blue-color
+    .forgot-password-link-wrap
+      text-align: right
+    .sign-up-invitation
+
+    .login-button
+
+    .actions
+      line-height: 70px
+      height: 70px
+      margin: 40px 0 0 0
+
+  .terms-of-use-info
+    //background: #fff
+    padding-top: 10px
+    text-align: center
+    +font-14-light-italic
+    color: $gray-text-color
+    line-height: 16px
+  .additional-information-slider
+    text-align: center
+    &:not(.opened)
+      color: $sky-blue-color
+      cursor: pointer
+
+
+
+  &.sign-in, &.forgot-password, &.sign-up
+    .form
+      .actions
+        > *:first-child
+          width: 166px
+          color: $gray-text-color
+          display: inline-block
+          text-align: center
+          vertical-align: middle
+
+        > *:nth-child(2)
+          width: 310px
+          display: inline-block
+          button
+            width: 100%
+            height: 70px
+            text-transform: uppercase
+            +font-28-bold
+  &.forgot-password
+    .text
+      padding: 20px 0
+      line-height: 1.5
+    .actions
+      > *:first-child
+        line-height: 18px
+        display: inline-block

@@ -66,3 +66,5 @@ gem "protected_attributes"
 gem "paperclip"
 
 gem 'devise'
+
+gem 'responders'

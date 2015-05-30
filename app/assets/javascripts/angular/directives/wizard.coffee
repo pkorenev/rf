@@ -533,7 +533,7 @@ $app.directive "question", ()->
     scope.required ?= false
 
 
-$app.directive "topNav", ['$location', ($location)->
+$app.directive "topNav", ['$location', "$state", ($location, $state)->
   scope:
     menu: "="
     active: "="
@@ -548,7 +548,9 @@ $app.directive "topNav", ['$location', ($location)->
 
     scope.menuItemActiveClass = (menu_item)->
       currentRoute = $location.path().substring(1) or 'home'
-      active = if scope.menuItemSref(menu_item) == currentRoute then true else false
+      #active = if scope.menuItemSref(menu_item) == currentRoute then true else false
+      active = $state.is(scope.menuItemSref(menu_item))
+      #console.log("menu_item<#{menu_item.title}>; active: #{active}; current_route: #{currentRoute};sref: #{scope.menuItemSref(menu_item)}")
       klass = if active then 'active' else ''
       return klass
     scope.closeDropdown = (menu_item, event)->
@@ -560,7 +562,7 @@ $app.directive "topNav", ['$location', ($location)->
       if menu_item.subitems && menu_item.subitems.length
         menu_item.opened = !menu_item.opened || false
         event.preventDefault()
-        console.log("class: #{scope.menuItemClass(menu_item)}")
+        #console.log("class: #{scope.menuItemClass(menu_item)}")
         #scope.$apply()
 
     scope.menuItemSref = (menu_item)->
