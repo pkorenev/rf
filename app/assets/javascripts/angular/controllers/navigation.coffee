@@ -4,7 +4,8 @@ $app.controller 'NavigationController', [
   "Auth"
   "ngDialog"
   "$state"
-  ($scope, $location, Auth, ngDialog, $state) ->
+  "$document"
+  ($scope, $location, Auth, ngDialog, $state, $document) ->
 
 #    $scope.navClass = (page) ->
 #      currentRoute = $location.path().substring(1) or 'home'
@@ -156,4 +157,13 @@ $app.controller 'NavigationController', [
     $scope.headerClass = ()->
       mobile_menu_opened_class = if $scope.mobile_menu_opened then 'mobile-menu-opened' else ''
       return "#{mobile_menu_opened_class}"
+
+    $document.bind "keyup", (e)->
+
+      # if Esc key
+      if e.which == 27
+        #console.log("keydown", e)
+        #alert($scope.closeMobileMenu)
+        $scope.closeMobileMenu()
+        $scope.closeUserDropdown()
 ]

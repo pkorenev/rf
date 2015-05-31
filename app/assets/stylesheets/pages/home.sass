@@ -107,6 +107,19 @@ $banner-title-color: #e6e7e9
   height: rem-calc(75)
   line-height: rem-calc(75)
 
+@media #{$medium-down}
+  #home-banner
+    .description-block
+      padding-top: 50px
+@media #{$small-only}
+@media #{$screen} and (max-width: 450px)
+  #home-banner
+    .description-block
+      .title
+        +font-48
+        line-height: 48px
+
+
 #home-how-it-works
   background: $white-color
   //padding-bottom: rem-calc(130)
@@ -123,6 +136,7 @@ $banner-title-color: #e6e7e9
     .header
       color: $light-black-color
       +font-18-semibold
+      margin: 30px 0 0 0
 
     .time
       color: $yellow-orange-color
@@ -132,7 +146,14 @@ $banner-title-color: #e6e7e9
       color: $dark-gray-color
       +font-16-light
 
-  @media #{$medium-down}
+  @media #{$medium-only}
+    .item
+      width: grid-calc(4, 12)
+  @media #{$screen} and (max-width: 750px) and (min-width: 641px)
+    .item
+      padding: 0 10px
+
+  @media #{$small-only}
     .item
       width: grid-calc(12, 12)
       margin-bottom: rem-calc(80)
@@ -160,6 +181,9 @@ $banner-title-color: #e6e7e9
 
   @media #{$medium-down}
 
+  @media #{$small-only}
+    .title
+      line-height: 4rem
 
 
 
@@ -203,6 +227,12 @@ $banner-title-color: #e6e7e9
         display: block
         br
           display: none
+
+  @media #{$small-only}
+    padding-bottom: 100px
+    .section-header
+      height: 90px
+      line-height: 90px
 
 
 #home-plans
@@ -257,6 +287,11 @@ $banner-title-color: #e6e7e9
         color: $light-black-color
         text-transform: uppercase
         +font-16
+      .text-content
+        .header
+          +font-16-semibold
+        .description
+          +font-12-light
   &:nth-child(2)
     .text-content
       .columns
@@ -292,6 +327,23 @@ $banner-title-color: #e6e7e9
   text-align: center
   height: rem-calc(64)
   line-height: rem-calc(64)
+
+
+
+@media #{$screen} and (max-width: 700px) and (min-width: 641px)
+  #home-plans
+    button.start-now-button
+      label
+        padding-left: 40px
+        .svg-wrap
+          left: -7px
+
+@media #{$small-only}
+  .section-header
+    height: 120px
+    line-height: 120px
+
+
 
 #home-feedbacks
   background: $light-black-color
@@ -374,6 +426,10 @@ $banner-title-color: #e6e7e9
   &:nth-child(2n)
     //background: lightsalmon
 
+@media #{$small-only}
+  .rn-carousel-control
+    display: none
+
 #home-bottom-container
   background: $white-color
   padding: 50px 0 75px 0
@@ -383,6 +439,7 @@ $banner-title-color: #e6e7e9
     color: $light-black-color
   .button-container
     padding-top: 32px
+
 
 
 
