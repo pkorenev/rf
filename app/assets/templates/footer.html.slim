@@ -1,10 +1,26 @@
 footer#footer
   .row
-    #footer-social-and-menu.columns.large-6.right
+    #footer-social-and-menu.columns.large-6.medium-6.right
       .social-icons
         .header
           |Stay in touch with our social channels:
         ul
+          li
+            a href=""
+              .svg-wrap ng-include="'/assets/rf-social-google-plus.svg'"
+          li
+            a href=""
+              .svg-wrap ng-include="'/assets/rf-social-facebook.svg'"
+          li
+            a href=""
+              .svg-wrap ng-include="'/assets/rf-social-linked-in.svg'"
+          li
+            a href=""
+              .svg-wrap ng-include="'/assets/rf-social-twitter.svg'"
+          li
+            a href=""
+              .svg-wrap ng-include="'/assets/rf-social-skype.svg'"
+
       .menu
         ul
           li
@@ -30,7 +46,7 @@ footer#footer
           li
             a href="#"
               |For testers
-    #footer-subscribe-and-copyright-and-developed-by.columns.large-6
+    #footer-subscribe-and-copyright-and-developed-by.columns.large-6.medium-6
       .subscribe-block
         label.header for="footer-subscribe-input"
           |Subscribe for our latest news and updates:
@@ -38,3 +54,5 @@ footer#footer
         button#subscribe-button svg="/assets/rf-icon-email.svg"
       .copyright
         = raw "&copy;&nbsp;2009-#{Date.today.year} RadokForce GmBH. All rights reserved"
+      .developed-by
+        .vs-logo ng-include="'/assets/vs-logo.svg'"

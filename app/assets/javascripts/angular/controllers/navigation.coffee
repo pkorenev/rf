@@ -132,4 +132,28 @@ $app.controller 'NavigationController', [
       });
     $scope.goToDashboard = ()->
       $state.go("dashboard")
+
+    $scope.mobile_menu_opened = false
+    $scope.$watch("mobile_menu_opened", (newValue)->
+      mobile_menu_opened_class = 'mobile-menu-opened'
+      body = angular.element("#body")
+      if newValue
+        body.addClass(mobile_menu_opened_class)
+      else
+        body.removeClass(mobile_menu_opened_class)
+    )
+
+    $scope.openMobileMenu = ()->
+      $scope.mobile_menu_opened = true
+    $scope.closeMobileMenu = ()->
+      $scope.mobile_menu_opened = false
+    $scope.toggleMobileMenu = ()->
+      $scope.mobile_menu_opened = !$scope.mobile_menu_opened
+
+    $scope.mobileMenuButtonClass = ()->
+      mobile_menu_opened_class = if $scope.mobile_menu_opened then 'mobile-menu-opened' else ''
+
+    $scope.headerClass = ()->
+      mobile_menu_opened_class = if $scope.mobile_menu_opened then 'mobile-menu-opened' else ''
+      return "#{mobile_menu_opened_class}"
 ]

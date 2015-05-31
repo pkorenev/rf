@@ -8,6 +8,9 @@ $footer-height: rem-calc(200)
 
 $header-z-index: 10
 
+$small-footer-height: rem-calc(450)
+$small-header-height: 60px
+
 #header
   height: $header-height
   background: #f2f2f2
@@ -178,6 +181,153 @@ top-nav
         height: 40px
 
 
+// =======================================
+// ---------------------------------------
+// Mobile menu
+// ---------------------------------------
+// =======================================
+@media #{$screen} and (max-width: 1128px)
+  #header-user
+    .dropdown
+      left: -140px
+@media #{$screen} and (max-width: 810px) and (min-width: 641px)
+  #header-menu
+    padding-right: 0
+    width: 75%
+@media #{$screen} and (max-width: 700px) and (min-width: 641px)
+  .header-menu-item
+    padding-left: 0
+    margin-left: 1px
+    width: auto
+    > a
+      width: auto
+      position: relative
+      padding: 0 6px
+
+@media #{$small-only}
+  #header, #header-logo, #header-menu, #header-user, #header-user .user-icon
+    height: $small-header-height
+  #header-user
+    .user-icon
+      &:after
+        top: $small-header-height
+  top-nav
+    display: none
+    //display: block
+    position: absolute
+    width: 100%
+    left: 0
+    top: 60px
+    height: auto
+
+    .menu
+      .menu-item
+        background: rgba($light-black-color, 1)
+        display: block
+        height: 62px
+        float: none
+        width: 100%
+        > a
+          color: white
+          line-height: 60px
+          height: 60px
+          &:before, &:after
+            display: none
+        &.active
+          > a
+            color: $sky-blue-color
+        &
+          border-bottom: 2px solid $fire-orange-color
+        &:last-child
+          border-bottom: none
+          height: 60px
+
+        &.has-dropdown
+          > a
+            &:after
+              content: "+"
+              display: block
+              position: absolute
+              right: 1px
+              left: auto
+              height: 58px
+              width: 70px
+              background: #414143
+              top: 1px
+              font-size: 40px
+              font-weight: 300
+
+    // when menu opened
+  #body.mobile-menu-opened
+    overflow: hidden
+    &:before
+      content: ""
+      position: fixed
+      top: 60px
+      height: 100%
+      width: 100%
+      background: rgba(0, 0, 0, 0.6)
+      z-index: 10
+  #header
+    &.mobile-menu-opened
+      top-nav
+        display: block
+
+        .menu
+          position: relative
+      .header-menu-item
+        &.has-dropdown
+          &.opened
+            height: auto
+            .dropdown
+              position: relative
+              height: auto
+
+              ul
+                width: 100%
+                display: block
+                li
+                  display: block
+                  float: none
+                  width: 100%
+                  height: 61px
+                  border-bottom: 1px solid $light-black-color
+                  &:last-child
+                    border-bottom: 0
+                    height: 60px
+
+  #header-mobile-menu-button-wrap
+    cursor: pointer
+    display: block
+    float: right
+    width: 60px
+    height: 60px
+    .inner
+      background: $sky-blue-color
+      position: relative
+      top: 20px
+      left: 15px
+      &, &:before, &:after
+        height: 4px
+        width: 30px
+        display: block
+      &:before, &:after
+        content: ""
+        position: absolute
+        left: 0
+      &:before
+        top: 8px
+        background: $yellow-orange-color
+      &:after
+        top: 16px
+        background: $fire-orange-color
+
+
+// =======================================
+// ---------------------------------------
+// Footer
+// ---------------------------------------
+// =======================================
 
 #wrap
   min-height: 100%
@@ -195,11 +345,27 @@ $footer-text-color:  $dark-gray-color
 
   .copyright
     margin-top: 24px
+  .developed-by
+    .vs-logo
+      svg
+        fill: $dark-gray-color
+
+  .social-icons
+    ul
+      list-style: none
+      padding: 0
+      margin-bottom: 24px
+    li
+      display: inline-block
+      margin: 0 10px
+      &:first-child
+        margin-left: 0
 
   .menu
     ul
       list-style: none
       padding: 0
+      margin-bottom: 20px
     li
       display: inline-block
       &:after
@@ -228,8 +394,11 @@ $footer-text-color:  $dark-gray-color
     li
       display: inline-block
       margin: 0 14px
+      &:first-child
+        margin-left: 0
     a
       color: $footer-text-color
+      +font-12
 
 
 
@@ -270,3 +439,23 @@ button.my-dashboard-button-link
       margin-left: 6px
   .button-title
     +semibold
+
+@media #{$small-only}
+  #wrap
+    padding-bottom: $small-footer-height
+  #footer
+    height: $small-footer-height
+    margin-top: -#{$small-footer-height}
+    text-align: center
+    padding-top: 35px
+    .social-icons
+      ul
+        margin-bottom: 40px
+    .sublinks
+      ul
+        margin-bottom: 50px
+    .subscribe-block
+      text-align: left
+    input
+      width: calc(100% - 61px)
+      max-width: none
