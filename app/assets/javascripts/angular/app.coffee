@@ -10,7 +10,7 @@
 
 )();
 
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "Devise", "ngDialog", "ngCapsLock"])
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "Devise", "ngDialog", "ngCapsLock", "angular-svg-round-progress"])
 
 #$app.helper_method = (options)->
 #

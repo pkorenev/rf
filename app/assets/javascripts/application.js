@@ -39,6 +39,7 @@
 //= require angular-devise/lib/devise-min
 //= require ngDialog/js/ngDialog.min
 //= require ng-caps-lock/ng-caps-lock.min
+//= require angular-svg-round-progressbar/build/roundProgress.min
 // require sifter
 // require microplugin
 // require selectize
