@@ -18,7 +18,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [4,7]
         type_of_test: "Functional testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: 18
         total_testers_count_string: "18 testers"
@@ -29,7 +29,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [1,7]
         type_of_test: "Localization testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: null
         total_testers_count_string: "Not specified"
@@ -40,7 +40,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [6,7]
         type_of_test: "Usability testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: 3
         total_testers_count_string: "3 testers"
@@ -52,7 +52,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [4,7]
         type_of_test: "Functional testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: 18
         total_testers_count_string: "18 testers"
@@ -63,7 +63,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [1,7]
         type_of_test: "Localization testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: null
         total_testers_count_string: "Not specified"
@@ -74,7 +74,7 @@ window.$app.controller "DashboardController", [
         steps_completed: [6,7]
         type_of_test: "Usability testing"
         type_of_test_logo: "/assets/rf-icon-functional-test.svg"
-        type_of_test_icon: "/assets/scheme-512.png"
+        type_of_test_icon: "/assets/rf-icon-test-type.svg"
         testing_type: "Exploratory"
         total_testers_count: 3
         total_testers_count_string: "3 testers"

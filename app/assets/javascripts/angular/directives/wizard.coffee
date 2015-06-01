@@ -365,6 +365,7 @@ $app.directive "button", ()->
     title: "@"
     subtitle: "@"
     class: "@"
+    sref: "@"
   link: (scope, element, attrs, ctrl, transcludeFn)->
 
     scope.button_class = "button"
@@ -372,6 +373,8 @@ $app.directive "button", ()->
       scope.button_class += " button-with-subtitle"
     if scope.class && scope.class.length
       scope.button_class += " #{scope.class}"
+    if !scope.sref || !scope.sref.length
+      scope.sref = null
 
 
 
