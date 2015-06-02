@@ -1,11 +1,12 @@
 $app.controller 'NavigationController', [
   '$scope'
   '$location'
-  "Auth"
+  "$auth"
   "ngDialog"
   "$state"
   "$document"
-  ($scope, $location, Auth, ngDialog, $state, $document) ->
+  '$rootScope'
+  ($scope, $location, Auth, ngDialog, $state, $document, $rootScope) ->
 
 #    $scope.navClass = (page) ->
 #      currentRoute = $location.path().substring(1) or 'home'
@@ -16,7 +17,7 @@ $app.controller 'NavigationController', [
 #    $items_with_dropdown.bind "click", (event)->
 #      console.log("menu item with dropdown: click")
 #      event.preventDefault()
-      
+
 #    $scope.openedDropdown = ()->
 #      #$this = angular.element(this)
 #      #return $this.data("opened") == true
@@ -78,11 +79,41 @@ $app.controller 'NavigationController', [
 
 
     $scope.logged_in = false
+    $scope.validation_invoked = false
 
-    Auth.currentUser().then(
-      (user)->
-        $scope.logged_in = true
-    )
+    $scope.showUserConfirmationCongratulations = ()->
+      alert("Congratulations! You've confirmed account successfully!")
+
+    $scope.$on "auth:validation-success", (event, user)->
+      alert("auth:validation-success")
+      $scope.validation_invoked = true
+      $scope.logged_in = true
+
+
+    $scope.$on "auth:validation-error", (event, user)->
+      alert("auth:validation-error")
+      $scope.validation_invoked = true
+
+    $rootScope.$on('auth:login-success', $scope.on_auth_login_success
+
+    $scope.on_auth_login_success = (event, user)->
+      alert('auth:login-success')
+      $scope.logged_in = true
+
+    $scope.$on "auth:email-confirmation-success", (event, user)->
+      $scope.showUserConfirmationCongratulations()
+
+    $scope.$on 'auth:logout-success', (event, user)->
+      console.log('auth:logout-success', arguments)
+      alert('auth:logout-success')
+    #$scope.showUserConfirmationCongratulations()
+
+
+
+#    Auth.currentUser().then(
+#      (user)->
+#        $scope.logged_in = true
+#    )
 
     $scope.headerUserClass = ()->
 
@@ -104,7 +135,10 @@ $app.controller 'NavigationController', [
     $scope.toggleUserDropdown = ()->
       $scope.show_user_dropdown = !$scope.show_user_dropdown
 
+
+
     $scope.logoutUser = ()->
+      ###
       Auth.logout(
         (oldUser)->
           console.log("logged_out, user: ", oldUser)
@@ -112,10 +146,15 @@ $app.controller 'NavigationController', [
           $scope.$update()
         (error)->
       )
+      ###
+      Auth.signOut()
 
-    $scope.$on('devise:logout', (event, oldCurrentUser) ->
+
+    $scope.$on('devise:logout', (event, oldCurrentUser)->
       $scope.logged_in = false
     )
+
+
 
     $scope.openSignInDialog = ()->
       ngDialog.open({
@@ -123,6 +162,7 @@ $app.controller 'NavigationController', [
         className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
         controller: "SignInController"
         preCloseCallback: (result)->
+          ###
           Auth.currentUser().then(
             (user)->
               #alert("success")
@@ -130,6 +170,9 @@ $app.controller 'NavigationController', [
             (error)->
               #alert("error")
           )
+          ###
+          #Auth.signOut()
+
       });
     $scope.goToDashboard = ()->
       $state.go("dashboard")
@@ -143,6 +186,8 @@ $app.controller 'NavigationController', [
       else
         body.removeClass(mobile_menu_opened_class)
     )
+
+
 
     $scope.openMobileMenu = ()->
       $scope.mobile_menu_opened = true
@@ -158,6 +203,7 @@ $app.controller 'NavigationController', [
       mobile_menu_opened_class = if $scope.mobile_menu_opened then 'mobile-menu-opened' else ''
       return "#{mobile_menu_opened_class}"
 
+
     $document.bind "keyup", (e)->
 
       # if Esc key
@@ -166,4 +212,30 @@ $app.controller 'NavigationController', [
         #alert($scope.closeMobileMenu)
         $scope.closeMobileMenu()
         $scope.closeUserDropdown()
+        $scope.$apply()
+
+    ###
+    Auth.validateUser()
+      .then(
+        ()->
+          #alert('valid')
+      ).catch(
+        ()->
+          #alert("invalid")
+      )
+    ###
+
+      ###
+      if !$scope.validation_invoked
+        Auth.validateUser().then(
+          ()->
+            alert("Auth.validateUser() success")
+            return true
+        )
+        .catch(
+          ()->
+            alert("Auth.validateUser() error")
+            return true
+        )
+      ###
 ]

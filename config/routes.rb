@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {registrations: "users/registrations"}
+  mount_devise_token_auth_for 'User', at: '/auth', controllers: {registrations: "users/registrations"}
+
+  #devise_for :users, controllers: {registrations: "users/registrations"}
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'home#index'
@@ -77,3 +79,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+
+
+# add_column :users, :first_name, :string
+# add_column :users, :last_name, :string
+# add_column :users, :country, :string
+# add_column :users, :company_url, :string

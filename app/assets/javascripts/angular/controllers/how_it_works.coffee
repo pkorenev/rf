@@ -1,5 +1,5 @@
 window.$app.controller "HowItWorksController", [
-  "$scope", "Auth", "ngDialog", ($scope, Auth, ngDialog)->
+  "$scope", "$auth", "ngDialog", ($scope, Auth, ngDialog)->
     $scope.title = "How it works"
 
     curr_user = Auth.currentUser()

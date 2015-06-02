@@ -1,5 +1,5 @@
 window.$app.controller "SignInController", [
-  "$scope", "Auth", "ngDialog", ($scope, Auth, ngDialog)->
+  "$scope", "$auth", "ngDialog", ($scope, Auth, ngDialog)->
     $scope.credentials = {
       email: ""
       password: ""
@@ -36,9 +36,18 @@ window.$app.controller "SignInController", [
       });
 
     $scope.doSignIn = ()->
-      Auth.login($scope.credentials).then(
-        (loggedUser)->
+#      Auth.login($scope.credentials).then(
+#        (loggedUser)->
+#          result = {signed_in: true}
+#          $scope.closeThisDialog(result)
+#      )
+
+      Auth.submitLogin($scope.credentials).then(
+        (response)->
           result = {signed_in: true}
           $scope.closeThisDialog(result)
+      ).catch(
+        (response)->
+
       )
 ]

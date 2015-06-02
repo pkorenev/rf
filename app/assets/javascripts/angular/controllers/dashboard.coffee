@@ -1,5 +1,5 @@
 window.$app.controller "DashboardController", [
-  "$scope", "Auth", "ngDialog", "$timeout", ($scope, Auth, ngDialog, $timeout)->
+  "$scope", "$auth", "ngDialog", "$timeout", ($scope, Auth, ngDialog, $timeout)->
     $scope.title = "How it works"
 
     $scope.range = (n)->

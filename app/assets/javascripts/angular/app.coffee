@@ -10,8 +10,15 @@
 
 )();
 
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "Devise", "ngDialog", "ngCapsLock", "angular-svg-round-progress"])
-
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "ngDialog", "ngCapsLock", "angular-svg-round-progress", 'ng-token-auth'])
+$app.config(
+  [ '$authProvider'
+    ($authProvider)->
+      $authProvider.configure(
+        apiUrl: ''
+      )
+  ]
+)
 #$app.helper_method = (options)->
 #
 #  # helper settings

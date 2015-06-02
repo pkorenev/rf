@@ -1,5 +1,5 @@
 window.$app.controller "ForgotPasswordController", [
-  "$scope", "Auth", "ngDialog", "$http", ($scope, Auth, ngDialog, $http)->
+  "$scope", "$auth", "ngDialog", "$http", ($scope, Auth, ngDialog, $http)->
     $scope.credentials = {
       email: ""
     }

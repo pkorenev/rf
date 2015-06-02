@@ -358,7 +358,7 @@ $app.directive "commentWithPrice", ()->
       scope.in_new = false
       scope.focusin = false
 
-$app.directive "button", ()->
+$app.directive "button", ['$state', ($state)->
   templateUrl: "/assets/helpers/wizard/_button.html"
   scope:
     svg: "@"
@@ -374,9 +374,19 @@ $app.directive "button", ()->
     if scope.class && scope.class.length
       scope.button_class += " #{scope.class}"
     if !scope.sref || !scope.sref.length
-      scope.sref = null
+      scope.href = null
+    else
+      scope.href = $state.href(scope.sref)
 
 
+    scope.goToLink = ()->
+      if scope.sref && scope.sref.length
+        $state.go(scope.sref)
+
+
+    scope.getHref = ()->
+      return scope.href
+]
 
 $app.directive "radioInput", ()->
   templateUrl: "/assets/helpers/wizard/_radio_input.html"

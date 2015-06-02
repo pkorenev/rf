@@ -25,14 +25,14 @@
               .social-icon-wrap ng-include="'/assets/github.svg'"
       .or
         |or
-    .form.login-form
+    form.form.login-form
       .caps-lock-warning ng-show="isCapsLockOn"
         |Warning: Caps-lock is on
       .inputs
         .input
           label for="sign_up__username"
             |Username
-          input#sign_up__username placeholder="Your username"
+          input#sign_up__username placeholder="Your username" ng-model="credentials.username"
         .input
           label for="sign_up__email"
             |Email address

@@ -36,10 +36,12 @@
 //= require ngmap/build/scripts/ng-map.min
 // require angular-click-outside/clickoutside.directive
 //= require angular-off-click/offClick
-//= require angular-devise/lib/devise-min
+// require angular-devise/lib/devise-min
 //= require ngDialog/js/ngDialog.min
 //= require ng-caps-lock/ng-caps-lock.min
 //= require angular-svg-round-progressbar/build/roundProgress.min
+//= require angular-cookie/angular-cookie.min
+//= require ng-token-auth/dist/ng-token-auth.min
 // require sifter
 // require microplugin
 // require selectize

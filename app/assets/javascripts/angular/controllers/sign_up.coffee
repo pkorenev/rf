@@ -1,5 +1,5 @@
 window.$app.controller "SignUpController", [
-  "$scope", "Auth", "ngDialog", ($scope, Auth, ngDialog)->
+  "$scope", "$auth", "ngDialog", ($scope, Auth, ngDialog)->
     $scope.credentials = {
       username: ""
       email: ""
@@ -36,11 +36,23 @@ window.$app.controller "SignUpController", [
       });
 
     $scope.createAccount = ()->
+      ###
       Auth.register($scope.credentials).then(
         (registeredUser)->
           $scope.closeThisDialog()
           alert("successfully registered")
         (error)->
+          alert("please resolve errors")
+      )
+      ###
+      Auth.submitRegistration($scope.credentials).then(
+        (response)->
+          # handle success response
+          $scope.closeThisDialog()
+          alert("successfully registered")
+      ).catch(
+        (response)->
+          # handle error response
           alert("please resolve errors")
       )
 
