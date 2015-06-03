@@ -18,6 +18,7 @@ $white-color: #f2f2f2
 
 $font-size-100: rem-calc(100)
 $font-size-70: rem-calc(70)
+$font-size-70: rem-calc(50)
 $font-size-60: rem-calc(60)
 $font-size-48: rem-calc(48)
 $font-size-36: rem-calc(36)
@@ -42,8 +43,14 @@ $font-size-12: rem-calc(12)
 
 = font-100
   font-size: $font-size-100
+= font-100-semibold
+  +font-100
+  +semibold
 = font-70
   font-size: $font-size-70
+
+
+
 = font-70-semibold
   +font-70
   +semibold
@@ -165,6 +172,10 @@ $font-size-12: rem-calc(12)
   li
     position: relative
     padding-left: 16px
+    padding-bottom: 6px
+    padding-top: 6px
+    color: $description-text-gray-color
+    //line-height: 1.7
     &:before
       left: 0
       //content: "\2014"
@@ -184,8 +195,8 @@ $font-size-12: rem-calc(12)
   &.outside-markers
     li
       padding-left: 0
-      padding-bottom: 6px
-      padding-top: 6px
+
+
       &:before
         left: -16px
 
@@ -209,3 +220,7 @@ ul.with-blue-markers
 = content-text
   color: $home-text-header-color
   +font-16-light
+
+
+h2
+  +font-70

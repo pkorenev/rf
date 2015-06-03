@@ -1,0 +1,32 @@
+.row
+  .columns.large-12.section-header ng-show="ctrl == 'home'"
+    |Testemonials
+  .columns.large-12.section-header.with-subheader ng-show="ctrl == 'pricing'"
+    .header
+      |They say
+    .subheader
+      |Clients feedback
+  .clearfix
+
+  .columns.large-11.large-centered
+    .carousel-wrapper
+      ul.feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="3"
+        li.feedback ng-repeat="feedback in feedbacks"
+          .feedback-inner
+            .logo-wrap ng-show="feedback.image && feedback.image.src && feedback.image.src.length"
+              ng-include src="feedback.image.src" style="max-width: {{feedback.image.maxWidth || 'inherit'}}; max-height:{{feedback.image.maxHeight || 'inherit'}};"
+            .quote
+              .text
+                |{{feedback.text}}
+            .name
+              |{{feedback.name}}
+            .position
+              |{{feedback.position}}
+      /div rn-carousel-indicators="" ng-show="feedbacks.length > 1" slides="feedbacks" rn-carousel-index="feedbacks_carousel_index"
+      .rn-carousel-control
+        .rn-carousel-control-prev ng-show="feedbacks.length > 1" ng-click="$parent.feedbacks_carousel_index > 0 ? ($parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index-1) : ($parent.feedbacks_carousel_index = $parent.feedbacks.length - 1)" ng-include="'/assets/rf-icon-arrow-left.svg'"
+        .rn-carousel-control-next ng-show="feedbacks.length > 1" ng-click="$parent.feedbacks_carousel_index < $parent.feedbacks.length - 1 ? ($parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index+1) : ($parent.feedbacks_carousel_index = 0)" ng-include="'/assets/rf-icon-arrow-right.svg'"
+
+      .rn-carousel-indicator.custom-indicator
+        span ng-repeat="feedback in feedbacks" ng-class="{active: $index==$parent.feedbacks_carousel_index}" ng-click="$parent.feedbacks_carousel_index = $index"
+          |●

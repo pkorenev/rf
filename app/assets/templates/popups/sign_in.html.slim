@@ -12,7 +12,7 @@
             a
               .social-icon-wrap ng-include="'/assets/rf-social-google-plus.svg'"
           li
-            a
+            a ng-click="authenticate_via_social('facebook')"
               .social-icon-wrap ng-include="'/assets/rf-social-facebook.svg'"
           li
             a
@@ -21,7 +21,7 @@
             a
               .social-icon-wrap ng-include="'/assets/rf-social-linked-in.svg'"
           li
-            a
+            a ng-click="authenticate_via_social('github')"
               .social-icon-wrap ng-include="'/assets/github.svg'"
       .or
         |or

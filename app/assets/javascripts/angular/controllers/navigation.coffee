@@ -46,8 +46,8 @@ $app.controller 'NavigationController', [
 
     unlogged_user_menu = [
       {title: "For clients", subitems: [
-        {title: "Testing services", sref: ""}
-        {title: "Pricing", sref: ""}
+        {title: "Testing services", sref: "testing_services"}
+        {title: "Pricing", sref: "pricing"}
         {title: "FAQ", sref: "faq"}
       ]}
       {title: "How it works", sref: "how_it_works"}
@@ -58,9 +58,9 @@ $app.controller 'NavigationController', [
     logged_user_menu = [
       {title: "My dashboard", sref: "dashboard"}
       {title: "For clients", subitems: [
-        {title: "Testing services", sref: ""}
+        {title: "Testing services", sref: "testing_services"}
         {title: "How it works", sref: "how_it_works"}
-        {title: "Pricing", sref: ""}
+        {title: "Pricing", sref: "pricing"}
         {title: "FAQ", sref: "faq"}
       ]}
       {title: "About us", sref: "about"}
@@ -84,28 +84,33 @@ $app.controller 'NavigationController', [
     $scope.showUserConfirmationCongratulations = ()->
       alert("Congratulations! You've confirmed account successfully!")
 
-    $scope.$on "auth:validation-success", (event, user)->
-      alert("auth:validation-success")
+    $scope.on_auth_validation_success = (event, user)->
+      #alert("auth:validation-success")
       $scope.validation_invoked = true
       $scope.logged_in = true
 
+    $scope.$on "auth:validation-success", $scope.on_auth_validation_success
 
-    $scope.$on "auth:validation-error", (event, user)->
-      alert("auth:validation-error")
+
+    $scope.on_auth_validation_error = (event, user)->
+      #alert("auth:validation-error")
       $scope.validation_invoked = true
 
-    $rootScope.$on('auth:login-success', $scope.on_auth_login_success
+    $scope.$on "auth:validation-error", $scope.on_auth_validation_error
+
 
     $scope.on_auth_login_success = (event, user)->
-      alert('auth:login-success')
+      #alert('auth:login-success')
       $scope.logged_in = true
+
+    $rootScope.$on 'auth:login-success', $scope.on_auth_login_success
 
     $scope.$on "auth:email-confirmation-success", (event, user)->
       $scope.showUserConfirmationCongratulations()
 
     $scope.$on 'auth:logout-success', (event, user)->
       console.log('auth:logout-success', arguments)
-      alert('auth:logout-success')
+      #alert('auth:logout-success')
     #$scope.showUserConfirmationCongratulations()
 
 
@@ -148,6 +153,7 @@ $app.controller 'NavigationController', [
       )
       ###
       Auth.signOut()
+      $scope.logged_in = false
 
 
     $scope.$on('devise:logout', (event, oldCurrentUser)->
@@ -225,17 +231,19 @@ $app.controller 'NavigationController', [
       )
     ###
 
-      ###
-      if !$scope.validation_invoked
-        Auth.validateUser().then(
-          ()->
-            alert("Auth.validateUser() success")
-            return true
-        )
-        .catch(
-          ()->
-            alert("Auth.validateUser() error")
-            return true
-        )
-      ###
+
+    if !$scope.validation_invoked
+      Auth.validateUser().then(
+        ()->
+          #alert("Auth.validateUser() success")
+          $scope.on_auth_validation_success.apply(this, arguments)
+          return true
+      )
+      .catch(
+        ()->
+          #alert("Auth.validateUser() error")
+          $scope.on_auth_validation_error.apply(this, arguments)
+          return true
+      )
+
 ]

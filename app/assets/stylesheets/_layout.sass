@@ -1,4 +1,5 @@
-$header-height: rem-calc(80)
+$header-height: rem-calc(80) //80
+$header-bg-color: $white-color
 
 $header-menu-item-color: $light-black-color
 $footer-background-color: $light-black-color
@@ -13,7 +14,7 @@ $small-header-height: 60px
 
 #header
   height: $header-height
-  background: #f2f2f2
+  background: $header-bg-color
   position: relative
 #fixed-header
   position: fixed
@@ -44,6 +45,7 @@ $small-header-height: 60px
   height: $header-height
   padding-left: 1px
   > a
+
     display: block
     line-height: $header-height
     height: $header-height
@@ -55,7 +57,7 @@ $small-header-height: 60px
     position: relative
 
     &:before, &:after
-      height: 10px
+      height: 6px
       background: $light-gray-text-color
       content: ""
       display: block
@@ -66,48 +68,115 @@ $small-header-height: 60px
       width: 0
       z-index: 1
       +transition_all(all 0.5s)
-  &.active
+
+  &.active, &:hover
     > a
+      cursor: pointer
       &:after
         width: 100%
         background: $fire-orange-color
-  .dropdown
-    display: none
-    height: 40px
-    position: absolute
-    width: 100%
-    background: $fire-orange-color
-    left: 0
-    text-align: center
-    ul
-      display: inline-block
-      padding: 0
-      margin: 0
-      list-style: none
-      text-align: center
-      li
-        display: inline-block
-        height: 40px
-        line-height: 40px
-        padding: 0 24px
-        a
-          color: #fff
-          text-decoration: none
+  &:not(.active):hover
+    > a
+      color: $fire-orange-color
+  &.active
+    > a
+      color: $light-gray-text-color
+      cursor: default
+
+
+
 
 
   &.has-dropdown
+    > a
+      > span
+        padding-right: 15px
+        position: relative
+
+        &:after
+          content: ""
+          display: inline-block
+          width: 0
+          height: 0
+          border-style: solid
+          border-width: 10px 5px 0 5px
+          border-color: $light-black-color transparent transparent transparent
+          position: absolute
+          right: 0
+          top: 7px
+
+      &:hover
+        > span
+          &:after
+            border-top-color: $fire-orange-color
+      //position: relative
     &.opened
+      > a
+        > span
+          &:after
+            border-width: 0 5px 10px 5px
+            border-color: transparent transparent $fire-orange-color transparent
       .dropdown
+        opacity: 1
+        top: $header-height
         display: block
+
+
+
+.dropdown
+  top: $header-height
+  //display: none
+  //display: block
+  height: 40px
+  position: absolute
+  width: 100%
+  background: $fire-orange-color
+  left: 0
+  text-align: center
+  //top: -100px
+  opacity: 0
+  //opacity: 0
+  //+transition_all('top 1s, opacity 0.15s 0.85s')
+  +transition_all('all 1s ')
+  ul
+    display: inline-block
+    padding: 0
+    margin: 0
+    list-style: none
+    text-align: center
+    li
+      display: inline-block
+      height: 40px
+      line-height: 40px
+      padding: 0 24px
+      a
+        color: #fff
+        text-decoration: none
+
+.dropdowns
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  .dropdown
+    &:not(.ng-hide)
+      z-index: 1
+
+      opacity: 1
+
+
 
 top-nav
   display: inline-block
   float: left
-  width: calc(100% - 80px)
+  width: calc(100% - #{$header-height})
+
+  .menu
+    background: $header-bg-color
 
 #header-user
   width: 80px
-  height: 80px
+  height: $header-height
   display: inline-block
   float: right
   cursor: pointer
@@ -129,9 +198,9 @@ top-nav
 
   .user-icon
     text-align: center
-    line-height: 80px
-    width: 80px
-    height: 80px
+    line-height: $header-height
+    width: $header-height
+    height: $header-height
     position: relative
     &:after
       content: ""
@@ -142,9 +211,14 @@ top-nav
       border-width: 10px 40px 0 40px
       border-color: $sky-blue-color transparent transparent transparent
       position: absolute
-      top: 80px
+      top: $header-height
       left: 0
       z-index: 1
+
+  .dropdowns
+    position: absolute
+    top: -40px
+    width: 100%
 
   .dropdown
     width: 220px
@@ -165,6 +239,16 @@ top-nav
 
   &.unlogged
     background: $sky-blue-color
+
+    &:hover
+      background: $fire-orange-color
+      //&:after
+        background: $fire-orange-color
+      //svg
+        fill: $fire-orange-color !important
+      .user-icon
+        &:after
+          border-top-color: $fire-orange-color
 
 
 
@@ -194,6 +278,7 @@ top-nav
   #header-menu
     padding-right: 0
     width: 75%
+
 @media #{$screen} and (max-width: 700px) and (min-width: 641px)
   .header-menu-item
     padding-left: 0
@@ -204,7 +289,16 @@ top-nav
       position: relative
       padding: 0 6px
 
+
+@media #{$medium-up}
+  .menu-item
+    .dropdown
+      display: none !important
+
 @media #{$small-only}
+  .dropdowns
+    display: none !important
+
   #header, #header-logo, #header-menu, #header-user, #header-user .user-icon
     height: $small-header-height
   #header-menu
@@ -224,6 +318,8 @@ top-nav
     z-index: 2
 
     .menu
+      position: relative
+      height: $header-height
       .menu-item
         background: rgba($light-black-color, 1)
         display: block
@@ -259,6 +355,9 @@ top-nav
               top: 1px
               font-size: 40px
               font-weight: 300
+            > span
+              &:after
+                display: none
 
     // when menu opened
   #body.mobile-menu-opened
@@ -285,6 +384,7 @@ top-nav
             .dropdown
               position: relative
               height: auto
+              top: 0
 
               ul
                 width: 100%

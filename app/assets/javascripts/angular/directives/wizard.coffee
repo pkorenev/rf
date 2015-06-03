@@ -583,6 +583,18 @@ $app.directive "topNav", ['$location', "$state", ($location, $state)->
         return menu_item.sref
       else
         return false
+    scope.dropdowns = ()->
+      dropdowns = []
+      for menu_item in scope.menu
+        if menu_item.subitems && menu_item.subitems.length
+          dropdowns.push(menu_item.subitems)
+      return dropdowns
+
+    on_resize = ()->
+      
+
+    window.onresize = on_resize
+
 ]
 
 ###

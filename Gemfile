@@ -68,3 +68,12 @@ gem "paperclip"
 gem 'devise'
 
 gem 'responders'
+
+gem 'devise_token_auth'#, '~> 0.1.31.beta9'
+gem 'omniauth'
+
+gem 'omniauth-github'
+gem 'omniauth-facebook'
+
+gem 'ruby-debug-ide'
+gem 'debase'

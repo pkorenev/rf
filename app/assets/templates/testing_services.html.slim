@@ -1,0 +1,49 @@
+.page.testing_services-page-content ng-controller="TestingServicesController"
+  #testing_services-banner.page-banner
+  #testing_services-page-content-rows.page-content-rows
+    #testing_services__what-we-do.page-content-row-wrap
+      .row
+        .columns.large-6.medium-6.small-12
+          .header
+            |What we do?
+          .subheader
+            |&mdash;&nbsp;we carefully test your application, service, web-page or game by thousands of professionally trained testers.
+        .columns.large-6.medium-6.small-12
+          .description
+            |I am greatly pleased with the experience with Radok Force. I have contacted them to get a functional and usability testing before a release of our peace of software. The reports guys created were very professional and did exceed my expectations, and also they caught a number of bugs we missed internally. Our release was so much smoother thanks to Radok Force.
+    #testing_services__test-types.page-content-row-wrap
+      .three-images-in-row-wrap ng-include="'/assets/partials/_three_images_in_row.html'"
+
+    #testing_services__what-we-test.page-content-row-wrap
+      .row
+        .columns.large-6.large-centered.medium-10.medium-centered.small-12.section-header.with-subheader
+          .header
+            |What we test?
+          .subheader
+            |&mdash;&nbsp;we carefully test your application, service, web-page or game by thousands of professionally trained testers.
+
+      .two-horizontal-items-per-row
+        .columns.large-6.item ng-repeat="item in two_horizontal_items_per_row_model"
+          .row
+            .columns.large-4.medium-4.small-4
+              .image-wrap ng-include="item.img"
+            .columns.large-9.medium-9.small-9
+              .header
+                |{{item.title}}
+              .description
+                |{{item.description}}
+
+    #testing_services__reasons.page-content-row-wrap
+      .row
+        .columns.large-6
+          .header
+            .row
+              .columns.large-3.count
+                |4
+              .columns.large-8.text
+                |Reasons to use our software testing services
+        .columns.large-6
+          .item data-number="1"
+            .title
+              |
+

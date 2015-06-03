@@ -6,7 +6,8 @@ window.$app.controller "HomeController", [
       {title: "We test mobile, web apps, and games.", description: "1500+ certified testers ready to start testing your product immediately."}
     ]
 
-    $scope.how_it_works_items = [
+    # how it works
+    $scope.three_images_in_row_model = [
       {img: "/assets/rf-icon-main-1.svg", title: "Tell us that you need to test", time: "Takes less than 10 minutes!", description: "Choose the type of testing you need, amount of hours spent, number of people involved, and platforms you want your product be tested on. No sign-up or credit card needed. Takes 3 minutes."}
       {img:"/assets/rf-icon-main-2.svg", title: "Submit your request", time: "2-3 minutes", description: "Submit your request and sit back enjoying our engineers do everything else! Our team of 1500+ testing professionals are ready to start immediately."}
       {img: "/assets/rf-icon-main-3.svg", title: "Get rapid results", time: "48 hours", description: "In up to 48 hours, you will receive a detailed bug report with test cases carefully documented. In some cases, we would even get the work done overnight."}
@@ -49,6 +50,8 @@ window.$app.controller "HomeController", [
       ]
     }
 
+    $scope.ctrl = "home"
+
     $scope.benefits = {
       title: "Benefits:", items: [
         "We deliver results in 48 hours!"
@@ -61,7 +64,7 @@ window.$app.controller "HomeController", [
     scene = angular.element('.home-parallax-banner').each ()->
       parallax = new Parallax(this)
 
-
+    $scope.show_plans_section_header = true
 
 
 ]

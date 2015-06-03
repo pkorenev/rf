@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: '/auth', controllers: {registrations: "users/registrations"}
+  mount_devise_token_auth_for 'User', at: '/auth', controllers: {
+                                        registrations: "users/registrations",
+                                        omniauth_callbacks: "users/omniauth_callbacks"
+                                    }
 
   #devise_for :users, controllers: {registrations: "users/registrations"}
   mount Ckeditor::Engine => '/ckeditor'

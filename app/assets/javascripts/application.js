@@ -16,11 +16,11 @@
 // require jquery.counterup.min
 // require jquery_ujs
 // require turbolinks
-
+//
 // jquery plugins
 //= require parallax/deploy/parallax.min
-
-
+//
+//
 //= require angular/angular.min.js
 //= require angular-ui-router/release/angular-ui-router.min
 //= require ng-resource/dist/ng-resource.min
@@ -45,8 +45,8 @@
 // require sifter
 // require microplugin
 // require selectize
-
-
+//
+//
 ////////////////////////////////
 // jquery custom scripts
 //= require svg_images
@@ -54,8 +54,8 @@
 // require ng_wizard
 // require home
 // require_tree .
-
-
+//
+//
 //= require angular-rails-templates
 //= require angular/app
 //= require angular/routes
@@ -64,4 +64,4 @@
 //= require_tree ./angular/filters
 //= require_tree ./angular/controllers
 //= require_tree ../templates
-
+//

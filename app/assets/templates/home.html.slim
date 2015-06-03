@@ -32,20 +32,8 @@
 
 
   #home-page-content
-    #home-how-it-works
-      .row
-        .columns.large-12.section-header
-          |How it works?
+    #home-how-it-works.three-images-in-row-wrap  ng-include="'/assets/partials/_three_images_in_row.html'"
 
-        .item ng-repeat="item in how_it_works_items"
-          /= svg_placeholder(item[:svg])
-          .svg-wrapper ng-include="item.img"
-          .header
-            |{{item.title}}
-          .time
-            |[ {{item.time}} ]
-          .description
-            |{{item.description}}
     #home-what-for-you
       .row
         .columns.large-4.right
@@ -79,86 +67,12 @@
             br
             |testers
 
-    #home-plans
-      .row
-        .columns.large-12.section-header
-          |How much does it cost?
-        .plans
-          .columns.large-6.medium-6.home-plan
-            .home-plan-header
-              |Self-driven
-            .black-bg
-              .price-and-text
-                .currency
-                  |$
-                .price
-                  |29
-                .price-per
-                  |/per platform
-                  br
-                  |/per tester
-            .content
-              .row
-                .text-content
-                  .columns.large-10.large-centered
-                    .text-center
-                      |Get your product tested on the most popular browsers, operating systems and mobile devices in your target markets.
-                  .columns.large-5.medium-6.small-6
-                    .header
-                      |services:
-                    div.description
-                      |Functional, localization, or usability testing
-                  .columns.large-5.medium-6.small-6
-                    .header
-                      |platforms:
-                    div.description
-                      |We test on every platform, we mean it, every.
-                .columns.large-12.button-container
-                  button title="Start now!" subtitle="own package" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"  sref="wizard"
-                  .learn-more
-                    |Learn more (leads to another page with explanation)
-
-          .columns.large-6.medium-6.home-plan
-            .home-plan-header
-              |Managed
-            .black-bg
-              .columns.large-2.medium-2.small-2.question-symbol
-                |?
-              .columns.large-10.medium-10.small-10.not-certain
-                |Not certain what is needed for your app or product?
-            .content
-              .row
-                .text-content
-                  .columns.large-8.large-centered
-                    .text-center
-                      |We’ll help you define your testing needs for free!
-                .columns.large-12.button-container
-                  button title="SHEDULE" subtitle="a call" svg="/assets/rf-icon-shedule-a-call.svg" class="shedule-call-button"
+    #home-plans ng-include="'/assets/partials/_plans.html'"
 
 
-    #home-feedbacks
-      .row
-        .section-header
-          |Testemonials
-        .columns.large-11.large-centered
-          #home-carousel-wrapper
-            ul#home-feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="3"
-              li.home-feedback ng-repeat="feedback in feedbacks"
-                .feedback-inner
-                  .quote
-                    |{{feedback.text}}
-                  .name
-                    |{{feedback.name}}
-                  .position
-                    |{{feedback.position}}
-            /div rn-carousel-indicators="" ng-show="feedbacks.length > 1" slides="feedbacks" rn-carousel-index="feedbacks_carousel_index"
-            .rn-carousel-control
-              .rn-carousel-control-prev ng-show="$parent.feedbacks_carousel_index > 0" ng-click="$parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index-1" ng-include="'/assets/rf-icon-arrow-left.svg'"
-              .rn-carousel-control-next ng-show="$parent.feedbacks_carousel_index < feedbacks.length - 1" ng-click="$parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index+1" ng-include="'/assets/rf-icon-arrow-right.svg'"
 
-            .rn-carousel-indicator.custom-indicator
-              span ng-repeat="feedback in feedbacks" ng-class="{active: $index==$parent.feedbacks_carousel_index}" ng-click="$parent.feedbacks_carousel_index = $index"
-                |●
+    #home-feedbacks ng-include="'/assets/partials/_feedbacks_carousel.html'"
+
 
 
     #home-bottom-container

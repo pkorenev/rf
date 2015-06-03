@@ -35,6 +35,9 @@ window.$app.controller "SignInController", [
         controller: "SignUpController"
       });
 
+    $scope.authenticate_via_social = (provider)->
+      Auth.authenticate(provider)
+
     $scope.doSignIn = ()->
 #      Auth.login($scope.credentials).then(
 #        (loggedUser)->

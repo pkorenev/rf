@@ -33,6 +33,14 @@ window.$app.config [
         url: "/dashboard"
         templateUrl: "/assets/dashboard.html"
         controller: "DashboardController"
+      .state "pricing",
+        url: "/pricing"
+        templateUrl: "/assets/pricing.html"
+        controller: "PricingController"
+      .state "testing_services",
+        url: "/testing-services"
+        templateUrl: "/assets/testing_services.html"
+        controller: "TestingServicesController"
 
     $urlRouterProvider.otherwise '/home'
 ]
