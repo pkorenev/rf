@@ -3,7 +3,9 @@ window.$app.controller "HomeController", [
     $scope.title = "Home"
 
     $scope.home_slides = [
-      {title: "We test mobile, web apps, and games.", description: "1500+ certified testers ready to start testing your product immediately."}
+      {title: "We test mobile, web apps, and games.", description: "1500+ certified testers ready to start testing your product immediately.", button: { title: "Start now", subtitle: "no registration required", svg: "/assets/rf-rocket-up-right.svg", class: "start-now-button", sref: "wizard"  } }
+      {title: "We are experienced testers", description: "1500+ certified testers ready to start testing your product immediately.", button: { title: "Read more", subtitle: "about us", svg: "/assets/rf-rocket-up-right.svg", class: "start-now-button", sref: "about"  } }
+      {title: "Google like us", description: "We working on cool projects for customers from whole world", button: { title: "Find out", subtitle: "about our testing services", svg: "/assets/rf-rocket-up-right.svg", class: "start-now-button", sref: "testing_services"  } }
     ]
 
     # how it works
@@ -66,5 +68,23 @@ window.$app.controller "HomeController", [
 
     $scope.show_plans_section_header = true
 
+    $scope.ngRepeatFinished_count = 0
+    $scope.$on 'ngRepeatFinished', (ngRepeatFinishedEvent)->
+      ###
+      if $scope.ngRepeatFinished_count == 0
+        $scope.ngRepeatFinished_count = 1
+        console.log("ngRepeatFinishedEvent", ngRepeatFinishedEvent)
+        alert($('.scene').length)
+        alert($scope.ngRepeatFinished_count)
+
+
+      else
+        $scope.ngRepeatFinished_count = 0
+
+      ###
+
+      $scope.homeBannerCarouselIndex = 0
+      scene = angular.element('.home-parallax-banner').each ()->
+        parallax = new Parallax(this)
 
 ]

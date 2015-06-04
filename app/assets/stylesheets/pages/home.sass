@@ -7,6 +7,23 @@ $banner-title-color: #e6e7e9
 
 #home-banner
   height: $home-banner-height
+  position: relative
+
+  #home-slider-bullets
+    position: absolute
+    bottom: 0
+    width: 100%
+    max-width: 1000px
+    +transform(translateX(-50%))
+    left: 50%
+    text-align: right
+    ul
+      list-style: none
+      display: inline-block
+      padding: 0
+      margin: 0
+    li
+      +carousel-indicator-bullet
 
   .description-block
     position: absolute
@@ -23,7 +40,7 @@ $banner-title-color: #e6e7e9
 
 
     .title
-      +font-70-semibold
+      +h2
 
       line-height: 64px
       max-width: 500px
@@ -60,15 +77,17 @@ $banner-title-color: #e6e7e9
     //width: 50%
     //max-width: 1366px
 
-    @media #{$screen} and (min-width: 1400px)
-      //left: 10%
     .layer
       img
         //width: 100% !important
         width: auto !important
         //width: 1366px !important
         height: auto !important
-        //+transform(scale(0.6))
+    //+transform(scale(0.6))
+
+    @media #{$screen} and (min-width: 1400px)
+      //left: 10%
+
     @media #{$screen} and (min-width: 1800px)
       //left: 15%
 
@@ -77,9 +96,13 @@ $banner-title-color: #e6e7e9
     @media #{$medium-down}
       display: none
 
+    @media #{$screen} and (min-width: 1025px) and (max-width: 1440px)
+      left: -25%
+
 
 
 .home-parallax-banner
+  overflow: hidden !important
   &:first-child
     .layer
 
@@ -136,7 +159,7 @@ $banner-title-color: #e6e7e9
 #home-what-for-you
   padding: 40px 0 50px 0
   .title
-    +font-70-semibold
+    +h2
     color: $light-black-color
 
   ul
@@ -144,7 +167,7 @@ $banner-title-color: #e6e7e9
     +ul-with-blue-markers
 
 
-  .svg-wrapper
+  .svg-wrap
     text-align: center
   svg
     width: 200px
@@ -213,6 +236,7 @@ $banner-title-color: #e6e7e9
 #home-feedbacks
   background: $light-black-color
   padding-bottom: 15px
+  overflow: hidden
 
   .rn-carousel-control
     width: 100%

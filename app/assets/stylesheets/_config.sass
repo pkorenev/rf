@@ -17,8 +17,7 @@ $description-text-gray-color: #75706b
 $white-color: #f2f2f2
 
 $font-size-100: rem-calc(100)
-$font-size-70: rem-calc(70)
-$font-size-70: rem-calc(50)
+$font-size-50: rem-calc(50)
 $font-size-60: rem-calc(60)
 $font-size-48: rem-calc(48)
 $font-size-36: rem-calc(36)
@@ -46,13 +45,13 @@ $font-size-12: rem-calc(12)
 = font-100-semibold
   +font-100
   +semibold
-= font-70
-  font-size: $font-size-70
+= font-50
+  font-size: $font-size-50
 
 
 
-= font-70-semibold
-  +font-70
+= font-50-semibold
+  +font-50
   +semibold
 = font-60
   font-size: $font-size-60
@@ -118,8 +117,17 @@ $font-size-12: rem-calc(12)
   +semibold
   +font-14
 
+
+
 .font-14-semibold
   +font-14-semibold
+
+
+= h2
+  +font-50-semibold
+  color: $light-black-color
+  line-height: 1
+
 
 
 
@@ -204,8 +212,7 @@ ul.with-blue-markers
   @extend %ul-with-blue-markers
 
 = large-section-header-text
-  +font-70-semibold
-  color: $light-black-color
+  +h2
   line-height: 95px
 
 = section-subheader-text
@@ -222,5 +229,6 @@ ul.with-blue-markers
   +font-16-light
 
 
+
 h2
-  +font-70
+  +h2

@@ -4,7 +4,7 @@
 
   .item ng-repeat="item in three_images_in_row_model"
     /= svg_placeholder(item[:svg])
-    .svg-wrapper ng-include="item.img"
+    .svg-wrap ng-include="item.img"
     .header
       |{{item.title}}
     .time

@@ -12,6 +12,9 @@ $header-z-index: 10
 $small-footer-height: rem-calc(450)
 $small-header-height: 60px
 
+$mobile-menu-upper-bound: 768px
+$desktop-menu-lower-bound: 769px
+
 #header
   height: $header-height
   background: $header-bg-color
@@ -274,12 +277,13 @@ top-nav
   #header-user
     .dropdown
       left: -140px
-@media #{$screen} and (max-width: 810px) and (min-width: 641px)
+@media #{$screen} and (max-width: 810px) and (min-width: $desktop-menu-lower-bound)
   #header-menu
     padding-right: 0
     width: 75%
 
-@media #{$screen} and (max-width: 700px) and (min-width: 641px)
+
+//@media #{$screen} and (max-width: 700px) and (min-width: 641px)
   .header-menu-item
     padding-left: 0
     margin-left: 1px
@@ -290,12 +294,12 @@ top-nav
       padding: 0 6px
 
 
-@media #{$medium-up}
+@media #{$screen} and (min-width: $desktop-menu-lower-bound)
   .menu-item
     .dropdown
       display: none !important
 
-@media #{$small-only}
+@media #{$screen} and (max-width: #{$mobile-menu-upper-bound})
   .dropdowns
     display: none !important
 

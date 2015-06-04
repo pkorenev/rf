@@ -597,6 +597,16 @@ $app.directive "topNav", ['$location', "$state", ($location, $state)->
 
 ]
 
+$app.directive 'onFinishRender', ($timeout) ->
+  restrict: 'A',
+  link:  (scope, element, attr)->
+    if scope.$last == true
+      scope.$emit('ngRepeatFinished')
+      #$timeout ()->
+        #scope.$emit('ngRepeatFinished');
+
+
+
 ###
 $app.directive 'outsideClick', ($document) ->
   {

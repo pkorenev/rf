@@ -123,3 +123,33 @@ button, label, input[type=button], input[type=submit]
         height: 40px
         left: 15px
         fill: #fff
+
+= carousel-indicator-bullet
+  color: $home-text-header-color
+  width: 12px
+  height: 12px
+  margin: 0 15px
+  display: inline-block
+  line-height: 12px
+  font-size: 24px
+  -webkit-user-select: none
+  &:not(.active)
+    cursor: pointer
+  &.active
+    color: $fire-orange-color
+
+.center-items-vertically
+  @media #{$medium-up}
+    +flexbox
+    flex-direction: row-reverse
+    > .columns
+      align-self: center
+.image-and-text
+  @media #{$small-only}
+    .title
+      text-align: center
+    .svg-wrap
+      margin-bottom: 3rem
+    > .columns + .columns .svg-wrap
+      margin-top: 3rem
+      margin-bottom: 0
