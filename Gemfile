@@ -77,3 +77,5 @@ gem 'omniauth-facebook'
 
 gem 'ruby-debug-ide'
 gem 'debase'
+
+gem 'global_config'
