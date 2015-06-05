@@ -1,5 +1,5 @@
 window.$app.controller "HomeController", [
-  "$scope", ($scope)->
+  "$scope", "ngDialog", ($scope, ngDialog)->
     $scope.title = "Home"
 
     $scope.home_slides = [
@@ -86,5 +86,13 @@ window.$app.controller "HomeController", [
       $scope.homeBannerCarouselIndex = 0
       scene = angular.element('.home-parallax-banner').each ()->
         parallax = new Parallax(this)
+
+    $scope.sheduleCall = ()->
+      ngDialog.open({
+        template: '/assets/popups/shedule_call.html'
+        className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
+        controller: "SheduleCallController"
+      });
+
 
 ]

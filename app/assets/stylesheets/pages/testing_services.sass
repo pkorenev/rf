@@ -3,10 +3,26 @@
     margin-bottom: 16px
   .description
     margin-top: 80px
+  @media #{$small-only}
+    .header
+      text-align: center
+    .subheader
+      width: 450px
+      margin: 0 auto 30px auto
+      max-width: 100%
+
+    .description
+      width: 580px
+      max-width: 100%
+      margin: 0 auto
 
 #testing_services__test-types
   .three-images-in-row-wrap
     padding-bottom: 0
+  .item
+    .header
+      color: $sky-blue-color
+
 
 
 #testing_services__what-we-test
@@ -15,6 +31,9 @@
     text-align: center
     .subheader
       line-height: 1.5
+
+
+
 
 .two-horizontal-items-per-row
   +grid-row()
@@ -25,12 +44,78 @@
     .header
       color: $sky-blue-color
       +font-21-semibold
+    .image-wrap
+      svg
+        height: 126px
+        width: 126px
+
+  +two-horizontal-per-row-mobile
+
+
 
 #testing_services__reasons
   .header
+    .row
+      +flexbox
+      .columns
+        align-self: center
     .count
-      +font-100-semibold
+      +font-200-semibold
       color: $yellow-orange-color
     .text
-      +font-21
+      +font-26
       text-transform: uppercase
+  .item
+    padding-left: 78px
+    margin: 10px 0
+    position: relative
+
+    &:before
+      content: attr(data-number)
+      position: absolute
+      background: $light-black-color
+      color: $white-color
+      +font-40-semibold
+      border-radius: 50%
+      width: 48px
+      height: 48px
+      display: block
+      line-height: 48px
+      text-align: center
+
+      left: 0
+    .title
+      color: $sky-blue-color
+      +font-21-semibold
+  @media #{$small-only}
+    .count
+      width: auto
+    .text
+      margin-left: 36px
+
+#testing-services__what-next
+  .header
+    +h2
+  .button-outer
+    width: 332px
+  .subbutton-text
+    text-align: center
+    color: $light-gray-text-color
+    +font-12
+  .links
+    a
+      color: $sky-blue-color
+      display: inline-block
+      margin: 30px 56px 30px 0
+
+  @media #{$medium-down}
+    .row
+      width: 640px
+    .header
+      text-align: center
+    .links
+      text-align: center
+      a
+        +font-21-semibold
+    .button-outer
+      margin: 0 auto

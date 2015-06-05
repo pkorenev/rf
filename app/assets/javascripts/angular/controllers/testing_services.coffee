@@ -6,9 +6,9 @@ window.$app.controller "TestingServicesController", [
 
     # test types
     $scope.three_images_in_row_model = [
-      {img: "/assets/rf-icon-main-1.svg", title: "Functional testing", time: "Takes less than 10 minutes!", description: "Choose the type of testing you need, amount of hours spent, number of people involved, and platforms you want your product be tested on. No sign-up or credit card needed. Takes 3 minutes."}
-      {img:"/assets/rf-icon-main-2.svg", title: "Localization testing", time: "2-3 minutes", description: "Submit your request and sit back enjoying our engineers do everything else! Our team of 1500+ testing professionals are ready to start immediately."}
-      {img: "/assets/rf-icon-main-3.svg", title: "Usability testing", time: "48 hours", description: "In up to 48 hours, you will receive a detailed bug report with test cases carefully documented. In some cases, we would even get the work done overnight."}
+      {img: "/assets/rf-icon-main-1.svg", title: "Functional testing", time: "apps | web | games", description: "Choose the type of testing you need, amount of hours spent, number of people involved, and platforms you want your product be tested on. No sign-up or credit card needed. Takes 3 minutes."}
+      {img:"/assets/rf-icon-main-2.svg", title: "Localization testing", time: "apps | web | games", description: "Submit your request and sit back enjoying our engineers do everything else! Our team of 1500+ testing professionals are ready to start immediately."}
+      {img: "/assets/rf-icon-main-3.svg", title: "Usability testing", time: "apps | web | games", description: "In up to 48 hours, you will receive a detailed bug report with test cases carefully documented. In some cases, we would even get the work done overnight."}
     ]
 
 

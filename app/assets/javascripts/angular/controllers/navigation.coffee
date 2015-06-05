@@ -246,4 +246,11 @@ $app.controller 'NavigationController', [
           return true
       )
 
+
+    $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams)->
+      #event.preventDefault()
+      #transitionTo() promise will be rejected with
+      #a 'transition prevented' error
+      $scope.closeMobileMenu()
+
 ]

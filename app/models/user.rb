@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   
   attr_accessible :email, :password, :password_confirmation
+
+  #attr_accessible :confirm_success_url, :config_name
   
   
   # User info

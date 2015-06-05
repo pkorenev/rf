@@ -1,11 +1,11 @@
 .page.about-page-content ng-controller="AboutController"
   #about-banner.page-banner
-  #about-content
-    .about-row-wrap
+  #about-content.page-content-rows
+    #about__who-we-are.page-content-row-wrap.about-row-wrap
       .row
-        .columns.large-3.image-column
-          .svg-wrap ng-include="'/assets/rf-icon-main-1.svg'"
-        .columns.large-8
+        .columns.large-3.medium-12.small-12.image-wrap-outer
+          .image-wrap ng-include="'/assets/rf-logo-rocket.svg'"
+        .columns.large-8.medium-12.small-12
           .header
             |Who we are?
           .description
@@ -13,7 +13,7 @@
               |RADOK FORCE is an online magazine promoting Danish design and architecture. The organisation behind DANISH™ is Danish Design and Architecture Initiative, which was formed in 2012 and commissioned by the Ministry of Business and Growth, the Danish Ministry of Foreign Affairs and the Ministry of Culture.
 
 
-    #what-we-test-row-wrap.about-row-wrap
+    #what-we-test-row-wrap.page-content-row-wrap.about-row-wrap
       .row
         .columns.large-12
           .header
@@ -24,7 +24,7 @@
           .row
             .columns.large-3
 
-    .about-row-wrap
+    .page-content-row-wrap.about-row-wrap
       .row
 
         .columns.large-3.image-column
@@ -42,7 +42,7 @@
 
 
 
-    .about-row-wrap
+    .page-content-row-wrap.about-row-wrap
       .row
         .columns.large-6
           .header

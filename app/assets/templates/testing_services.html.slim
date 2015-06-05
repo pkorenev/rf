@@ -23,11 +23,11 @@
             |&mdash;&nbsp;we carefully test your application, service, web-page or game by thousands of professionally trained testers.
 
       .two-horizontal-items-per-row
-        .columns.large-6.item ng-repeat="item in two_horizontal_items_per_row_model"
+        .columns.large-6.medium-6.item ng-repeat="item in two_horizontal_items_per_row_model"
           .row
-            .columns.large-4.medium-4.small-4
+            .columns.large-4.large-uncentered.medium-8.medium-centered.small-4.image-wrap-outer
               .image-wrap ng-include="item.img"
-            .columns.large-9.medium-9.small-9
+            .columns.large-8.large-uncentered.medium-12.medium-centered.small-8.text-outer
               .header
                 |{{item.title}}
               .description
@@ -35,15 +35,34 @@
 
     #testing_services__reasons.page-content-row-wrap
       .row
-        .columns.large-6
+        .columns.large-6.medium-6.small-10.small-centered.medium-uncentered.large-uncentered
           .header
             .row
-              .columns.large-3.count
+              .columns.large-3.small-2.count
                 |4
               .columns.large-8.text
                 |Reasons to use our software testing services
-        .columns.large-6
-          .item data-number="1"
+        .columns.large-6.medium-6
+          .item data-number="{{$index + 1}}" ng-repeat="reason in reasons track by $index"
             .title
-              |
+              |{{reason.name}}
+            .description
+              |{{reason.description}}
 
+    #testing-services__what-next.page-content-row-wrap
+      .row
+        .columns.large-6.text
+          .header
+            |What next?
+          .description
+            |I am greatly pleased with the experience with Radok Force. I have contacted them to get a functional and usability testing before a release of our peace of software. The reports guys created were very professional and did exceed my expectations, and also they caught a number of bugs we missed internally. Our release was so much smoother thanks to Radok Force.
+          .links
+            a sref="how_it_works"
+              |How it works
+            a sref="pricing"
+              |What it costs?
+        .columns.large-6.button-column
+          .button-outer
+            button title="Start now!" subtitle="no registration required" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"  sref="wizard"
+            .subbutton-text
+              |Define your needs in terms of testers and platforms
