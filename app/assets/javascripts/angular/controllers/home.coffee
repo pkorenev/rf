@@ -95,4 +95,14 @@ window.$app.controller "HomeController", [
       });
 
 
+
+
+    $scope.openSignInDialog = ()->
+      ngDialog.open({
+        template: '/assets/popups/sign_in.html'
+        className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
+        controller: "SignInController"
+        preCloseCallback: (result)->
+
+      })
 ]
