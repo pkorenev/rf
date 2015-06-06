@@ -95,10 +95,18 @@ button, label, input[type=button], input[type=submit]
     +section-subheader-text
   svg
     max-width: 100%
+  .text-column
+    padding-top: 30px
+
+  &:nth-child(2n+1)
+    .text-column
+      float: left
+
   &:nth-child(2n+2)
     background-color: $white-color
     .image-column
       float: right
+
 
 
 = button-with-subtitle-and-header
@@ -141,9 +149,11 @@ button, label, input[type=button], input[type=submit]
 .center-items-vertically
   @media #{$medium-up}
     +flexbox
-    flex-direction: row-reverse
     > .columns
       align-self: center
+
+.row-reverse
+  flex-direction: row-reverse
 .image-and-text
   @media #{$small-only}
     .title
@@ -169,3 +179,16 @@ button, label, input[type=button], input[type=submit]
         width: grid-calc(12, 12)
       .header
         margin-top: 30px
+
+.image-column
+  @media #{$small-only}
+    text-align: center
+    .svg-wrap
+      display: inline-block
+
+.small-text-center
+  @media #{$small-only}
+    text-align: center
+
+= border-collapse($width: 1px, $color: #888)
+  box-shadow: $width 0 0 0 $color, 0 $width 0 0 $color, $width $width 0 0 $color, $width 0 0 0 $color inset, 0 $width 0 0 $color inset

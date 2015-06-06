@@ -8,6 +8,12 @@ window.$app.controller "ContactController", [
       description: ""
     }
 
+    $scope.page_banner = {
+      title: "Contact page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
     $scope.submitRequest = ()->
       deffered = $http.post("/contact_request", $scope.contact_request)
       deffered.success (data)->

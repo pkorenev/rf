@@ -549,9 +549,12 @@ $footer-text-color:  $dark-gray-color
   .svg-wrap
     top: 3px
     position: relative
+
+$page-banner-height: 230px
+$page-banner-mobile-height: 150px
 .page-banner
   position: relative
-  height: 230px
+  height: $page-banner-height
   background: $light-black-color
   text-align: center
   background-position: center center
@@ -565,6 +568,7 @@ $footer-text-color:  $dark-gray-color
     text-align: right
     +transform(translate(-50%, -50%))
     .description-block
+      padding-right: 15px
       right: 0
       width: 100%
       max-width: 500px
@@ -575,6 +579,14 @@ $footer-text-color:  $dark-gray-color
       .description
         color: $sky-blue-color
         +font-14-light
+
+  @media #{$small-only}
+    background-image: none !important
+    height: $page-banner-mobile-height
+    .description-block
+      text-align: center
+      max-width: none !important
+
 
 
 

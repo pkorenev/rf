@@ -1,29 +1,22 @@
 .page.about-page-content ng-controller="AboutController"
-  #about-banner.page-banner style="background-image: url('/assets/banners/contacts.jpg')"
-    /img src=""
-    .row
-      .inner
-        .description-block
-
-          .title
-            |2800+ testers from Ukraine
-          .description
-            |Young team of professional testers
+  .page-banner-wrap ng-include="'/assets/partials/_page_banner.html'"
 
   #about-content.page-content-rows
     #about__who-we-are.page-content-row-wrap.about-row-wrap
-      .row
-        .columns.large-3.medium-12.small-12.image-wrap-outer
-          .image-wrap ng-include="'/assets/rf-logo-rocket.svg'"
-        .columns.large-8.medium-12.small-12
-          .header
+      .row.center-items-vertically
+        .columns.large-3.medium-3.small-12.image-wrap-outer
+          .image-wrap.small-text-center
+            img src="/assets/rf-logo-rocket.svg"
+        .columns.large-8.medium-9.small-12.text-column
+          .header.small-text-center
             |Who we are?
           .description
             p
-              |RADOK FORCE is an online magazine promoting Danish design and architecture. The organisation behind DANISH™ is Danish Design and Architecture Initiative, which was formed in 2012 and commissioned by the Ministry of Business and Growth, the Danish Ministry of Foreign Affairs and the Ministry of Culture.
+              |We are a team of more than 1500 certified testing professionals, each with 3+ years of working experience. We are passionate about what we do, namely making this world a little better by helping deliver better software. And perfections is our second name.
 
 
-    #what-we-test-row-wrap.page-content-row-wrap.about-row-wrap
+
+    #about__what-we-test-row-wrap.page-content-row-wrap.about-row-wrap
       .row
         .columns.large-12
           .header
@@ -32,17 +25,24 @@
             |We carefully test your application service web page or game by touthands of professinaly trained testers.
         .columns.large-12.products
           .row
-            .columns.large-3
+            .columns.large-3.small-6.item ng-repeat="type in application_types"
+              .image-wrap ng-include="type.img"
+              .title
+                |{{type.title}}
 
-    .page-content-row-wrap.about-row-wrap
+
+    #about__leaders-row-wrap.page-content-row-wrap.about-row-wrap
       .row
 
-        .columns.large-3.image-column
-          .svg-wrap ng-include="'/assets/rf-icon-main-3.svg'"
+        .columns.large-6
+          .header
+            |Our leaders
+          .subheader
+            |The founders and leaders of Radok Force
 
         .columns.large-12.leaders
           .row
-            .columns.large-2.leader ng-repeat="leader in leaders.leaders"
+            .columns.large-2.small-4.item ng-repeat="leader in leaders.leaders"
               .image
                 img src="{{leader.image_path}}"
               .name
@@ -52,12 +52,23 @@
 
 
 
-    .page-content-row-wrap.about-row-wrap
+    #about__clients.page-content-row-wrap.about-row-wrap
       .row
-        .columns.large-6
+        .columns.large-12
           .header
-            |Time to test!
+            |We work with
           .subheader
-            |Don't let bugs in your website or mobile app impact your reputation
-        .columns.large-6
-          button title="Start now!" subtitle="own package" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"
+            |The best brands in the world
+
+        .columns.large-12.clients
+          .row
+            .columns.large-2.small-4.item ng-repeat="client in clients"
+              a href="{{client.url}}" title="{{client.name}}" ng-include="client.image"
+
+                /img src="{{client.image}}" title="{{client.name}}"
+            .columns.large-2.small-4.item.invitation
+              a href="#"
+                ng-include src="'/assets/question.svg'"
+                label
+                  |You could be next!
+

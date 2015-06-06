@@ -4,6 +4,12 @@ window.$app.controller "PricingController", [
 
     $scope.ctrl = 'pricing'
 
+    $scope.page_banner = {
+      title: "Pricing page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
 
     $scope.feedbacks = [
 #      {text: "Being in the software industry requires constant functional and usability testing. I have to say Radok Force time/quality ratio of reports are a must have.", name: "Victor Shevchenko", position: "Company CEO"}

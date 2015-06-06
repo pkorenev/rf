@@ -11,6 +11,12 @@
 $app.controller "WizardController", [
    "$scope", "WizardTest", ( $scope, WizardTest)->
 
+    $scope.page_banner = {
+      title: "Wizard page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
     $scope.wizard_test_data = WizardTest
 
     if window.reopen_test

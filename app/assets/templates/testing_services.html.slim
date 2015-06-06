@@ -1,5 +1,5 @@
 .page.testing_services-page-content ng-controller="TestingServicesController"
-  #testing_services-banner.page-banner
+  .page-banner-wrap ng-include="'/assets/partials/_page_banner.html'"
   #testing_services-page-content-rows.page-content-rows
     #testing_services__what-we-do.page-content-row-wrap
       .row
@@ -7,10 +7,17 @@
           .header
             |What we do?
           .subheader
-            |&mdash;&nbsp;we carefully test your application, service, web-page or game by thousands of professionally trained testers.
+            |More than 1500 certified testers are ready to instantly start testing your piece of software.
         .columns.large-6.medium-6.small-12
           .description
-            |I am greatly pleased with the experience with Radok Force. I have contacted them to get a functional and usability testing before a release of our peace of software. The reports guys created were very professional and did exceed my expectations, and also they caught a number of bugs we missed internally. Our release was so much smoother thanks to Radok Force.
+            p
+              |Are you a startup founder who wants to ensure the long-expected product release doesn’t turn out to be customers’ disappointment?
+            p
+              |Are you a manager who wants to get instant testing services without hiring additional people to your company?
+            p
+              |Are you seeking to have your app tested really, really fast?
+            p
+              |Radok Force comes to rescue every time you need to make certain your product’s performance is rock solid and smooth, on each platform and every device.
     #testing_services__test-types.page-content-row-wrap
       .three-images-in-row-wrap ng-include="'/assets/partials/_three_images_in_row.html'"
 
@@ -39,7 +46,7 @@
           .header
             .row
               .columns.large-3.small-2.count
-                |4
+                |{{reasons.length}}
               .columns.large-8.text
                 |Reasons to use our software testing services
         .columns.large-6.medium-6
@@ -57,9 +64,9 @@
           .description
             |I am greatly pleased with the experience with Radok Force. I have contacted them to get a functional and usability testing before a release of our peace of software. The reports guys created were very professional and did exceed my expectations, and also they caught a number of bugs we missed internally. Our release was so much smoother thanks to Radok Force.
           .links
-            a sref="how_it_works"
+            a ui-sref="how_it_works"
               |How it works
-            a sref="pricing"
+            a ui-sref="pricing"
               |What it costs?
         .columns.large-6.button-column
           .button-outer

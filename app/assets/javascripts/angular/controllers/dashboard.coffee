@@ -10,6 +10,12 @@ window.$app.controller "DashboardController", [
         i++
       return arr
 
+    $scope.page_banner = {
+      title: "Dashboard page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
 
 
     $scope.drafts = [

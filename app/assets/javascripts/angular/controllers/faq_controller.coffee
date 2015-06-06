@@ -11,6 +11,12 @@ window.$app.controller "FaqController", [
           $scope.active_article = $scope.faq_articles.articles[newValue]
       )
 
+    $scope.page_banner = {
+      title: "FAQ page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
 
     $scope.item = 'What&nbsp;Is&nbsp;Your&nbsp;Name?'
 

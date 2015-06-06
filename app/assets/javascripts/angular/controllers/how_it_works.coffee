@@ -2,6 +2,12 @@ window.$app.controller "HowItWorksController", [
   "$scope", "$auth", "ngDialog", ($scope, Auth, ngDialog)->
     $scope.title = "How it works"
 
+    $scope.page_banner = {
+      title: "How it works page header"
+      description: "Type few works about this page"
+      image: '/assets/banners/contacts.jpg'
+    }
+
 #    curr_user = Auth.currentUser()
 #    curr_user.then(
 #      (user)->

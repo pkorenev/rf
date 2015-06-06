@@ -1,5 +1,5 @@
 .page.dashboard-page-content ng-controller="DashboardController"
-  #dashboard-banner.page-banner
+  .page-banner-wrap ng-include="'/assets/partials/_page_banner.html'"
   #dashboard-content
     #dashboard-projects
       .drafts ng-show="drafts && drafts.length"
