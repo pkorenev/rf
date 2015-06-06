@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def geo
     ip = request.remote_ip
     geo_location = GeoIp.geolocation(ip)
-    render inline: geo_location.inspect
+    render json: geo_location.inspect
   end
 
   protected
