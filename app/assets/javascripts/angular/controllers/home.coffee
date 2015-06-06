@@ -30,6 +30,9 @@ window.$app.controller "HomeController", [
       testers_count: 1981
     }
 
+    #window.onscroll = ()->
+
+
 
     $scope.feedbacks = [
 #      {text: "Being in the software industry requires constant functional and usability testing. I have to say Radok Force time/quality ratio of reports are a must have.", name: "Victor Shevchenko", position: "Company CEO"}

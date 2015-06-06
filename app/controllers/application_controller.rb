@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
   end
 
+  def geo
+    ip = request.remote_ip
+    geo_location = GeoIp.geolocation(ip)
+    render inline: geo_location.inspect
+  end
+
   protected
 
   def verified_request?

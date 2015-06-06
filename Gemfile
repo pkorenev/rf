@@ -79,3 +79,5 @@ gem 'ruby-debug-ide'
 gem 'debase'
 
 gem 'global_config'
+
+gem 'geo_ip'

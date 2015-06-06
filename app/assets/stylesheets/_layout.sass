@@ -36,8 +36,9 @@ $desktop-menu-lower-bound: 769px
     position: relative
     height: 100%
     display: inline-block
-    img
-      margin-top: rem-calc(5)
+  img
+    margin-top: rem-calc(5)
+    max-height: 100%
 
 #header-menu
   +grid-column(8, $float: right)
@@ -95,18 +96,20 @@ $desktop-menu-lower-bound: 769px
       > span
         padding-right: 15px
         position: relative
+        display: inline-block
 
         &:after
           content: ""
-          display: inline-block
+          //display: inline-block
+          display: block
           width: 0
           height: 0
           border-style: solid
-          border-width: 10px 5px 0 5px
+          border-width: 8px 4px 0 4px
           border-color: $light-black-color transparent transparent transparent
           position: absolute
           right: 0
-          top: 7px
+          top: 36px
 
       &:hover
         > span
@@ -117,7 +120,7 @@ $desktop-menu-lower-bound: 769px
       > a
         > span
           &:after
-            border-width: 0 5px 10px 5px
+            border-width: 0 4px 8px 4px
             border-color: transparent transparent $fire-orange-color transparent
       .dropdown
         opacity: 1
@@ -304,11 +307,16 @@ top-nav
 @media #{$screen} and (max-width: #{$mobile-menu-upper-bound})
   .dropdowns
     display: none !important
+  #header-logo
+    width: auto
+    img
+      margin-top: 0
 
   #header, #header-logo, #header-menu, #header-user, #header-user .user-icon
     height: $small-header-height
   #header-menu
     padding-right: 0
+    width: auto
   #header-user
     .user-icon
       &:after
@@ -542,8 +550,33 @@ $footer-text-color:  $dark-gray-color
     top: 3px
     position: relative
 .page-banner
+  position: relative
   height: 230px
   background: $light-black-color
+  text-align: center
+  background-position: center center
+  background-repeat: no-repeat
+  img
+    height: 100%
+  > .row
+    position: absolute
+    top: 50%
+    left: 50%
+    text-align: right
+    +transform(translate(-50%, -50%))
+    .description-block
+      right: 0
+      width: 100%
+      max-width: 500px
+      display: inline-block
+      .title
+        color: $white-color
+        +font-32-semibold
+      .description
+        color: $sky-blue-color
+        +font-14-light
+
+
 
 button.my-dashboard-button-link
   width: 100%
