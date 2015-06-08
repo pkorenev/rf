@@ -46,4 +46,15 @@ window.$app.controller "FaqController", [
 
     $scope.openArticle = (index)->
       $scope.active_article_index = index
+      $scope.scrollToArticle()
+
+    $scope.scrollToArticle = ()->
+      target_offset = $("#article").offset()
+      if target_offset
+        $("html, body").animate(scrollTop: target_offset.top - $("#header-row").height())
+
+    $scope.scrollToForm = ()->
+      target_offset = $("#faq-form").offset()
+      if target_offset
+        $("html, body").animate(scrollTop: target_offset.top - $("#header-row").height())
 ]

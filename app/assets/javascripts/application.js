@@ -42,6 +42,9 @@
 //= require angular-svg-round-progressbar/build/roundProgress.min
 //= require angular-cookie/angular-cookie.min
 //= require ng-token-auth/dist/ng-token-auth.min
+//= require angular-ripple/angular-ripple
+// require angular-aria/angular-aria.min.js
+// require angular-material/angular-material.min.js
 // require sifter
 // require microplugin
 // require selectize

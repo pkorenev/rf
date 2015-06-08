@@ -16,3 +16,21 @@
   -ms-transform: $value
   -o-transform: $value
   transform: $value
+
+
+= keyframes($name)
+  @-webkit-keyframes #{$name}
+    @content
+  @-moz-keyframes #{$name}
+    @content
+  @-ms-keyframes #{$name}
+    @content
+  @keyframes #{$name}
+    @content
+    
+= animation($str)
+  -webkit-animation: #{$str}
+  -moz-animation: #{$str}
+  -ms-animation: #{$str}
+  -o-animation: #{$str}
+  animation: #{$str}

@@ -33,6 +33,10 @@ window.$app.config [
         url: "/dashboard"
         templateUrl: "/assets/dashboard.html"
         controller: "DashboardController"
+      .state "profile",
+        url: "/profile"
+        templateUrl: "/assets/profile.html"
+        controller: "ProfileController"
       .state "pricing",
         url: "/pricing"
         templateUrl: "/assets/pricing.html"

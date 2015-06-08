@@ -366,8 +366,9 @@ $app.directive "button", ['$state', ($state)->
     subtitle: "@"
     class: "@"
     sref: "@"
+    scrollTo: "@"
   link: (scope, element, attrs, ctrl, transcludeFn)->
-
+    scope.scrollTo = scope.scrollTo || false
     scope.button_class = "button"
     if scope.subtitle && scope.subtitle.length
       scope.button_class += " button-with-subtitle"
@@ -604,6 +605,17 @@ $app.directive 'onFinishRender', ($timeout) ->
       scope.$emit('ngRepeatFinished')
       #$timeout ()->
         #scope.$emit('ngRepeatFinished');
+
+
+$app.directive 'scrollToItem', ->
+  restrict: 'A'
+  scope:
+    scrollTo: '@'
+  link: (scope, $elm, attr) ->
+    $elm.on 'click', ->
+      $('html,body').animate { scrollTop: $(scope.scrollTo).offset().top }, 'slow'
+
+
 
 
 

@@ -7,7 +7,7 @@
         .columns.large-12
           .header
             |We are here
-        #contact-data.columns.large-6
+        #contact-data.columns.large-5.medium-6.small-text-center
           .property
             .property-header
               |Our address
@@ -43,7 +43,7 @@
                     .svg-wrap ng-include="'/assets/rf-social-skype.svg'"
 
 
-        #contact-map.columns.large-6
+        #contact-map.columns.large-7.medium-6
           map zoom="11" center="[45.500706, -73.574401]" disable-default-u-i="true"
             marker position="[45.500706, -73.574401]" title="Hello Marker"  draggable="true" visible="true"
 
@@ -51,7 +51,7 @@
 
     #contact-feedback.page-content-row-wrap
       .row.contact-form-row
-        .columns.large-12
+        .columns.large-12.small-text-center.header-column
           .header
             |Send us your feedback
           .subheader
@@ -59,10 +59,10 @@
         .columns.large-12
           .row
             form no-validate=""
-              .columns.large-6
+              .columns.medium-6.fields-group-column
                 input ng-model="contact_request.subject" required="" placeholder="Your name"
                 input ng-model="contact_request.name" required="" placeholder="Your email"
                 input type="text" ng-model="contact_request.email" required="" placeholder="Question title"
-              .columns.large-6
+              .columns.medium-6.fields-group-column
                 textarea ng-model="contact_request.description" required="" placeholder="Type your question's subject here..."
                 input type="button" value="Add a question"  ng-click="submitRequest(); $event.preventDefault()"
