@@ -26,8 +26,8 @@ window.$app.controller "HomeController", [
 
     $scope.statistics = {
       title: "Need some statistic?"
-      tested_projects_count: 143
-      testers_count: 1981
+      tested_projects_count: 0
+      testers_count: 0
     }
 
     #window.onscroll = ()->
@@ -108,4 +108,52 @@ window.$app.controller "HomeController", [
         preCloseCallback: (result)->
 
       })
+
+#    $scope.initialize_statistics_counter = ()->
+#      $elem = $("#home-statistics")
+#      #alert("initialize_statistics_counter: #{$elem.length}")
+#      $elem.appear ()->
+#        #alert("appear")
+#        $scope = angular.element("[ng-controller=HomeController]").scope()
+#        if $scope.controller_initialized && !$scope.statistics_counter_initialized
+#          $scope.$apply ()->
+#            $scope.statistics_counter_initialized = true
+#            $scope.statistics.tested_projects_count = 143
+#            $scope.statistics.testers_count = 1981
+
+    initialize_statistics_after_ready = false
+    $scope.initialize_statistics = ()->
+      setTimeout( ()->
+        if initialize_statistics_after_ready
+          #alert("initialize_statistics")
+          $scope.statistics_counter_initialized = true
+          $scope.statistics.tested_projects_count = 143
+          $scope.statistics.testers_count = 1981
+        else
+          initialize_statistics_after_ready = true
+      , 300)
+
+    #$scope.initialize_statistics_counter()
+
+    $scope.controller_initialized = true
+
+
 ]
+
+
+###
+$(window).on "scroll", (event)->
+  appElement = $('[ng-app=myApp]');
+  $scope = angular.element("[ng-controller=HomeController]").scope();
+  if !$scope.statistics_counter_initialized
+
+    $scope.$apply( ()->
+      $scope.statistics_counter_initialized = true
+      $scope.statistics.tested_projects_count = 143
+      $scope.statistics.testers_count = 1981
+    )
+
+###
+
+
+

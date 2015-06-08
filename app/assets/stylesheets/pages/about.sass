@@ -72,6 +72,7 @@
       display: block
       width: 100%
       height: 100%
+      padding: 10px
 
     svg
       width: 100%
@@ -82,7 +83,7 @@
         fill: $yellow-orange-color !important
     &.invitation
       svg
-        margin-top: 5px
+        margin-top: -2px
         height: 60px
         &, & *
           fill: $light-gray-text-color !important
@@ -94,7 +95,8 @@
         width: 100%
         text-align: center
         color: $light-gray-text-color
-        +font-14-light
+        +font-14-light-italic
+        margin-top: 5px
 
   @media #{$small-only}
     .clients

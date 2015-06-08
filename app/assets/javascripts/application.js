@@ -43,6 +43,8 @@
 //= require angular-cookie/angular-cookie.min
 //= require ng-token-auth/dist/ng-token-auth.min
 //= require angular-ripple/angular-ripple
+// require jquery.appear/jquery.appear
+//= require angular-inview/angular-inview.js
 // require angular-aria/angular-aria.min.js
 // require angular-material/angular-material.min.js
 // require sifter
@@ -67,4 +69,4 @@
 //= require_tree ./angular/filters
 //= require_tree ./angular/controllers
 //= require_tree ../templates
-//
+//= require_directory ./jquery

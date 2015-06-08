@@ -52,7 +52,7 @@
               |{{item}}
 
 
-    #home-statistics
+    #home-statistics in-view="controller_initialized && !statistics_counter_initialized ? initialize_statistics() : 0"
       .row
         .columns.large-12.section-header
           |{{statistics.title}}
