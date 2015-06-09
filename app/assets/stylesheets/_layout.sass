@@ -99,17 +99,18 @@ $desktop-menu-lower-bound: 769px
         display: inline-block
 
         &:after
+
           content: ""
           //display: inline-block
           display: block
           width: 0
           height: 0
           border-style: solid
-          border-width: 8px 4px 0 4px
+          border-width: 6px 3px 0 3px
           border-color: $light-black-color transparent transparent transparent
           position: absolute
-          right: 0
-          top: 36px
+          right: 2px
+          top: 37px
 
       &:hover
         > span
@@ -120,7 +121,7 @@ $desktop-menu-lower-bound: 769px
       > a
         > span
           &:after
-            border-width: 0 4px 8px 4px
+            border-width: 0 3px 6px 3px
             border-color: transparent transparent $fire-orange-color transparent
       .dropdown
         opacity: 1
@@ -306,6 +307,11 @@ top-nav
       display: none !important
 
 @media #{$screen} and (max-width: #{$mobile-menu-upper-bound})
+  .menu-item
+    .dropdown
+      top: 0 !important
+      opacity: 1 !important
+      display: none !important
   .dropdowns
     display: none !important
   #header-logo
@@ -397,26 +403,28 @@ top-nav
           &.opened
             height: auto
             .dropdown
-              position: relative
-              height: auto
-              top: 0
+              display: block !important
+          .dropdown
+            position: relative
+            height: auto
+            top: 0
 
-              ul
-                width: 100%
+            ul
+              width: 100%
+              display: block
+              li
                 display: block
-                li
-                  display: block
-                  float: none
-                  width: 100%
-                  height: 61px
-                  border-bottom: 1px solid $light-black-color
+                float: none
+                width: 100%
+                height: 61px
+                border-bottom: 1px solid $light-black-color
 
-                  a
-                    line-height: 60px
+                a
+                  line-height: 60px
 
-                  &:last-child
-                    border-bottom: 0
-                    height: 60px
+                &:last-child
+                  border-bottom: 0
+                  height: 60px
 
   #header-mobile-menu-button-wrap
     cursor: pointer
@@ -610,6 +618,13 @@ button.my-dashboard-button-link
   .button-title
     +semibold
 
+@media #{$screen} and (max-width: 980px) and (min-width: 641px)
+  #wrap
+    padding-bottom: 212px
+  #footer
+    height: 212px
+    margin-top: -212px
+
 @media #{$small-only}
   #wrap
     padding-bottom: $small-footer-height
@@ -629,3 +644,40 @@ button.my-dashboard-button-link
     input
       width: calc(100% - 61px)
       max-width: none
+
+
+// ================================================
+// ------------------------------------------------
+// angular-loading-bar
+// ------------------------------------------------
+// ================================================
+
+#loading-bar-spinner
+  display: none !important
+  .spinner-icon
+    border-top-color: $fire-orange-color
+    border-left-color: $fire-orange-color
+
+
+#loading-bar
+  .bar
+    background: $fire-orange-color
+    height: 6px
+  .peg
+    height: 6px
+    +box-shadow(none)
+    //+box-shadow($fire-orange-color 1px 0 6px 1px)
+  &:before
+    content: ""
+    background: rgba(255, 255, 255, 1)
+    display: block
+    width: 100%
+    position: fixed
+    left: 0
+    top: 0
+    height: 100%
+    z-index: 10
+    +transition_all(all 0.3s)
+  &.ng-leave
+    &:before
+      //background: rgba($fire-orange-color, 1)

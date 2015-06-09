@@ -3,12 +3,12 @@
   #testing_services-page-content-rows.page-content-rows
     #testing_services__what-we-do.page-content-row-wrap
       .row
-        .columns.large-6.medium-6.small-12
+        .columns.large-5.medium-5.small-12
           .header
             |What we do?
           .subheader
             |More than 1500 certified testers are ready to instantly start testing your piece of software.
-        .columns.large-6.medium-6.small-12
+        .columns.large-7.medium-7.small-12
           .description
             p
               |Are you a startup founder who wants to ensure the long-expected product release doesn’t turn out to be customers’ disappointment?
@@ -45,9 +45,9 @@
         .columns.large-6.medium-6.small-10.small-centered.medium-uncentered.large-uncentered
           .header
             .row
-              .columns.large-3.small-2.count
+              .columns.large-3.medium-4.small-2.count
                 |{{reasons.length}}
-              .columns.large-8.text
+              .columns.large-8.medium-7.text
                 |Reasons to use our software testing services
         .columns.large-6.medium-6
           .item data-number="{{$index + 1}}" ng-repeat="reason in reasons track by $index"
@@ -58,7 +58,7 @@
 
     #testing-services__what-next.page-content-row-wrap
       .row
-        .columns.large-6.text
+        .columns.large-7.text
           .header
             |What next?
           .description
@@ -68,7 +68,7 @@
               |How it works
             a ui-sref="pricing"
               |What it costs?
-        .columns.large-6.button-column
+        .columns.large-5.button-column
           .button-outer
             button title="Start now!" subtitle="no registration required" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"  sref="wizard"
             .subbutton-text

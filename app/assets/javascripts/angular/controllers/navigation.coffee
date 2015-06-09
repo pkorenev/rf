@@ -253,4 +253,7 @@ $app.controller 'NavigationController', [
       #a 'transition prevented' error
       $scope.closeMobileMenu()
 
+    $rootScope.$on "cfpLoadingBar:completed", ()->
+      #alert("hello")
+
 ]

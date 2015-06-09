@@ -12,7 +12,7 @@ $banner-title-color: #e6e7e9
 
   #home-slider-bullets
     position: absolute
-    bottom: 0
+    bottom: 5px
     width: 100%
     max-width: 1000px
     +transform(translateX(-50%))
@@ -103,6 +103,12 @@ $banner-title-color: #e6e7e9
 
   @media #{$screen} and (max-width: 1366px)
     height: $home-banner-medium-height
+  @media #{$screen} and (max-width: 550px)
+    .description-block
+      .title
+        +font-36
+        line-height: 36px
+
 
 .home-parallax-banner
   overflow: hidden !important
@@ -153,8 +159,7 @@ $banner-title-color: #e6e7e9
   #home-banner
     .description-block
       .title
-        +font-48
-        line-height: 48px
+
 
 
 
@@ -243,6 +248,8 @@ $banner-title-color: #e6e7e9
 
   .rn-carousel-control
     width: 100%
+    top: 50%
+    margin-top: -35px
     .rn-carousel-control-prev
       position: absolute
       left: 0
@@ -326,6 +333,7 @@ $banner-title-color: #e6e7e9
   background: $white-color
   padding: 50px 0 75px 0
   .title
+    text-transform: uppercase
     +font-18
     +bold
     color: $light-black-color
@@ -339,3 +347,13 @@ button.start-now-button, button.shedule-call-button
   +button-with-subtitle-and-header
 .button-container
   text-align: center
+  max-width: 362px
+  margin: 0 auto
+  float: none !important
+  position: relative
+  .learn-more
+    padding-left: 73px
+  a
+    color: $sky-blue-color
+
+

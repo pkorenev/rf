@@ -17,6 +17,34 @@
       color: $yellow-orange-color
       +font-100
       display: inline
+
+    @media #{$screen} and (max-width: 450px)
+      //.price
+        font-size: 4rem
+        line-height: 4rem
+        vertical-align: top
+
+    @media #{$screen} and (max-width: 900px) and (min-width: 641px), #{$screen} and (max-width: 450px)
+      &
+        +flexbox
+      .price-and-text
+        //padding-top: 35px
+      .currency
+        vertical-align: top
+      .price
+        line-height: 4rem
+        font-size: 4rem
+        vertical-align: top
+      .price-per, .not-certain
+        font-size: 1.1rem
+      .question-symbol, .not-certain, .currency, .price, .price-and-text
+        +align-self(center)
+
+    @media #{$screen} and (max-width: 675px) and (min-width: 641px)
+      .price
+        font-size: 3.3rem
+
+
   .question-symbol
     +font-100
     color: $yellow-orange-color
@@ -66,9 +94,11 @@
 
   .learn-more
     +font-12-light
-    color: $description-text-gray-color
+    color: $sky-blue-color
     display: block
     text-decoration: none
+    text-align: left
+
 
   @media #{$medium-down}
     margin-bottom: 30px

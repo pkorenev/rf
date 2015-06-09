@@ -16,13 +16,15 @@ header#header  ng-controller="NavigationController" ng-class="headerClass()"
         top-nav menu="menu_items" item-class="header-menu-item" off-click="closeMobileMenu()" off-click-filter="'#header-mobile-menu-button-wrap'"
         #header-user ng-class="headerUserClass()"
           .user-icon ng-show="!logged_in" ng-click="openSignInDialog()"
-            .inner angular-ripple=""
-              .svg-wrap ng-include="'/assets/rf-unlogged.svg'"
-              span.subtitle
-                |Sign in
+            div angular-ripple=""
+              .inner
+                .svg-wrap ng-include="'/assets/rf-unlogged.svg'"
+                span.subtitle
+                  |Sign in
           .user-icon ng-show="logged_in" ng-click="toggleUserDropdown()" off-click="closeUserDropdown()"
-            .inner
-              .svg-wrap ng-include="'/assets/no_avatar.svg'"
+            div angular-ripple=""
+              .inner
+                .svg-wrap ng-include="'/assets/no_avatar.svg'"
           .dropdown ng-show="logged_in && show_user_dropdown"
             button title="My dashboard" svg="/assets/rf-icon-configure.svg" class="my-dashboard-button-link" ng-click="goToDashboard()"
             .links

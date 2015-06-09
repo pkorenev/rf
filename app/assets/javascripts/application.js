@@ -45,6 +45,7 @@
 //= require angular-ripple/angular-ripple
 // require jquery.appear/jquery.appear
 //= require angular-inview/angular-inview.js
+//= require angular-loading-bar/build/loading-bar.min.js
 // require angular-aria/angular-aria.min.js
 // require angular-material/angular-material.min.js
 // require sifter

@@ -35,4 +35,6 @@ bower.json
 # Ignore pow environment settings
 .powenv
 
+/public
+/vendor
 /.idea

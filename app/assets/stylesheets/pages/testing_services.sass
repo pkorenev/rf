@@ -1,8 +1,8 @@
 #testing_services__what-we-do
   .header
-    margin-bottom: 16px
+    margin-bottom: 12px
   .description
-    margin-top: 80px
+    margin-top: 62px
   @media #{$small-only}
     .header
       text-align: center
@@ -104,13 +104,16 @@
     +font-12
   .links
     a
+      +light
+      text-decoration: none
       color: $sky-blue-color
       display: inline-block
       margin: 30px 56px 30px 0
 
+
   @media #{$medium-down}
     .row
-      width: 640px
+      max-width: 640px
     .header
       text-align: center
     .links
@@ -119,3 +122,7 @@
         +font-21-semibold
     .button-outer
       margin: 0 auto
+  @media #{$screen} and (max-width: 480px)
+    .links
+      a
+        margin-right: 40px
