@@ -23,7 +23,7 @@
           .description
             |{{slide.description}}
           .banner-button-wrap
-            button title="{{slide.button.title}}" subtitle="{{slide.button.subtitle}}" svg="{{slide.button.svg}}" class="start-now-button" sref="{{slide.button.sref}}"
+            rf-button title="{{slide.button.title}}" subtitle="{{slide.button.subtitle}}" svg="{{slide.button.svg}}" class="start-now-button" sref="{{slide.button.sref}}"
             p
               |or&nbsp;
               a.link ng-click="openSignInDialog()"
@@ -97,4 +97,4 @@
             li ng-repeat="item in benefits.items"
               |{{item}}
         .columns.large-12.button-container
-          button title="Start now!" subtitle="no registration required" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"  sref="wizard"
+          rf-button title="Start now!" subtitle="no registration required" svg="/assets/rf-rocket-up-right.svg" class="start-now-button"  sref="wizard"

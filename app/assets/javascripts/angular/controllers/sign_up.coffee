@@ -28,11 +28,13 @@ window.$app.controller "SignUpController", [
       else
         return "password"
 
-    $scope.openForgotPasswordPopup = ()->
+
+
+    $scope.openSignInPopup = ()->
       ngDialog.open({
-        template: '/assets/popups/forgot_password.html'
+        template: '/assets/popups/sign_in.html'
         className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
-        controller: "ForgotPasswordController"
+        controller: "SignInController"
       });
 
     $scope.createAccount = ()->

@@ -26,7 +26,7 @@ header#header  ng-controller="NavigationController" ng-class="headerClass()"
               .inner
                 .svg-wrap ng-include="'/assets/no_avatar.svg'"
           .dropdown ng-show="logged_in && show_user_dropdown"
-            button title="My dashboard" svg="/assets/rf-icon-configure.svg" class="my-dashboard-button-link" ng-click="goToDashboard()"
+            rf-button title="My dashboard" svg="/assets/rf-icon-configure.svg" class="my-dashboard-button-link" ng-click="goToDashboard()"
             .links
               a.left ui-sref="profile"
                 |Edit my profile

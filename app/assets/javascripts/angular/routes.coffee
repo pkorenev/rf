@@ -29,6 +29,10 @@ window.$app.config [
         url: "/how-it-works"
         templateUrl: "/assets/how_it_works.html"
         controller: "HowItWorksController"
+      .state "sign_up",
+        url: "/sign-up"
+        templateUrl: "/assets/sign_up.html"
+        controller: "SignUpController"
       .state "dashboard",
         url: "/dashboard"
         templateUrl: "/assets/dashboard.html"
@@ -45,6 +49,9 @@ window.$app.config [
         url: "/testing-services"
         templateUrl: "/assets/testing_services.html"
         controller: "TestingServicesController"
+      .state "terms_of_use",
+        url: "/terms-of-use"
+        templateUrl: "/assets/terms_of_use.html"
 
     $urlRouterProvider.otherwise '/home'
 ]

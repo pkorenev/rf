@@ -16,7 +16,9 @@
         line-height: 16px
         color: #F5EFEF
 
-.popup
+
+
+.form-partial
   > .header
     height: 50px
     background: $sky-blue-color
@@ -36,6 +38,7 @@
     a
       text-decoration: none
       color: $sky-blue-color
+
 
   .oauth-login
     padding-top: 24px
@@ -58,64 +61,7 @@
 
 
 
-  .form
-    .input
-      padding-bottom: 16px
-      &:last-child
-        padding-bottom: 0
-      label
-        +font-14-light
-      input
-        border: 1px $gray-text-color solid
-        height: 30px
-        width: 100%
-        display: inline-block
-        max-width: none
-        background: rgba(0,0,0,0)
 
-        +semibold
-        &:focus
-          background-color: $sky-blue-color
-          color: #fff
-          ~ .show-password-button, ~ .hide-password-button
-            svg
-              path
-                fill: rgba(255, 255, 255, 0.8)
-            &:hover
-              svg
-                path
-                  fill: rgba(255, 255, 255, 1)
-      select
-        height: 30px
-        background: rgba(0, 0, 0, 0)
-      .input-wrap
-        position: relative
-      .show-password-button, .hide-password-button
-        position: absolute
-        right: 9px
-        top: 2px
-        cursor: pointer
-
-
-        svg
-          width: 26px
-          height: 26px
-          path
-            fill: $gray-text-color
-        &:hover
-          svg
-            path
-              fill: $sky-blue-color
-    .forgot-password-link-wrap
-      text-align: right
-    .sign-up-invitation
-
-    .login-button
-
-    .actions
-      line-height: 70px
-      height: 70px
-      margin: 40px 0 0 0
 
   .terms-of-use-info
     //background: #fff
@@ -158,3 +104,68 @@
       > *:first-child
         line-height: 18px
         display: inline-block
+  .page &
+    width: 100%
+    max-width: 540px
+    margin: 50px auto 50px auto
+
+
+
+.form
+  .input
+    padding-bottom: 16px
+    &:last-child
+      padding-bottom: 0
+    label
+      +font-14-light
+    input
+      border: 1px $gray-text-color solid
+      height: 30px
+      width: 100%
+      display: inline-block
+      max-width: none
+      background: rgba(0,0,0,0)
+
+      +semibold
+      &:focus
+        background-color: $sky-blue-color
+        color: #fff
+        ~ .show-password-button, ~ .hide-password-button
+          svg
+            path
+              fill: rgba(255, 255, 255, 0.8)
+          &:hover
+            svg
+              path
+                fill: rgba(255, 255, 255, 1)
+    select
+      height: 30px
+      background: rgba(0, 0, 0, 0)
+    .input-wrap
+      position: relative
+    .show-password-button, .hide-password-button
+      position: absolute
+      right: 9px
+      top: 2px
+      cursor: pointer
+
+
+      svg
+        width: 26px
+        height: 26px
+        path
+          fill: $gray-text-color
+      &:hover
+        svg
+          path
+            fill: $sky-blue-color
+  .forgot-password-link-wrap
+    text-align: right
+  .sign-up-invitation
+
+  .login-button
+
+  .actions
+    line-height: 70px
+    height: 70px
+    margin: 40px 0 0 0

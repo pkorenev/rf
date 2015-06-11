@@ -60,4 +60,13 @@ window.$app.controller "ForgotPasswordController", [
         $scope.login_error.message = null;
         $scope.login_error.errors = {}
     ###
+
+    $scope.openSignInDialog = ()->
+      $scope.closeThisDialog()
+      $scope.openForgotPasswordPopup = ()->
+      ngDialog.open({
+        template: '/assets/popups/sign_in.html'
+        className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
+        controller: "SignInController"
+      });
 ]

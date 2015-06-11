@@ -23,6 +23,7 @@ window.$app.controller "SignInController", [
         return "password"
 
     $scope.openForgotPasswordPopup = ()->
+      $scope.closeThisDialog()
       ngDialog.open({
         template: '/assets/popups/forgot_password.html'
         className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray'
@@ -53,4 +54,7 @@ window.$app.controller "SignInController", [
         (response)->
 
       )
+
+    $scope.closeSelf = ()->
+      $scope.closeThisDialog()
 ]

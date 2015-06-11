@@ -288,25 +288,67 @@ button, label, input[type=button], input[type=submit]
   cursor: pointer
   text-align: right
 
-.input-wrap
-  position: relative
-  padding: 15px 0
-  label
-    color: $light-gray-text-color
-    top: 15px
-    line-height: 24px
-    height: 30px
-    position: absolute
-    padding: 4px 12px
-    +font-14-light
-    cursor: text
-
-  input
+#body
+  .rf-input-wrap
     position: relative
-    background: transparent
-    padding: 4px 12px
+    padding: 20px 0
 
+    .input-border-wrap
+      position: absolute
+      top: 15px
+      bottom: 15px
+      width: 100%
+      border: 1px solid $light-gray-text-color
+    label
+      color: $light-gray-text-color
+      top: 15px
+      left: 0
+      line-height: 24px
+      height: 30px
+      position: absolute
+      padding: 4px 12px
+      +font-14-light
+      cursor: text
+      +transition_all("all 0.3s")
+
+
+
+    input
+      max-width: none
+      width: 100%
+      border: none
+      position: relative
+      background: transparent
+      padding: 4px 12px
+      z-index: 1
+      max-width: none
+    &.focus-in
+      .input-border-wrap
+        border-color: $sky-blue-color
+      label
+        top: -15px
+        color: $sky-blue-color
+    &.ng-touched.ng-invalid
+      ~ .input-border-wrap
+        border-color: red
+    &.not-empty
+      label
+        top: -15px
+
+    .error-messages
+      display: block
+      position: absolute
+      width: 100%
+      bottom: 0
+      color: red
+      padding: 0 12px
+  button
+    &[disabled]
+      opacity: 0.6
 
 
 svg
   max-width: 100%
+a
+  color: $sky-blue-color
+  text-decoration: none

@@ -358,27 +358,53 @@ $app.directive "commentWithPrice", ()->
       scope.in_new = false
       scope.focusin = false
 
-$app.directive "button", ['$state', ($state)->
-  templateUrl: "/assets/helpers/wizard/_button.html"
-  scope:
-    svg: "@"
-    title: "@"
-    subtitle: "@"
-    class: "@"
-    sref: "@"
-    scrollTo: "@"
+
+
+$app.directive "rfButton", ['$state', ($state)->
+  template: ()->
+    svg_str = "<div class='svg-wrap' ng-include='svg()' ng-if='svg()'></div>"
+    button_title_str = "<div class='button-title' ng-bind='title()' ng-if='title()'></div>"
+    button_subtitle_str = "<div class='button-subtitle' ng-if='subtitle()' ng-bind='subtitle()'></div>"
+    button_wrap = "<button angular-ripple='' ng-click=';goToLink();' ng-class='button_class()'>#{svg_str}#{button_title_str}#{button_subtitle_str}</button>"
+    return button_wrap
+  replace: true
+  scope: true
+    #svg: "@"
+    #title: "@"
+    #subtitle: "@"
+    #class: "@"
+    #sref: "@"
+    #scrollTo: "@"
   link: (scope, element, attrs, ctrl, transcludeFn)->
     scope.scrollTo = scope.scrollTo || false
-    scope.button_class = "button"
-    if scope.subtitle && scope.subtitle.length
-      scope.button_class += " button-with-subtitle"
-    if scope.class && scope.class.length
-      scope.button_class += " #{scope.class}"
+    scope.button_class = ()->
+      c = "button "
+      if scope.subtitle && scope.subtitle.length
+        c += " button-with-subtitle"
+      if scope.class && scope.class.length
+        c += " #{scope.class}"
+    scope.svg = ()->
+      attrs.svg
+    scope.title = ()->
+      attrs.title
+    scope.subtitle = ()->
+      attrs.subtitle
+    scope.href = ()->
+      attrs.href || $state.href(attrs.sref)
+    scope.scrollTo = ()->
+      attrs.scrollTo
+
+    attrs_to_remove = ['svg', 'title', 'subtitle', 'class', 'sref']
+    for k in attrs_to_remove
+      a = k.toDash()
+      element.removeAttr(a)
+
+    ###
     if !scope.sref || !scope.sref.length
       scope.href = null
     else
       scope.href = $state.href(scope.sref)
-
+    ###
 
     scope.goToLink = ()->
       if scope.sref && scope.sref.length
@@ -616,6 +642,120 @@ $app.directive 'scrollToItem', ->
       $('html,body').animate { scrollTop: $(scope.scrollTo).offset().top }, 'slow'
 
 
+$app.directive "rfForm", ()->
+  restrict: "E"
+  require: ["?name"]
+  replace: false
+  transclude: true
+  scope:
+    class: "@"
+  link: (scope, element, attrs, ctrl)->
+    scope.formClass = ()->
+      return "rf-form #{scope.class || "" }"
+    scope.formName = ()->
+      return attrs.name || ""
+
+  template: "<form novalidate name='{{formName()}}' ng-class='formClass()'><div class='form-content' ng-transclude=''></div></form>"
+
+$app.directive "rfInput", ()->
+  restrict: 'E'
+  require: ["^?rfForm", "ngModel"]
+  replace: false
+  scope:
+    label: "@"
+    type: "@"
+    ngModel: "="
+    name: "@"
+    required: "@"
+
+  template: "<div class='input-wrap' ng-class='inputClass()'><input ng-focus='hasFocus()' ng-blur='leaveFocus()' ng-required='isRequired()' ng-class='inputClass()' ng-model='ngModel' id='{{id()}}' type='{{type}}'/><div class='input-border-wrap'></div><label>{{label}}</label><div class='input-errors' ng-if='errors() && errors().length'><div class='error' ng-repeat='e in errors()' ng-class='e.error_key'>{{e.message}}</div></div></div>"
+  link: (scope, element, attrs, ctrl)->
+    closest_form = element.parent()
+
+    _focused = false
+
+    scope.build_error_message = (error_type, field_name, args)->
+      args ?= {}
+      error_messages =
+        error_keys:
+          required: "#{field_name} is required"
+          min_length: "#{field_name} must be at least #{args.count} characters"
+        #field_names:
+
+
+      e = error_messages.error_keys[error_type]
+      if error_messages.field_names && error_messages.field_names[field_name] && error_messages.field_names[error_type]
+        e = error_messages.field_names[field_name][error_type]
+      return e
+
+    scope.errors = ()->
+      errors = []
+      field = scope.getFormScopeField()
+      if field
+        field_error = field.$error
+        if field_error
+          for error_name, error of field_error
+            errors.push({error_key: error_name, message: scope.build_error_message(error_name, scope.name)})
+
+
+    scope.getFormScopeField = ()->
+      return scope.getFormScope()[scope.name]
+
+    scope.getFormScope = ()->
+      while closest_form[0].tagName.toLowerCase() != 'rf-form'
+        closest_form = closest_form.parent()
+      form = closest_form
+      #form_scope = form.scope()
+      form_name = form.attr('name')
+      field_name = scope.name
+      #form_scope_model = form_scope[]
+      form_scope = scope
+      while form_scope && form_scope[form_name] == undefined
+        form_scope = form_scope.$parent
+      if form_scope
+        form_scope = form_scope[form_name]
+
+    scope.isRequired = ()->
+      return !!attrs.required
+    scope.inputClass = ()->
+      form = form_scope_field
+      form_scope = scope.getFormScope()
+      field_name = scope.name
+
+
+      #console.log("form_scope", form_scope)
+      type = scope.type || "string"
+      if form_scope
+
+
+        form_scope_field = form_scope[field_name]
+        if form_scope_field
+          console.log "form_scope_field", form_scope_field
+          focus_class = if _focused then 'focus' else ''
+          success_class = if form_scope_field.$valid then 'has-success' else ''
+          error_class = if form_scope_field.$invalid && (form_scope.$submitted || form_scope_field.$touched) then 'has-error' else ''
+      else
+        focus_class = ""
+        success_class = ""
+
+
+      empty_class = if !scope.ngModel || !scope.ngModel.length then "is-empty" else "not-empty"
+      return "#{type} #{empty_class} #{focus_class || ''} #{success_class || ''} #{success_class || ''} #{error_class || ''}"
+    scope.hasFocus = ()->
+      _focused = true
+    scope.leaveFocus = ()->
+      _focused = false
+
+    scope.id = ()->
+      while closest_form[0].tagName.toLowerCase() != 'rf-form'
+        closest_form = closest_form.parent()
+      form_name = closest_form.attr('name')
+      return "#{form_name}__#{attrs.id || attrs.name || 'field-' + Math.random() * 10 | 0}"
+    scope.fieldName = ()->
+      while closest_form[0].tagName.toLowerCase() != 'rf-form'
+        closest_form = closest_form.parent()
+      form_name = closest_form.attr('name')
+      return "#{form_name}[#{attrs.name || attrs.id || 'field-' + (Math.random() * 10 | 0 ) }]"
 
 
 
