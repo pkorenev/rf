@@ -5,10 +5,8 @@ window.$app.controller "SignUpController", [
       email: ""
       password: ""
       password_confirmation: ""
-      first_name: ""
-      last_name: ""
-      country: ""
-      company_url: ""
+      full_name: ""
+      phone: ""
     }
 
     $scope._show_password = false

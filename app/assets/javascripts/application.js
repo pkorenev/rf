@@ -47,6 +47,10 @@
 //= require angular-inview/angular-inview.js
 //= require angular-loading-bar/build/loading-bar.min.js
 //= require angular-validation-match/dist/angular-input-match.min
+//= require jcrop/js/jquery.Jcrop.min
+//= require ng-jcrop/ng-jcrop
+//= require ng-file-upload/ng-file-upload-shim.min
+//= require ng-file-upload/ng-file-upload.min
 // require angular-aria/angular-aria.min.js
 // require angular-material/angular-material.min.js
 // require sifter

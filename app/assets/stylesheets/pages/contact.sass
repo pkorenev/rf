@@ -23,6 +23,10 @@
 #contact-feedback
   @extend %simple-contact-form-section
 
+  .tag-textarea
+    textarea
+      height: 221px
+
 #contact-data
   .social-icons
     ul
@@ -38,6 +42,7 @@
 @media #{$intermediate-down}
 
   #contact-feedback
+
     .header-column
       text-align: center
     .header
@@ -46,6 +51,8 @@
       margin: 0 auto
     .subheader
       margin-top: 8px
+
+
   .fields-group-column
     width: grid-calc(12, 12)
     &:not(:first-child)

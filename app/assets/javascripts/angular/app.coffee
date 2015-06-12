@@ -10,7 +10,7 @@
 
 )();
 
-window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "ngDialog", "ngCapsLock", "angular-svg-round-progress", 'ng-token-auth', "angularRipple", "angular-inview", "angular-loading-bar", "validation.match"])
+window.$app = angular.module('app', [ 'ui.router', 'ngTagsInput', 'sparkscreative.attach-if', "valdr", "countTo", "angular-carousel", "ngResource", "ngSanitize", "ngMap", "offClick", "ngDialog", "ngCapsLock", "angular-svg-round-progress", 'ng-token-auth', "angularRipple", "angular-inview", "angular-loading-bar", "validation.match", "ngJcrop", "ngFileUpload", "ipCookie"])
 $app.config(
   [ '$authProvider'
     'cfpLoadingBarProvider'
@@ -20,7 +20,7 @@ $app.config(
       )
 
 
-
+      cfpLoadingBarProvider.includeBar = false
       cfpLoadingBarProvider.latencyThreshold = 0;
   ]
 )

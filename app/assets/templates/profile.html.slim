@@ -1,4 +1,4 @@
-.page.profile-page-content ng-controller="ProfileController"
+.page.profile-page-content ng-controller="ProfileController as profile"
   #profile-header.header-wrap
     .row.header-row
       .columns.large-6.header-column
@@ -52,54 +52,66 @@
                 .icon-wrap ng-include="'/assets/rf-icon-email.svg'"
                 .text-label
                   |Newsletter
-    .profile-tab-contents-row-wrap
-      .row
+    .profile-tab-contents-row-wrap full-height=""
+      .row.profile-tab-contents-row
         .columns.large-12
           ul.tab-contents
             li ng-class="[(active_tab_index == 0 ? 'active' : '' )]"
-              .row
+              form#personal-data.row novalidate="" name="profile_info"
                 .columns.large-4.photo-column
                   .photo-header
                   .photo-image-wrap
+                    .ready-image
+                      /custom-input model="personal_data.email"
+                      input#input-file-uploader type="file" ngf-select="" ng-model="userAvatarFile" name="userAvatarFile" accept="image/*"
+                      div.photo-field-label
+                        label for="input-file-uploader"
+                          |Your photo
+                      /.jcrop-wrap ng-jcrop="'/assets/wizard_banner_image.png'" selection="image_options.selection" thumbnail="true"
+                      div
+                        label.image-label for="input-file-uploader"
+                          img src="/assets/profile_image.jpg"
+                      div
+                        label.change-photo-label for="input-file-uploader"
+                          |Change photo
                   .change-button
                 .columns.large-8.inputs
                   .row
                     .columns.large-6.inputs-group
-                      .input-wrap
-                        label
-                          |Your name
-                        input ng-model="personal_data.name"
-                      .input-wrap
-                        label
-                          |Phone number
-                        input ng-model="personal_data.phone_number"
-                      .input-wrap
-                        label
-                          |Email
-                        input ng-model="personal_data.email"
+                      /input model="personal_data.username" placeholder="username" name="username"
+                      my-input name="username" label="Username" model="personal_data.username" required=""
+                      my-input name="name" label="Full name" model="personal_data.name"
+                      my-input name="phone" label="Phone number" model="personal_data.phone_number"
+                      my-input type="email" label="Email" name="email" model="personal_data.email" required=""
                     .columns.large-6.inputs-group
-                      .input-wrap
-                        label
-                          |Billing address
-                        input ng-model="personal_data.billing_address"
-                      .inputs-group
+
+
+                      /.inputs-group
                         .row
                           .columns.large-6
-                            .input-wrap
-                              label
-                                |City
-                              input ng-model="personal_data.city"
-                            .input-wrap
-                              label
-                                |ZIP code
-                              input ng-model="personal_data.zip_code"
-                      .input-wrap
-                        label
-                          |Country
-                        input ng-model="personal_data.country"
+                            my-input model="personal_data.city" name="city" label="City"
+                          .columns.large-6
+                            my-input label="ZIP code" name="zip_code" model="personal_data.zip_code"
+                      my-input label="Country" name="country" model="personal_data.country"
+                      my-input model="personal_data.city" name="city" label="City"
+                      my-input label="ZIP code" name="zip_code" model="personal_data.zip_code"
+                      my-input name="billing_address" model="personal_data.billing_address" label="Billing address"
+
+
             li ng-class="[(active_tab_index == 1 ? 'active' : '' )]"
+              form name="password_change"
+                my-input name="old_password" model="password_change.old_password" type="password" label="Old password" required=""
+                my-input name="password" model="password_change.password" type="password" required="" label="New password"
+                my-input name="password_confirmation" model="password_change.password_confirmation" type="password" label="Password confirmation"
+                rf-button svg="/assets/rf-icon-password.svg" title="Change password" ng-disabled="password_change.$invalid" ng-click="change_password()"
+
             li ng-class="[(active_tab_index == 2 ? 'active' : '' )]"
-      .row
+              form name="subscribe_form"
+                input#subscribe_form__subscribe type="checkbox"
+                label for="subscribe_form__subscribe"
+                  |I want to receive newsletter
+
+      .tabcontrol-footer.row
         .columns.large-2.right
-          .delete-account
+          .delete-account ng-click="confirm_destroy_account()"
             |Delete account

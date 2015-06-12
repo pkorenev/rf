@@ -49,7 +49,8 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # You can put the params you want to permit in the empty array.
   def configure_account_update_params
     #devise_parameter_sanitizer.for(:account_update) << :attribute
-    devise_parameter_sanitizer.for(:account_update).push(:username, :first_name, :last_name, :country, :company_url)
+    devise_parameter_sanitizer.for(:account_update).push(:username, :full_name, :phone, :email, :country, :city, :zip_code, :billing_address)
+    #phone_number, billing_address, city, zip_code, id, provider, uid, image, billing_cardholder_name, billing_card_number, billing_cvv_number, signedIn, configName, registration
   end
 
   # The path used after sign up.

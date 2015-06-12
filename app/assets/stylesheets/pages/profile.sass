@@ -6,3 +6,42 @@
     +font-18-light
     color: $sky-blue-color
 
+.ng-jcrop-thumbnail-wrapper
+  border-radius: 50%
+
+.photo-image-wrap
+  text-align: center
+  .ready-image
+    .photo-field-label
+      +normal
+      margin: 0 0 10px 0
+    img
+      max-width: 120px
+      max-height: 120px
+      border-radius: 50%
+    .change-photo-label
+      color: $sky-blue-color
+      +font-14-light
+      margin: 20px 0 0 0
+      display: inline-block
+
+
+.tab-contents
+  padding: 0
+  margin: 0
+
+#body
+  .profile-tab-contents-row-wrap
+    +flexbox
+    +flex-direction(column)
+    .profile-tab-contents-row
+      +flex-grow(1)
+
+    form
+      padding: 50px 0 0 0
+      margin: 0
+  .tabcontrol-footer
+    height: 70px
+#input-file-uploader
+  display: none
+

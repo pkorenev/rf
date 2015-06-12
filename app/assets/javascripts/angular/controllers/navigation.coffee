@@ -6,7 +6,9 @@ $app.controller 'NavigationController', [
   "$state"
   "$document"
   '$rootScope'
-  ($scope, $location, Auth, ngDialog, $state, $document, $rootScope) ->
+  'ipCookie'
+  "$http"
+  ($scope, $location, Auth, ngDialog, $state, $document, $rootScope, ipCookie, $http) ->
 
 #    $scope.navClass = (page) ->
 #      currentRoute = $location.path().substring(1) or 'home'
@@ -255,5 +257,12 @@ $app.controller 'NavigationController', [
 
     $rootScope.$on "cfpLoadingBar:completed", ()->
       #alert("hello")
+
+    $rootScope.geo = ipCookie('geo')
+    if !$rootScope.geo
+      promise = $http.get("/geo")
+      promise.success (data)->
+        $rootScope.geo = data
+        ipCookie('geo', data)
 
 ]

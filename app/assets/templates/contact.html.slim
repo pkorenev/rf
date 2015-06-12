@@ -58,11 +58,11 @@
             |For any question or comment contact us via the form below and we'll back to you quickly.
         .columns.large-12
           .row
-            form no-validate=""
+            form novalidate="" name="contact"
               .columns.medium-6.fields-group-column
-                input ng-model="contact_request.subject" required="" placeholder="Your name"
-                input ng-model="contact_request.name" required="" placeholder="Your email"
-                input type="text" ng-model="contact_request.email" required="" placeholder="Question title"
+                my-input name="subject" ng-model="contact_request.subject" required="" label="Subject"
+                my-input name="name" type="name" ng-model="contact_request.name" required="" label="Your name"
+                my-input name="email" type="email" ng-model="contact_request.email" required="" label="Email"
               .columns.medium-6.fields-group-column
-                textarea ng-model="contact_request.description" required="" placeholder="Type your question's subject here..."
-                input type="button" value="Send message"  ng-click="submitRequest(); $event.preventDefault()"
+                rf-textarea name="description" ng-model="contact_request.description" required="" label="Type your question's subject here..."
+                rf-button svg="/assets/rf-icon-send-letter.svg" title="Send message" ng-disabled="contact.$invalid"  ng-click="submitRequest(); $event.preventDefault()"

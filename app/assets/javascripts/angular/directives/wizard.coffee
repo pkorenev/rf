@@ -383,6 +383,10 @@ $app.directive "rfButton", ['$state', ($state)->
         c += " button-with-subtitle"
       if scope.class && scope.class.length
         c += " #{scope.class}"
+      raised = if attrs.raised == false then false else true
+      if raised
+        c += " rf-button-raised"
+
     scope.svg = ()->
       attrs.svg
     scope.title = ()->
@@ -657,6 +661,7 @@ $app.directive "rfForm", ()->
 
   template: "<form novalidate name='{{formName()}}' ng-class='formClass()'><div class='form-content' ng-transclude=''></div></form>"
 
+###
 $app.directive "rfInput", ()->
   restrict: 'E'
   require: ["^?rfForm", "ngModel"]
@@ -757,7 +762,7 @@ $app.directive "rfInput", ()->
       form_name = closest_form.attr('name')
       return "#{form_name}[#{attrs.name || attrs.id || 'field-' + (Math.random() * 10 | 0 ) }]"
 
-
+###
 
 ###
 $app.directive 'outsideClick', ($document) ->
