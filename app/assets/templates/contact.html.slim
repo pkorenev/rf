@@ -60,9 +60,13 @@
           .row
             form novalidate="" name="contact"
               .columns.medium-6.fields-group-column
-                my-input name="subject" ng-model="contact_request.subject" required="" label="Subject"
-                my-input name="name" type="name" ng-model="contact_request.name" required="" label="Your name"
-                my-input name="email" type="email" ng-model="contact_request.email" required="" label="Email"
+                rf-input ng-model="contact_request.name" ng-required="true" label="Your name"
+                rf-input ng-model="contact_request.email" is-email="" label="Email" ng-required="true"
+                rf-input ng-model="contact_request.subject" ng-required="false" label="Subject"
+                /my-input name="subject" ng-model="contact_request.subject" required="" label="Subject"
+                /my-input name="name" type="name" ng-model="contact_request.name" required="" label="Your name"
+                /my-input name="email" type="email" ng-model="contact_request.email" required="" label="Email"
               .columns.medium-6.fields-group-column
-                rf-textarea name="description" ng-model="contact_request.description" required="" label="Type your question's subject here..."
+                rf-input type="text" n-inputs-height="3" ng-model="contact_request.description" label="Type your question's subject here..."
+                /rf-textarea name="description" ng-model="contact_request.description" required="" label="Type your question's subject here..."
                 rf-button svg="/assets/rf-icon-send-letter.svg" title="Send message" ng-disabled="contact.$invalid"  ng-click="submitRequest(); $event.preventDefault()"

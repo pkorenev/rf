@@ -19,7 +19,7 @@
 //
 // jquery plugins
 //= require parallax/deploy/parallax.min
-//
+//= require basic_functions
 //
 //= require angular/angular.min.js
 //= require angular-ui-router/release/angular-ui-router.min
@@ -30,8 +30,9 @@
 //= require angular-count-to/build/angular-count-to.min
 //= require angular-carousel/dist/angular-carousel.min.js
 //= require angular-attach-if/attach-if
-//= require valdr/valdr.min
-//= require valdr/valdr-message.min
+// require valdr/valdr.min
+// require valdr/valdr-message.min
+//= require angular.validators/angular.validators
 //= require angular-sanitize/angular-sanitize.min.js
 //= require ngmap/build/scripts/ng-map.min
 // require angular-click-outside/clickoutside.directive

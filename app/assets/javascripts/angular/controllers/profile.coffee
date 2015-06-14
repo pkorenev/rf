@@ -5,13 +5,20 @@ window.$app.controller "ProfileController", [
 
 
     $scope.personal_data = {
-      name: ""
-      phone_number: ""
+      username: ""
+      full_name: ""
+      phone: ""
       email: ""
-      billing_address: ""
+      country: ""
       city: ""
       zip_code: null
-      country: ""
+      billing_address: ""
+    }
+
+    $scope.password_change = {
+      old_password: ""
+      password: ""
+      password_confirmation: ""
     }
 
 
@@ -89,6 +96,16 @@ window.$app.controller "ProfileController", [
 
     $scope.controller_initialized = true
 
+    $scope.change_password = ()->
+      promise = $auth.updatePassword(
+        password: $scope.password_change.password
+        password_confirmation: $scope.password_change.password_confirmation
+      )
+
+      promise.then ()->
+        alert("password updated successfully")
+      promise.catch ()->
+        alert("password update error")
 
 
 

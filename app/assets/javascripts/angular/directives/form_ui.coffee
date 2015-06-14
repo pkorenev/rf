@@ -1,14 +1,4 @@
-window.keys_count = (obj)->
-  if typeof obj != 'object'
-    return null
-  keys = []
-  for k,v of this
-    keys.push k
-  return keys.length
 
-String.prototype.toDash = ()->
-  return this.replace /([A-Z])/g, ($1)->
-    return "-"+$1.toLowerCase()
 
 
 wrapElement = (element, attrs)->
@@ -118,24 +108,27 @@ checkboxDirective = ()->
 inputTextTemplate = (element, attrs)->
   "<input ng-model='value' ng-change='onChange()'>"
 
-$app.directive "rfInput", ()->
-  require: "?ngModel"
-  scope: true
-  template: (element, attrs)->
-    type = attrs.type || 'text'
-    if type == 'text'
-      return inputTextTemplate()
-
-
-  link: (scope, element, attrs, ctrl)->
-    if !ngModel
-      return
-    scope.onChange = ()->
-      ngModel.$setViewValue(scope.value);
-
-
-    ngModel.$render = ()->
-      scope.value = ngModel.$modelValue;
+#$app.directive "rfInput", ()->
+#  restrict: ""
+#  require: ["?ngModel", "rfInput"]
+#  controllerAs: "rfInput"
+#  controller: ()->
+#
+#  scope: {}
+#  template: (element, attrs)->
+#    type = attrs.type || 'text'
+#    if type == 'text'
+#      return inputTextTemplate()
+#
+#
+#  link: (scope, element, attrs, ctrls)->
+#    ngModelCtrl = ctrls[0]
+#
+#    scope.onChange = ()->
+#      ngModelCtrl.$setViewValue(scope.value);
+#
+#    ngModelCtrl.$render = ()->
+#      scope.value = ngModelCtrl.$modelValue;
 
 
 
@@ -152,15 +145,15 @@ $app.directive "myInput", inputDirective
 $app.directive "rfTextarea", inputDirective
 $app.directive "myCheckbox", checkboxDirective
 
-  $app.directive "customInput", ()->
-  require: "ngModel"
-  template: (element, attrs)->
-    "<input ng-model='model'  />"
-  replace: true
-  scope: {
-    model: "=model"
-  }
-  link: (scope, element, attrs, ngModel)->
+#$app.directive "customInput", ()->
+#require: "ngModel"
+#template: (element, attrs)->
+#  "<input ng-model='model'  />"
+#replace: true
+#scope: {
+#  model: "=model"
+#}
+#link: (scope, element, attrs, ngModel)->
 
 
 

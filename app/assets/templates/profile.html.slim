@@ -63,14 +63,16 @@
                   .photo-image-wrap
                     .ready-image
                       /custom-input model="personal_data.email"
-                      input#input-file-uploader type="file" ngf-select="" ng-model="userAvatarFile" name="userAvatarFile" accept="image/*"
+                      input#input-file-uploader type="file" ngf-select="" ng-model="userAvatarFile" name="userAvatarFile" accept="image/*" ng-change=""
                       div.photo-field-label
                         label for="input-file-uploader"
                           |Your photo
                       /.jcrop-wrap ng-jcrop="'/assets/wizard_banner_image.png'" selection="image_options.selection" thumbnail="true"
                       div
-                        label.image-label for="input-file-uploader"
+                        label.image-label for="input-file-uploader" ng-show="personal_data.avatar_file_name && personal_data.avatar_file_name.length"
                           img src="/assets/profile_image.jpg"
+                        label.no-image for="input-file-uploader" ng-show="!personal_data.avatar_file_name || !personal_data.avatar_file_name.length"
+                          img src="/assets/no_avatar.svg"
                       div
                         label.change-photo-label for="input-file-uploader"
                           |Change photo
@@ -78,11 +80,18 @@
                 .columns.large-8.inputs
                   .row
                     .columns.large-6.inputs-group
-                      /input model="personal_data.username" placeholder="username" name="username"
-                      my-input name="username" label="Username" model="personal_data.username" required=""
-                      my-input name="name" label="Full name" model="personal_data.name"
-                      my-input name="phone" label="Phone number" model="personal_data.phone_number"
-                      my-input type="email" label="Email" name="email" model="personal_data.email" required=""
+                      /rf-input ng-model="personal_data.email" ng-required="true" is-email="" name="email"
+                      /div
+                        |{{personal_data.email}}
+
+                      rf-input ng-model="personal_data.username" ng-required=""
+                      rf-input ng-model="personal_data.full_name"
+                      rf-input ng-model="personal_data.phone"
+                      rf-input ng-model="personal_data.email" is-email="" ng-required=""
+                      /my-input name="username" label="Username" model="personal_data.username" required=""
+                      /my-input name="name" label="Full name" model="personal_data.name"
+                      /my-input name="phone" label="Phone number" model="personal_data.phone"
+                      /my-input type="email" label="Email" name="email" model="personal_data.email" required=""
                     .columns.large-6.inputs-group
 
 
@@ -92,18 +101,26 @@
                             my-input model="personal_data.city" name="city" label="City"
                           .columns.large-6
                             my-input label="ZIP code" name="zip_code" model="personal_data.zip_code"
-                      my-input label="Country" name="country" model="personal_data.country"
-                      my-input model="personal_data.city" name="city" label="City"
-                      my-input label="ZIP code" name="zip_code" model="personal_data.zip_code"
-                      my-input name="billing_address" model="personal_data.billing_address" label="Billing address"
+                      rf-input ng-model="personal_data.country"
+                      rf-input ng-model="personal_data.city"
+                      rf-input ng-model="personal_data.zip_code"
+                      rf-input ng-model="personal_data.billing_address"
+                      /my-input label="Country" name="country" model="personal_data.country"
+                      /my-input model="personal_data.city" name="city" label="City"
+                      /my-input label="ZIP code" name="zip_code" model="personal_data.zip_code"
+                      /my-input name="billing_address" model="personal_data.billing_address" label="Billing address"
 
 
             li ng-class="[(active_tab_index == 1 ? 'active' : '' )]"
-              form name="password_change"
-                my-input name="old_password" model="password_change.old_password" type="password" label="Old password" required=""
-                my-input name="password" model="password_change.password" type="password" required="" label="New password"
-                my-input name="password_confirmation" model="password_change.password_confirmation" type="password" label="Password confirmation"
-                rf-button svg="/assets/rf-icon-password.svg" title="Change password" ng-disabled="password_change.$invalid" ng-click="change_password()"
+              form name="password_change_form"
+                .columns.large-4.large-centered
+                  rf-input name="old_password" ng-model="password_change.old_password" type="password" ng-required="true" rf-min-length="8"
+                  rf-input name="password" ng-model="password_change.password" type="password" ng-required="true" rf-min-length="8" mismatch="password_change.old_password"
+                  rf-input name="password_confirmation" ng-model="password_change.password_confirmation" type="password" match="password_change.password"
+                  /my-input name="old_password" model="password_change.old_password" type="password" label="Old password" required=""
+                  /my-input name="password" model="password_change.password" type="password" required="" label="New password"
+                  /my-input name="password_confirmation" model="password_change.password_confirmation" type="password" label="Password confirmation"
+                  rf-button svg="/assets/rf-icon-password.svg" title="Change password" ng-disabled="password_change_form.$invalid" ng-click="change_password()"
 
             li ng-class="[(active_tab_index == 2 ? 'active' : '' )]"
               form name="subscribe_form"

@@ -26,16 +26,18 @@
                 .social-icon-wrap ng-include="'/assets/github.svg'"
         .or
           |or
-      form.form.login-form
+      form.form.login-form novalidate=""
         .caps-lock-warning ng-show="isCapsLockOn"
           |Warning: Caps-lock is on
         .inputs
-          .input
+          rf-input ng-model="credentials.login" label="Username or email"
+
+          /.input
             label for="login__email"
               |Email address
             input#login__email type="email" placeholder="Your email" ng-model="credentials.email"
           .input.password
-            label for="login__password"
+            /label for="login__password"
               |Password
             .input-wrap
               input#login__password type="{{passwordInputType()}}" placeholder="password" ng-model="credentials.password"

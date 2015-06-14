@@ -112,7 +112,15 @@ button.add-question-button
         left: 23px
 
 #faq-form
-  @extend %simple-contact-form-section
+  background: $white-color
+  padding: 40px 0 80px 0
+  //@extend %simple-contact-form-section
+  .header
+    @extend %large-section-header-text
+  .subheader
+    @extend %section-subheader-text
+  form
+    margin-top: 4rem
 
 @media #{$faq-menu-breakpoint}
   #faq-menu

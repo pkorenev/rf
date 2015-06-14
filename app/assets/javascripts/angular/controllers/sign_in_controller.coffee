@@ -1,7 +1,7 @@
 window.$app.controller "SignInController", [
   "$scope", "$auth", "ngDialog", ($scope, Auth, ngDialog)->
     $scope.credentials = {
-      email: ""
+      login: ""
       password: ""
     }
 

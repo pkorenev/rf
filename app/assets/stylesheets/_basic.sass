@@ -289,7 +289,8 @@ button, label, input[type=button], input[type=submit]
   text-align: right
 
 #body
-  .rf-input-wrap
+  .rf-input-wrap, rf-input
+    display: block
     position: relative
     padding: 20px 0
 
@@ -311,12 +312,7 @@ button, label, input[type=button], input[type=submit]
       cursor: text
       +transition_all("all 0.3s")
 
-    textarea
-      background: transparent
-      display: block
-      position: relative
-      max-width: 100%
-    input
+    input, textarea
       max-width: 100%
       width: 100%
       border: none
@@ -325,6 +321,10 @@ button, label, input[type=button], input[type=submit]
       padding: 4px 12px
       z-index: 1
       display: block
+
+    &[type=text][n-inputs-height='3']
+      textarea
+        height: 170px
     &.focus-in
       .input-border-wrap
         border-color: $sky-blue-color
@@ -334,6 +334,8 @@ button, label, input[type=button], input[type=submit]
     &.ng-touched.ng-invalid
       .input-border-wrap
         border-color: red
+      .error-messages
+        display: block
     &.not-empty
       label
         top: -15px
@@ -341,12 +343,13 @@ button, label, input[type=button], input[type=submit]
     .error-messages
       top: 24px
       text-align: right
-      display: block
+
       position: absolute
       width: 100%
       bottom: 0
       color: red
       padding: 0 12px
+      display: none
   button
     &[disabled]
       opacity: 0.6
