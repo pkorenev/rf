@@ -18,6 +18,9 @@ class Users::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksCon
     redirect_to redirect_route
   end
 
+  def omniauth_success
+    super
+  end
 
 
   # def omniauth_success
