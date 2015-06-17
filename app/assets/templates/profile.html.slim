@@ -120,11 +120,17 @@
                   /my-input name="old_password" model="password_change.old_password" type="password" label="Old password" required=""
                   /my-input name="password" model="password_change.password" type="password" required="" label="New password"
                   /my-input name="password_confirmation" model="password_change.password_confirmation" type="password" label="Password confirmation"
-                  rf-button svg="/assets/rf-icon-password.svg" title="Change password" ng-disabled="password_change_form.$invalid" ng-click="change_password()"
+                  rf-button class="change_password_button" max-button-width="300px" svg-size="small" full-width="" svg="/assets/rf-icon-password.svg" title="Change password" ng-disabled="password_change_form.$invalid" ng-click="change_password()"
 
             li ng-class="[(active_tab_index == 2 ? 'active' : '' )]"
+              .header.h4
+                |Subscribe for newsletter
+              p.large-7
+                |Subscribe to our newsletter and stay updated on the latest developments and special offers!
+
               form name="subscribe_form"
                 input#subscribe_form__subscribe type="checkbox"
+                label for="subscribe_form__subscribe"
                 label for="subscribe_form__subscribe"
                   |I want to receive newsletter
 

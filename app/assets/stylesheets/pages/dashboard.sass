@@ -37,37 +37,7 @@
             color: $light-gray-text-color
 
 
-    .steps-completed
-      padding: 0
-      margin: 20px 0 45px 0
-      .progress
-        height: 5px
-        .step
-          position: relative
-          height: inherit
-          padding-left: 1px
-          float: left
-          .inner
-            width: 100%
-            height: 100%
-            position: relative
-            &:before, &:after
-              content: ""
-              height: 100%
-              width: 100%
-              display: block
-              position: absolute
-              top: 0
-              left: 0
-              background: $light-gray-text-color
-          &:not(.proceeded)
-            .inner
-              &:after
-                width: 0
-          &.proceeded
-            .inner
-              &:after
-                background-color: $yellow-orange-color
+
     > .inner
       position: relative
       background: $white-color

@@ -774,35 +774,6 @@ input, textarea
 
 
 
-input[type=radio], input[type=checkbox]
-  display: none
-
-  &:not(.option-image-input)
-    & + label
-      border: 1px solid $light-gray-text-color
-      display: inline-block
-      width: 20px
-      height: 20px
-      margin-right: rem-calc(16)
-
-      & + label
-        display: inline-block
-        vertical-align: top
-        //line-height: 20px
-
-    &:not(:checked)
-      & ~ .input-related-content
-        display: none
-
-    &:checked
-      & + label
-        border-color: $sky-blue-color
-        &:before
-          content: ""
-          position: relative
-          display: block
-
-          background: $fire-orange-color
 
 //.radio-button-wrap
   position: relative
@@ -874,7 +845,7 @@ button
   &.horizontal
     +flexbox
     +flex-wrap(wrap)
-    > .input
+    > .input, > .checklist-item
       +flex-grow(1)
 
 .question
@@ -1137,7 +1108,7 @@ body
       path
         fill: $inactive-button-text-color
 
-.steps-completed
+.steps-completed, steps-progress
   float: left
   width: 100%
   padding: 20px 15px 0 15px

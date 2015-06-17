@@ -18,6 +18,7 @@
                         .type-of-test-logo ng-include="project.type_of_test_logo"
                         .project-name
                           |{{project.project_name}}
+                        /steps-progress items="{{range(project.steps_completed[1])}}"
                         .steps-completed
                           .progress
                             .step ng-repeat="i in range(project.steps_completed[1]) track by $index" style="width: {{100 / project.steps_completed[1]}}%;" ng-class="[($index <= project.steps_completed[0] - 1 ? 'proceeded' : 'unproceeded' )]"

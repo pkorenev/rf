@@ -44,6 +44,7 @@
 //= require angular-cookie/angular-cookie.min
 //= require ng-token-auth/dist/ng-token-auth.min
 //= require angular-ripple/angular-ripple
+//= require checklist-model/checklist-model
 // require jquery.appear/jquery.appear
 //= require angular-inview/angular-inview.js
 //= require angular-loading-bar/build/loading-bar.min.js

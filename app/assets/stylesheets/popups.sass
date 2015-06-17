@@ -1,3 +1,4 @@
+
 .ngdialog.ngdialog-theme-rf-light-gray
   .ngdialog-content
     font-family: $fira-sans-font-family
@@ -17,6 +18,9 @@
         color: #F5EFEF
 
 
+  &.ngdialog-payment
+    .ngdialog-content
+      width: 700px
 
 .form-partial
   > .header
@@ -169,3 +173,103 @@
     line-height: 70px
     height: 70px
     margin: 40px 0 0 0
+
+
+.payment-type
+  display: inline-block
+  width: grid-calc(3, 12)
+  float: left
+
+  .title
+    +font-12-light
+    text-align: center
+
+  svg
+    width: 100%
+    height: 100%
+    display: block
+  .image-wrap
+    height: 100px
+
+.payment-type-separator
+  height: 100px
+  display: inline-block
+  float: left
+  width: grid-calc(1.5, 12)
+  text-align: center
+  vertical-align: top
+  line-height: 100px
+
+.master-card-svg-wrap, .visa-card-svg-wrap, .paypal-card-svg-wrap
+  max-width: 64px
+  max-height: 40px
+  display: block
+.master-card-svg-wrap
+  margin: 12px 0 0 10px
+.visa-card-svg-wrap
+  margin: -10px 0 0 40px
+.paypal-card-svg-wrap
+  top: 27px
+  position: relative
+  left: 28px
+
+.payment-type:not(.active)
+  .pay-later-svg-wrap
+    svg
+      &, & *
+        fill: #8a8b8d !important
+  .paypal-card-svg-wrap
+    #pay, #pal
+      //fill: $light-gray-color
+    #pay
+      fill: #999a9c
+    #pal
+      fill: #a5a6a8
+  // 999a9c
+  .master-card-svg-wrap
+    #Rectangle-1
+      fill: #999a9c
+    #right-round
+      fill: #c7c8ca
+    #left-round
+      fill: #9fa0a2
+  .visa-card-svg-wrap
+    #Rectangle-1
+      fill: #999a9c
+    #Rectangle-2
+      fill: #b8b9bb
+    .letter
+      fill: #9a9b9d
+    #v-up
+      fill: #b7b8ba
+
+
+.pay-later-svg-wrap
+  max-width: 70px
+  position: relative
+  top: 16px
+  left: 20px
+
+.payment-form
+  .fields-group
+    > .columns.large-6
+      &:nth-last-child(1)
+        padding-right: 0
+      &:nth-last-child(2)
+        padding-left: 0
+  .payment-type
+    .image-wrap
+      background: #e6e7e9
+      border: 1px solid $light-gray-text-color
+    &.active
+      .image-wrap
+        border-color: $sky-blue-color
+        border-width: 2px
+.field-groups-row
+  margin-top: 45px
+
+.popup
+  &.payment
+    .actions
+      .button-wrap, .price-wrap
+        padding: 0

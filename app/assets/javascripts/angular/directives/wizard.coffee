@@ -229,16 +229,17 @@ $app.directive "platform", ()->
   restrict: "E"
   require: "ngModel"
   templateUrl: "/assets/helpers/wizard/_platform.html"
-  transclude: true
+  #transclude: true
   scope:
-    name: "@"
+    #name: "@"
     image_path: "@imagePath"
-    commentable: "@"
     model: "=ngModel"
   link: (scope, element, attrs, ctrl, transcludeFn)->
-    scope.commentable ?= true
-    scope.name ?= scope.model.name
+    scope.commentable = attrs.hasOwnProperty('commentable')
+    scope.name = scope.model.name
     scope.image_path ?= "/assets/#{scope.model.svg}.svg"
+    scope.show_full = attrs.hasOwnProperty("showFull")
+    scope.platform_id = scope.model.id
 
     child_scope_source = attrs.childScopeSource || 'this'
     child_scope = null
@@ -330,7 +331,7 @@ $app.directive "commentWithPrice", ()->
     scope.focusin = false
 
     scope.$watch("model_comment", (newValue)->
-      scope.empty = !newValue.length
+      scope.empty = !newValue || !newValue.length
     )
 
     scope.$watch("focusin", (newValue)->
@@ -362,11 +363,24 @@ $app.directive "commentWithPrice", ()->
 
 $app.directive "rfButton", ['$state', ($state)->
   template: ()->
-    svg_str = "<div class='svg-wrap' ng-include='svg()' ng-if='svg()'></div>"
+    svg_str = "<div class='svg-wrap svg-size-{{rfButton.svgSize()}}' ng-include='svg()' ng-if='svg()'></div>"
     button_title_str = "<div class='button-title' ng-bind='title()' ng-if='title()'></div>"
     button_subtitle_str = "<div class='button-subtitle' ng-if='subtitle()' ng-bind='subtitle()'></div>"
-    button_wrap = "<button angular-ripple='' ng-click=';goToLink();' ng-class='button_class()'>#{svg_str}#{button_title_str}#{button_subtitle_str}</button>"
+    button_text_wrap_str = "<div class='button-text-wrap'><div class='inner'>#{button_title_str}#{button_subtitle_str}</div></div>"
+    button_content_wrap = "<div class='rf-button-content-wrap'><div class='rf-button-content'>#{svg_str}#{button_text_wrap_str}</div></div>"
+    button_wrap = "<button angular-ripple='' ng-click=';goToLink();' ng-class='button_class()'>#{button_content_wrap}</button>"
     return button_wrap
+  controllerAs: "rfButton"
+  require: ["rfButton"]
+  controller: ($scope, $element, $attrs)->
+    this.svgSize = ()->
+      $attrs.svgSize || 'medium'
+
+    this.maxButtonWidth = ()->
+      $attrs.maxButtonWidth
+
+    return this
+
   replace: true
   scope: true
     #svg: "@"
@@ -375,18 +389,40 @@ $app.directive "rfButton", ['$state', ($state)->
     #class: "@"
     #sref: "@"
     #scrollTo: "@"
-  link: (scope, element, attrs, ctrl, transcludeFn)->
+  link: (scope, element, attrs, ctrls, transcludeFn)->
+    rfButtonCtrl = ctrls[0]
     scope.scrollTo = scope.scrollTo || false
     scope.button_class = ()->
-      c = "button "
-      if scope.subtitle && scope.subtitle.length
-        c += " button-with-subtitle"
+      custom_class = attrs.class || ''
+      c = "rf-button "
+      if scope.subtitle() && scope.subtitle().length
+        c += " rf-button-with-subtitle"
+      else
+        c += " rf-button-without-subtitle"
+      if scope.svg() && scope.svg().length
+        c += " rf-button-with-svg"
+      else
+        c += " rf-button-without-svg"
       if scope.class && scope.class.length
         c += " #{scope.class}"
-      raised = if attrs.raised == false then false else true
+      raised = if eval(attrs.raised) == false then false else true
       if raised
         c += " rf-button-raised"
+      else
+        c += " rf-button-unraised"
+      full_width = if attrs.hasOwnProperty('fullWidth') then true else false
+      #console.log "full_width: ", full_width
+      if full_width
+        c += " rf-button-full-width"
+      else
+        c += " rf-button-auto-width"
+      svg_size = rfButtonCtrl.svgSize()
+      c += " rf-button-svg-size-#{svg_size}"
+      align_content = attrs.alignContent || "center"
+      c += " rf-button-align-content-#{align_content}"
+      c += " #{custom_class}"
 
+      c
     scope.svg = ()->
       attrs.svg
     scope.title = ()->
@@ -566,6 +602,7 @@ helper "question",
 ###
 
 $app.directive "question", ()->
+  restrict: 'E'
   scope:
     text: "@"
     centered: "@"

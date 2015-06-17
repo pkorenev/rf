@@ -37,7 +37,25 @@ $app.factory "WizardTest", ($http)->
     load_platforms: (type_of_product)->
       $http.get("/wizard/available_platforms_by_product_type/#{type_of_product}").success (response)->
         obj.platforms = response
-
+    new: ()->
+      obj.data = 
+        tot__type_of_test: ""
+        top__type_of_product: ""
+        ps__platforms: ""
+        ps__hours: ""
+        pi__project_name: ""
+        pi__project_version: ""
+        pi__project_languages: ["English"]
+        pi__report_languages: ["English"]
+        tp__type_of_testing: ""
+        tp__exploratory_instructions: ""
+        #t.has_attached_file :tp__test_case_attachment
+        pa__access_instructions_url: ""
+        #pa__access_instructions_attachment
+        pa__access_user_name: ""
+        pa__access_password: ""
+        pa__need_authorization: false
+        pa__comment: ""
 
       return obj
   return obj

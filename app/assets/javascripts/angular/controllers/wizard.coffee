@@ -9,7 +9,7 @@
 
 
 $app.controller "WizardController", [
-   "$scope", "WizardTest", ( $scope, WizardTest)->
+   "$scope", "WizardTest", "ngDialog", ( $scope, WizardTest, ngDialog)->
 
     $scope.page_banner = {
       title: "Wizard page header"
@@ -24,9 +24,11 @@ $app.controller "WizardController", [
     #$scope.ajax_steps = new WizardTest()
     #$scope.ajax_steps.get_new()
 
-    $scope.wizard = {}
+
+    $scope.wizard = WizardTest.new()
     $scope.master = {}
     $scope.user = {}
+
     $scope.wizard.tester_hour_price = 20
     $scope.wizard.hours = [1, 2, 3, 4, 5]
     $scope.wizard.selected_hour = $scope.wizard.hours[0] if !$scope.wizard.selected_hour
@@ -45,12 +47,21 @@ $app.controller "WizardController", [
 
     $scope.wizard.active_step_valid = true
 
-    $scope.wizard.steps = [
-      {id: 1, intro: true}
-      {id: 2, name: "Step A name", number: 1, valid: true}
-      { id: 3, name: "step B name", number: 2, valid: true }
-      { id: 4, name: "step C name", number: 3, valid: true }
+    $scope.wizard.configuration_steps = [
+      #{id: 1, key: "intro", intro: true}
+      {id: 2, key: "platforms", name: "Platforms", number: 1, valid: true}
+      { id: 3, key: "project_info", name: "step B name", number: 2, valid: true }
+      { id: 4, key: "testing_type", name: "Testing type", number: 3, valid: true }
+      { id: 5, key: 'project_access', name: "Project access", numnber: 4, valid: true }
     ]
+
+    $scope.$watch "wizard.steps"
+
+#    $scope.wizard.steps_by_key = (key)->
+#      $scope.wizard.steps.filter(
+#        (s)->
+#          s.key == key
+#      )
 
     $scope.wizard.named_steps = {
       preconfiguration_steps: {
@@ -68,12 +79,16 @@ $app.controller "WizardController", [
     }
 
     $scope.$watch("wizard.active_step_id", (newValue)->
-      $scope.wizard.active_step = $scope.wizard.steps.filter( (s)->
+      $scope.wizard.active_step = $scope.wizard.configuration_steps.filter( (s)->
         parseInt(s.id) == parseInt(newValue)
       )[0]
 
+      $scope.wizard.active_step_form = $scope.wizard[$scope.wizard.active_step.key+'_form']
+
+      #$scope.wizard.active_step_form = $scope.wizard.active_step.form
+
       $scope.wizard.next_step_id = newValue + 1
-      $scope.wizard.next_step = $scope.wizard.steps.filter( (s)->
+      $scope.wizard.next_step = $scope.wizard.configuration_steps.filter( (s)->
         parseInt(s.id) == parseInt($scope.wizard.next_step_id)
       )[0]
 
@@ -84,7 +99,7 @@ $app.controller "WizardController", [
 
 
     $scope.$watch("wizard.total_price", (newValue)->
-      $scope.wizard.steps[1].valid = newValue > 0
+      $scope.wizard.configuration_steps[1].valid = newValue > 0
     )
 
     $scope.wizard.validate_step_3 = ()->
@@ -201,9 +216,9 @@ $app.controller "WizardController", [
     $scope.wizard.tested_before = 'no' #false
     $scope.wizard.project_name ?= "Project 1"
     $scope.wizard.version_number = null
-    $scope.wizard.project_languages = []
+    $scope.wizard.project_languages = ["English"]
     $scope.wizard.project_languages_count = 0
-    $scope.wizard.report_languages = []
+    $scope.wizard.report_languages = ["English"]
     $scope.wizard.report_languages_count = 0
     $scope.wizard.methodology_id = 1
 
@@ -228,27 +243,27 @@ $app.controller "WizardController", [
 
 
     for field_name in ["project_name", "version_number", "project_languages", "report_languages", "project_languages_count", "report_languages_count"]
-      console.log("bind watch on wizard.#{field_name}" )
+      #console.log("bind watch on wizard.#{field_name}" )
       $scope.$watch("wizard.#{field_name}", (newValue, oldValue)->
-        console.log("triggered whatch on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
+        #console.log("triggered whatch on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
         if $scope.wizard.active_step_id == 3
-          $scope.active_step ?= $scope.wizard.steps.filter((s)-> s.id == $scope.wizard.active_step_id )
+          $scope.active_step ?= $scope.wizard.configuration_steps.filter((s)-> s.id == $scope.wizard.active_step_id )
 
           if $scope.active_step
             $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
-          $scope.wizard.steps[2].valid = $scope.wizard.validate_step_3()
+          $scope.wizard.configuration_steps[1].valid = $scope.wizard.validate_step_3()
       )
 
 
     for field_name in ["project_languages", "report_languages"]
-      console.log("bind watch on wizard.#{field_name}" )
+      #console.log("bind watch on wizard.#{field_name}" )
       $scope.$watchCollection("wizard.#{field_name}", (newValue, oldValue)->
-        console.log("watchCollection")
-        console.log("triggered whatchCollection on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
+        #console.log("watchCollection")
+        #console.log("triggered whatchCollection on wizard.#{field_name}: old: #{oldValue}; new: #{newValue}")
         if $scope.wizard.active_step_id == 3
-          $scope.active_step ?= $scope.wizard.steps.filter((s)-> s.id == $scope.wizard.active_step_id )
+          $scope.active_step ?= $scope.wizard.configuration_steps.filter((s)-> s.id == $scope.wizard.active_step_id )
           $scope.wizard.active_step.valid = $scope.wizard.validate_step_3()
-          $scope.wizard.steps[2].valid = $scope.wizard.validate_step_3()
+          $scope.wizard.configuration_steps[1].valid = $scope.wizard.validate_step_3()
       )
 
     $scope.update = (user)->
@@ -267,7 +282,7 @@ $app.controller "WizardController", [
       #$scope.wizard.configure_mode_class = ()->
       #$scope.wizard.available_platforms = WizardTest.load_platforms($scope.wizard.product_type).platforms
 
-      $scope.wizard_test_data.load_platforms($scope.wizard.product_type)
+      #$scope.wizard_test_data.load_platforms($scope.wizard.product_type)
 
 
 
@@ -278,10 +293,11 @@ $app.controller "WizardController", [
       #console.log("active_step_id changed: new: #{newValue}; old: #{oldValue}")
 
       $new_step = jQuery("[step-id=#{newValue}]")
-      console.log("new_step: ", $new_step)
+      #console.log("new_step: ", $new_step)
       scroll_to_top = $new_step.offset().top - 80
-      console.log("step: #{scroll_to_top}")
+      #console.log("step: #{scroll_to_top}")
       jQuery("#body").animate(scrollTop: scroll_to_top)
+
 
       ###
       setTimeout( ()->
@@ -295,7 +311,7 @@ $app.controller "WizardController", [
       step_id = parseInt(step_id)
       if (parseInt($scope.wizard.active_step_id) > step_id) || ($scope.wizard.active_step &&  $scope.wizard.active_step.valid && parseInt($scope.wizard.active_step_id) < step_id)
         if $scope.wizard.active_step_id < step_id
-          prev_step = $scope.wizard.steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
+          prev_step = $scope.wizard.configuration_steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
           if prev_step && prev_step.valid
             return true
           else
@@ -308,7 +324,7 @@ $app.controller "WizardController", [
       step_id = parseInt(step_id)
       if (parseInt($scope.wizard.active_step_id) > step_id) || ($scope.wizard.active_step &&  $scope.wizard.active_step.valid && parseInt($scope.wizard.active_step_id) < step_id)
         if $scope.wizard.active_step_id < step_id
-          prev_step = $scope.wizard.steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
+          prev_step = $scope.wizard.configuration_steps.filter( (s)-> parseInt(s.id) == step_id   )[0]
           if prev_step && prev_step.valid
             $scope.wizard.active_step.proceeded = true
           else
@@ -333,7 +349,15 @@ $app.controller "WizardController", [
         $scope.wizard.active_step_id = $scope.wizard.active_step_id + 1
 
 
+    $scope.openPaymentDialog = ()->
+      ngDialog.open({
+        template: '/assets/popups/payment.html'
+        className: 'ngdialog-theme-default ngdialog-theme-rf-light-gray ngdialog-payment'
+        controller: "PaymentController"
+      });
 
+
+    #$scope.openPaymentDialog()
 
     $scope.reset = ()->
       $scope.user = angular.copy($scope.master)

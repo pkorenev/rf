@@ -117,6 +117,52 @@ $app.directive "rfInput", ()->
     watchEmpty(scope, element, ngModelCtrl)
     watchFocus(element, ngModelCtrl)
 
+$app.directive "checkboxList", ()->
+  restrict: "E"
+  require: ["ngModel", "checkboxList"]
+  controllerAs: "checkboxList"
+  scope:
+    collection: '='
+  controller: ()->
+  template: (element, attrs)->
+    label = attrs.label
+    if label
+      input_label = "<label>#{label}</label>"
+    else
+      input_label = ""
+
+    question = attrs.question
+
+    required = attrs.hasOwnProperty('required')
+
+
+
+    input_tpl = "<div class='checklist-item' ng-repeat='key in collection track by $index'><input id='{{build_input_id($index)}}' type='checkbox' checklist-change='onChange()' checklist-model='value' checklist-value='key' /><label for='{{build_input_id($index)}}'></label><label for='{{build_input_id($index)}}'>{{key}}</label></div>"
+    inputs_wrap = "<div class='inputs horizontal'>#{input_tpl}</div>"
+    content = "#{input_label}#{inputs_wrap}"
+    if question
+      content = "<question text='#{question}' ng-required='#{required}'>#{inputs_wrap}</question>"
+
+    baseInputWrap(content, "checkbox-list")
+  link: (scope, element, attrs, ctrls)->
+    ngModelCtrl = ctrls[0]
+
+    scope.input_id_prefix = attrs.id
+
+    scope.build_input_id = (index)->
+      "#{scope.input_id_prefix}-#{index+1}"
+
+    ngModelCtrl.$render = ()->
+      scope.value = ngModelCtrl.$modelValue;
+
+    scope.onChange = ()->
+      ngModelCtrl.$setViewValue(scope.value)
+
+
+
+
+
+
 
 
 
@@ -136,6 +182,10 @@ rfMinlengthDirective = ()->
       return ctrl.$isEmpty(viewValue) || viewValue.length >= minlength;
 
 $app.directive "rfMinLength", rfMinlengthDirective
+
+rfMinTestersDirective = ()->
+  restrict: "A"
+
 
 
 
@@ -166,3 +216,22 @@ mismatch = ($parse)->
       ctrl.$viewValue != match
 
 $app.directive "mismatch", mismatch
+
+$app.directive "stepsProgress", ()->
+  restrict: "E"
+  require: ["?stepsProgress"]
+  controllerAs: "stepsProgress"
+  scope:
+    steps: "="
+  template: "<label>Steps completed:</label>" +
+            #"<div class='progress-bar'>" +
+              "<div class='progress'>" +
+                #"<div class='progress-steps'>" +
+                  "<div class='step' ng-repeat='step in steps track by $index' ng-class=\"step.proceeded ? 'proceeded' : '' \" style=\"width: {{100 / steps.length}}%;\" >" +
+                    "<div class='inner'></div>" +
+                  "</div>" +
+                #"</div>" +
+            #  "</div>" +
+            "</div>"
+  link: ()->
+
