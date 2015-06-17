@@ -37,7 +37,10 @@ window.$app.controller "SignInController", [
       });
 
     $scope.authenticate_via_social = (provider)->
-      Auth.authenticate(provider)
+      promise = Auth.authenticate(provider)
+      promise.then ()->
+        if angular.isFunction($scope.closeThisDialog)
+          $scope.closeThisDialog()
 
     $scope.doSignIn = ()->
 #      Auth.login($scope.credentials).then(
@@ -46,7 +49,7 @@ window.$app.controller "SignInController", [
 #          $scope.closeThisDialog(result)
 #      )
 
-      Auth.submitLogin($scope.credentials).then(
+      Auth.submitLogin({email: $scope.credentials.login, password: $scope.credentials.password}).then(
         (response)->
           result = {signed_in: true}
           $scope.closeThisDialog(result)
@@ -54,6 +57,8 @@ window.$app.controller "SignInController", [
         (response)->
 
       )
+
+
 
     $scope.closeSelf = ()->
       $scope.closeThisDialog()

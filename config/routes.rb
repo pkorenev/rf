@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "geo", to: "application#geo"
-  mount_devise_token_auth_for 'User', at: '/auth', controllers: {
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: {
                                         registrations: "users/registrations",
                                         omniauth_callbacks: "users/omniauth_callbacks"
                                     }

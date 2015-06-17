@@ -368,7 +368,7 @@ $app.directive "rfButton", ['$state', ($state)->
     button_subtitle_str = "<div class='button-subtitle' ng-if='subtitle()' ng-bind='subtitle()'></div>"
     button_text_wrap_str = "<div class='button-text-wrap'><div class='inner'>#{button_title_str}#{button_subtitle_str}</div></div>"
     button_content_wrap = "<div class='rf-button-content-wrap'><div class='rf-button-content'>#{svg_str}#{button_text_wrap_str}</div></div>"
-    button_wrap = "<button angular-ripple='' ng-click=';goToLink();' ng-class='button_class()'>#{button_content_wrap}</button>"
+    button_wrap = "<button angular-ripple=''  ng-class='button_class()'>#{button_content_wrap}</button>"
     return button_wrap
   controllerAs: "rfButton"
   require: ["rfButton"]
@@ -449,6 +449,8 @@ $app.directive "rfButton", ['$state', ($state)->
     scope.goToLink = ()->
       if scope.sref && scope.sref.length
         $state.go(scope.sref)
+
+    element.on "click", scope.goToLink
 
 
     scope.getHref = ()->

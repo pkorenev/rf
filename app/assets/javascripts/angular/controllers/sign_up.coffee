@@ -35,7 +35,9 @@ window.$app.controller "SignUpController", [
         controller: "SignInController"
       });
 
+
     $scope.createAccount = ()->
+      #alert("createAccount")
       ###
       Auth.register($scope.credentials).then(
         (registeredUser)->
@@ -48,13 +50,18 @@ window.$app.controller "SignUpController", [
       Auth.submitRegistration($scope.credentials).then(
         (response)->
           # handle success response
-          $scope.closeThisDialog()
+          if $scope.closeThisDialog
+            $scope.closeThisDialog()
           alert("successfully registered")
       ).catch(
         (response)->
           # handle error response
           alert("please resolve errors")
       )
+
+
+    $scope.sign_up_via_social = (provider)->
+      Auth.authenticate(provider)
 
     $scope.show_more = false
 

@@ -10,16 +10,16 @@
         .social-auth-links
           ul
             li
-              a
+              a ng-click="authenticate_via_social('google_plus')"
                 .social-icon-wrap ng-include="'/assets/rf-social-google-plus.svg'"
             li
               a ng-click="authenticate_via_social('facebook')"
                 .social-icon-wrap ng-include="'/assets/rf-social-facebook.svg'"
             li
-              a
+              a ng-click="authenticate_via_social('twitter')"
                 .social-icon-wrap ng-include="'/assets/rf-social-twitter.svg'"
             li
-              a
+              a ng-click="authenticate_via_social('linked_in')"
                 .social-icon-wrap ng-include="'/assets/rf-social-linked-in.svg'"
             li
               a ng-click="authenticate_via_social('github')"

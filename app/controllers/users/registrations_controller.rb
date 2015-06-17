@@ -43,7 +43,7 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
   def configure_sign_up_params
     #devise_parameter_sanitizer.for(:sign_up).push(:confirm_success_url, :config_name, :registration)
     #devise_parameter_sanitizer.for(:sign_up).push(:username, :first_name, :last_name, :country, :company_url)
-    devise_parameter_sanitizer.for(:sign_up).push(:confirm_success_url, :config_name, :registration, :username, :first_name, :last_name, :country, :company_url)
+    devise_parameter_sanitizer.for(:sign_up).push(:confirm_success_url, :config_name, :registration, :username, :first_name, :last_name, :country, :company_url, :full_name, :phone)
   end
 
   # You can put the params you want to permit in the empty array.

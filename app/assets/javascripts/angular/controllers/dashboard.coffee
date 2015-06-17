@@ -1,6 +1,8 @@
 window.$app.controller "DashboardController", [
-  "$scope", "$auth", "ngDialog", "$timeout", ($scope, Auth, ngDialog, $timeout)->
+  "$scope", "$auth", "ngDialog", "$timeout", "$state", ($scope, Auth, ngDialog, $timeout, $state)->
     $scope.title = "How it works"
+
+    ctrl_name = "dashboard"
 
     $scope.range = (n)->
       arr = []
@@ -14,6 +16,11 @@ window.$app.controller "DashboardController", [
       title: "Dashboard page header"
       description: "Type few works about this page"
       image: '/assets/banners/contacts.jpg'
+      button: {
+        title: "Create test",
+        click: ()->
+          $state.go("wizard")
+      }
     }
 
 
