@@ -238,6 +238,19 @@ $banner-title-color: #e6e7e9
       line-height: 90px
 
 
+#body
+
+  //ul[rn-carousel]
+    height: auto
+    li
+      position: relative
+      display: inline-block
+      height: auto
+    .feedback-inner
+      position: relative
+    .quote
+      .text
+        max-height: none !important
 
 
 
@@ -246,32 +259,34 @@ $banner-title-color: #e6e7e9
   padding-bottom: 15px
   overflow: hidden
 
-  .rn-carousel-control
+  .rn-carousel-control, .owl-buttons
     width: 100%
     top: 50%
     margin-top: -35px
-    .rn-carousel-control-prev
-      position: absolute
-      left: 0
-    .rn-carousel-control-next
-      position: absolute
-      right: 0
-      left: auto
+
+  .rn-carousel-control-prev, .owl-prev
+    position: absolute
+    left: 0
+  .rn-carousel-control-next, .owl-next
+    position: absolute
+    right: 0
+    left: auto
+
+
 
 #home-carousel-wrapper
   text-align: center
-  .rn-carousel-indicator
-    span
-      color: $home-text-header-color
-      width: 12px
-      height: 12px
-      margin: 0 15px
-      display: inline-block
-      line-height: 12px
-      font-size: 24px
+  .rn-carousel-indicator span, .owl-pagination .owl-page
+    color: $home-text-header-color
+    width: 12px
+    height: 12px
+    margin: 0 15px
+    display: inline-block
+    line-height: 12px
+    font-size: 24px
 
-      &.active
-        color: $fire-orange-color
+    &.active
+      color: $fire-orange-color
 
 #home-feedbacks-carousel
   height: 150px

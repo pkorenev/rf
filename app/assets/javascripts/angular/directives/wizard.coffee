@@ -703,6 +703,22 @@ $app.directive 'onFinishRender', ($timeout) ->
       #$timeout ()->
         #scope.$emit('ngRepeatFinished');
 
+$app.directive 'afterRepeat', ($timeout) ->
+  restrict: 'A',
+  scope:
+    afterRepeat: '&'
+  link:  (scope, element, attr)->
+    #alert("afterRepeat, #{scope.$last}")
+    if scope.$last == true
+
+      #scope.$emit('ngRepeatFinished')
+      scope.afterRepeat()()
+
+
+#$timeout ()->
+#scope.$emit('ngRepeatFinished');
+
+
 
 $app.directive 'scrollToItem', ->
   restrict: 'A'

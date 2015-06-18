@@ -6,11 +6,12 @@
   .quote
     //max-height: 42px
     .text
-      max-height: 42px
+      //max-height: 42px
+      max-height: none
     &:before
       color: #ffcebf
   .carousel-wrapper
-    padding-top: 50px
+    //padding-top: 50px
 
 
 
@@ -18,9 +19,17 @@
 
 .carousel-wrapper
   text-align: center
+  overflow: hidden
+  //padding-top: 10px
+  padding-top: 0
   .rn-carousel-indicator
     span
       +carousel-indicator-bullet
+  .owl-carousel
+    margin-bottom: 50px
+    .owl-wrapper-outer
+      //overflow: visible
+      height: auto !important
 
 
 
@@ -35,30 +44,36 @@
       left: auto
 
 .feedbacks-carousel
-  height: 150px
-
+  //height: 150px
+  height: auto
 
 .feedback
   position: relative
-  height: 150px
+  //height: 150px
+  height: auto
   //border: 10px solid white
+  overflow: hidden
 
 
   .feedback-inner
     max-width: 600px
     //margin: 0 auto
     +font-14-semibold
-    transform: translate(-50%, -50%)
-    top: 50%
+    //transform: translate(-50%, -50%)
+    +transform(translateX(-50%))
+    //top: 50%
     left: 50%
-    position: absolute
+    //position: absolute
+    position: relative
     width: 100%
     .quote
       //overflow-y: hidden
-      max-height: 105px
+      //max-height: 105px
       color: $yellow-orange-color
       text-align: center
       padding-left: 50px
+      padding-top: 20px
+      left: -50px
       position: relative
       &:before
         //content: open-quote
@@ -73,7 +88,7 @@
         line-height: 60px
       .text
         max-height: 105px
-        overflow-y: hidden
+        //overflow-y: hidden
         line-height: 21px
 
 

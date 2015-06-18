@@ -29,6 +29,8 @@
 //= require ng-tags-input/ng-tags-input.min.js
 //= require angular-count-to/build/angular-count-to.min
 //= require angular-carousel/dist/angular-carousel.min.js
+//= require owl.carousel.min
+//= require ng-repeat-owl-carousel/dist/ngRepeatOwlCarousel.js
 //= require angular-attach-if/attach-if
 // require valdr/valdr.min
 // require valdr/valdr-message.min

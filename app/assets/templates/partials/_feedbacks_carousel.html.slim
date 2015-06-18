@@ -10,8 +10,10 @@
 
   .columns.large-11.large-centered
     .carousel-wrapper
-      ul.feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="30"
-        li.feedback ng-repeat="feedback in feedbacks"
+      /ul.feedbacks-carousel rn-carousel="" rn-carousel-pause-on-hover="" rn-carousel-index="feedbacks_carousel_index" rn-carousel-auto-slide="30"
+
+      ul.owl-carousel
+        li.feedback ng-repeat="feedback in feedbacks" ng-repeat-owl-carousel="" carousel-init="carouselInitializer"
           .feedback-inner
             .logo-wrap ng-show="feedback.image && feedback.image.src && feedback.image.src.length"
               ng-include src="feedback.image.src" style="max-width: {{feedback.image.maxWidth || 'inherit'}}; max-height:{{feedback.image.maxHeight || 'inherit'}};"
@@ -24,9 +26,15 @@
               |{{feedback.position}}
       /div rn-carousel-indicators="" ng-show="feedbacks.length > 1" slides="feedbacks" rn-carousel-index="feedbacks_carousel_index"
       .rn-carousel-control
-        .rn-carousel-control-prev ng-show="feedbacks.length > 1" ng-click="$parent.feedbacks_carousel_index > 0 ? ($parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index-1) : ($parent.feedbacks_carousel_index = $parent.feedbacks.length - 1)" ng-include="'/assets/rf-icon-arrow-left.svg'"
-        .rn-carousel-control-next ng-show="feedbacks.length > 1" ng-click="$parent.feedbacks_carousel_index < $parent.feedbacks.length - 1 ? ($parent.feedbacks_carousel_index=$parent.feedbacks_carousel_index+1) : ($parent.feedbacks_carousel_index = 0)" ng-include="'/assets/rf-icon-arrow-right.svg'"
+        .rn-carousel-control-prev ng-show="feedbacks.length > 1"  ng-include="'/assets/rf-icon-arrow-left.svg'"
+        .rn-carousel-control-next ng-show="feedbacks.length > 1"  ng-include="'/assets/rf-icon-arrow-right.svg'"
 
       .rn-carousel-indicator.custom-indicator
-        span ng-repeat="feedback in feedbacks" ng-class="{active: $index==$parent.feedbacks_carousel_index}" ng-click="$parent.feedbacks_carousel_index = $index"
+        span.active
+          |●
+        span
+          |●
+        span
+          |●
+        /span ng-repeat="feedback in feedbacks" after-repeat="init_carousel_bullets"
           |●

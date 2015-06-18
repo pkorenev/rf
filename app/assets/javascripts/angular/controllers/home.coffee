@@ -66,6 +66,61 @@ window.$app.controller "HomeController", [
       ]
     }
 
+    #ctrl = this;
+    $scope.members = []
+
+    $scope.init_carousel_bullets = ()->
+      #alert "init_carousel_bullets"
+      current_index = $scope.owl.currentItem
+      $bullets = $scope.$wrap.find(".rn-carousel-indicator.custom-indicator span")
+      $bullets.removeClass("active")
+      $bullets.eq(current_index).addClass("active")
+
+    $scope.carouselInitializer = ()->
+      $scope.$wrap = $(".carousel-wrapper")
+      $scope.$owl = $(".owl-carousel")
+      $scope.$owl.owlCarousel({
+        autoPlay : 30 * 1000,
+        stopOnHover : true,
+        items: 1,
+        navigation: false,
+        pagination: false,
+        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+        singleItem : true,
+        autoHeight : true,
+        transitionStyle:"fade"
+      });
+
+      $scope.owl = $scope.$owl.data("owlCarousel")
+
+      $('.rn-carousel-control').on "click", "div", ()->
+        $arrow = $(this)
+        if $arrow.hasClass("rn-carousel-control-prev")
+          $scope.$owl.trigger("owl.prev");
+          #owl.prev()
+        else
+          $scope.$owl.trigger("owl.next");
+      $(".carousel-wrapper").on "click", ".rn-carousel-indicator.custom-indicator span", ()->
+        $bullet = $(this)
+        if !$bullet.hasClass("active")
+          bullet_index = $bullet.index()
+          #alert "$bullet->#{bullet_index}"
+          #$owl.find("> li").eq(bullet_index).trigger("owl.goTo")
+          #$owl.goTo(bullet_index)
+          #owl.goTo(bullet_index)
+          $scope.$owl.trigger "owl.goTo", bullet_index
+
+      $scope.$owl.on "owl.goTo owl.next owl.prev owl.jumpTo owl.play", $scope.init_carousel_bullets
+
+
+
+
+
+
+
+
+
+
     scene = angular.element('.home-parallax-banner').each ()->
       parallax = new Parallax(this)
 
