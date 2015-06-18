@@ -30,7 +30,7 @@
               a.link ng-click="openSignInDialog()"
                 |Sign in
 
-    #home-slider-bullets
+    #home-slider-bullets ng-show="home_slides.length > 1"
       ul
         li ng-repeat="slide in home_slides track by $index" ng-click="$parent.homeBannerCarouselIndex = $index" ng-class="$parent.homeBannerCarouselIndex == $index ? 'active' : 'inactive'"
           |●

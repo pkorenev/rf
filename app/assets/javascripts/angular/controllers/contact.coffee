@@ -9,8 +9,8 @@ window.$app.controller "ContactController", [
     }
 
     $scope.page_banner = {
-      title: "Contact page header"
-      description: "Type few works about this page"
+      title: "We’re answering questions 24/7!"
+      description: "If we don’t sleep. Because then we don’t answer instantly."
       image: '/assets/banners/contacts.jpg'
     }
 
