@@ -22,10 +22,11 @@
             |{{slide.title}}
           .description
             |{{slide.description}}
-          .banner-button-wrap
-            rf-button title="{{slide.button.title}}" subtitle="{{slide.button.subtitle}}" svg="{{slide.button.svg}}" class="start-now-button" sref="{{slide.button.sref}}"
-            p
-              |or&nbsp;
+          .button-container.banner-button-wrap
+            rf-button align-content="left" full-width="" title="{{slide.button.title}}" subtitle="{{slide.button.subtitle}}" svg="{{slide.button.svg}}" class="start-now-button" sref="{{slide.button.sref}}"
+            .sub-button-text
+              span
+                |or&nbsp;
               a.link ng-click="openSignInDialog()"
                 |Sign in
 

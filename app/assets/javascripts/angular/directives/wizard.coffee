@@ -264,18 +264,24 @@ helper "optionCount",
 
 $app.directive "optionCount", ()->
   templateUrl: "/assets/helpers/wizard/_option_count.html"
-  require: "ngModel"
+  require: ["ngModel"]
   transclude: true
   replace: true
   scope:
-    model: "=ngModel"
     name: "@name"
     html_id: "@htmlId"
 
-  link: (scope, element, attrs, ctrl, transcludeFn)->
-    scope.name = scope.model.name
-    scope.count = scope.model.count || 0
-    scope.focused = false
+  link: (scope, element, attrs, ctrls, transcludeFn)->
+    ngModelCtrl = ctrls[0]
+
+    ngModelCtrl.$render = ()->
+      scope.model = ngModelCtrl.$modelValue
+      scope.name = scope.model.name
+      scope.count = scope.model.count || 0
+      scope.focused = false
+
+    #console.log "optionCount->ngModelCtrl", ngModelCtrl
+
 
     ###
     scope.change_value = (e)->
@@ -303,10 +309,12 @@ $app.directive "optionCount", ()->
         val = min
       if val != scope.model.count
         scope.model.count = val
+        scope.onChange()
 
     scope.increment = ()->
       console.log("count", scope.model.count)
       scope.model.count = (parseInt(scope.model.count) || 0) + 1
+      scope.onChange()
 
     scope.focus = ()->
       #element.find("input").addClass("focus")
@@ -315,6 +323,11 @@ $app.directive "optionCount", ()->
       if e.charCode < 48 || e.charCode > 57
         e.preventDefault()
     )
+
+    scope.onChange = ()->
+      v = scope.model
+      ngModelCtrl.$setViewValue(v)
+
 
     #element.find("div.option-count label, div.option-count input").bind "click",  scope.change_value
 
@@ -361,7 +374,7 @@ $app.directive "commentWithPrice", ()->
 
 
 
-$app.directive "rfButton", ['$state', ($state)->
+$app.directive "rfButton", ['$state', "$location", ($state, $location)->
   template: ()->
     svg_str = "<div class='svg-wrap svg-size-{{rfButton.svgSize()}}' ng-include='svg()' ng-if='svg()'></div>"
     button_title_str = "<div class='button-title' ng-bind='title()' ng-if='title()'></div>"
@@ -420,6 +433,13 @@ $app.directive "rfButton", ['$state', ($state)->
       c += " rf-button-svg-size-#{svg_size}"
       align_content = attrs.alignContent || "center"
       c += " rf-button-align-content-#{align_content}"
+
+      button_size = attrs.size
+      if !button_size || !button_size.length
+        button_size = 'medium'
+      c += " rf-button-size-#{button_size}"
+
+
       c += " #{custom_class}"
 
       c
@@ -431,6 +451,8 @@ $app.directive "rfButton", ['$state', ($state)->
       attrs.subtitle
     scope.href = ()->
       attrs.href || $state.href(attrs.sref)
+    scope.sref = ()->
+      attrs.sref
     scope.scrollTo = ()->
       attrs.scrollTo
 
@@ -447,8 +469,14 @@ $app.directive "rfButton", ['$state', ($state)->
     ###
 
     scope.goToLink = ()->
-      if scope.sref && scope.sref.length
-        $state.go(scope.sref)
+      sref = scope.sref()
+
+      if sref && sref.length
+        $state.go(sref)
+      else if href && href.length
+        href = alert scope.href()
+        #$state.go(scope.sref)
+        $location.path(href)
 
     element.on "click", scope.goToLink
 

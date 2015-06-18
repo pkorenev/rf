@@ -10,7 +10,7 @@
         .social-auth-links
           ul
             li
-              a ng-click="authenticate_via_social('google_plus')"
+              a ng-click="authenticate_via_social('gplus')"
                 .social-icon-wrap ng-include="'/assets/rf-social-google-plus.svg'"
             li
               a ng-click="authenticate_via_social('facebook')"
@@ -51,9 +51,9 @@
             |No account?&nbsp;
             a ui-sref="sign_up" ng-click="closeSelf()"
               |Sign up
-          .login-button ng-click="doSignIn()"
+          /.login-button ng-click="doSignIn()"
             button title="Login"
-
+          rf-button class="login-button" title="Login" ng-click="doSignIn()"
 
 
 

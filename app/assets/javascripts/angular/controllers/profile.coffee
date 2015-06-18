@@ -49,7 +49,8 @@ window.$app.controller "ProfileController", [
 
     $scope.user = $auth
     promise = $auth.validateUser()
-    promise.then (user)->
+
+    init_user = (user)->
       console.log("user")
       $scope.user = user
       #$scope.personal_data = user
@@ -70,6 +71,12 @@ window.$app.controller "ProfileController", [
       $scope.$watch "personal_data", update_account
       for property_key, property_value of $scope.personal_data
         $scope.$watch "personal_data.#{property_key}", update_account
+
+    if $auth.user
+      console.log "user", $auth.user
+      init_user($auth.user)
+
+    promise.then init_user
 
     last_update_account_time = null
     update_account_in_progress = false

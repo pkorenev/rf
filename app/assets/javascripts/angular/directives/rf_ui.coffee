@@ -117,6 +117,25 @@ $app.directive "rfInput", ()->
     watchEmpty(scope, element, ngModelCtrl)
     watchFocus(element, ngModelCtrl)
 
+$app.directive "validateWith", ()->
+  restrict: "A"
+  require: ["ngModel"]
+  scope: true
+  link: (scope, element, attrs, ctrls)->
+    ngModelCtrl = ctrls[0]
+
+    if (!ngModelCtrl)
+      return;
+
+    #minlength = attr.rfMinLength || 0;
+    attrs.$observe('minlength', (value)->
+      minlength = toInt(value) || 0;
+      ngModelCtrl.$validate();
+    );
+    ngModelCtrl.$validators.custom_validator = (modelValue, viewValue)->
+      return false
+
+
 $app.directive "checkboxList", ()->
   restrict: "E"
   require: ["ngModel", "checkboxList"]
@@ -158,6 +177,29 @@ $app.directive "checkboxList", ()->
     scope.onChange = ()->
       ngModelCtrl.$setViewValue(scope.value)
 
+      #v = ngModelCtrl.$viewValue
+      v = scope.value
+      valid = v && angular.isArray(v) && v.length > 0
+
+      ngModelCtrl.$setValidity "required", valid
+
+    ###
+    if attrs.hasOwnProperty("required")
+    ###
+      #scope.$watch getMatchValue, ->
+      #  ngModelCtrl.$$parseAndValidate()
+      #  return
+    ###
+
+      ngModelCtrl.$validators.required = ()->
+        #match = getMatchValue()
+        #if caselessGetter(scope) && angular.isString(match) && angular.isString(ngModelCtrl.$viewValue)
+        #  return ctrl.$viewValue.toLowerCase() != match.toLowerCase()
+        v = ngModelCtrl.$viewValue
+        valid = v && angular.isArray(v) && v.length > 0
+        #ngModelCtrl.$viewValue != match
+        return valid
+    ###
 
 
 

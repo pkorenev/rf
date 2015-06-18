@@ -81,3 +81,5 @@ gem 'debase'
 gem 'global_config'
 
 gem 'geo_ip'
+
+gem "omniauth-gplus"

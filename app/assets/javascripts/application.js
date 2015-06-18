@@ -42,7 +42,8 @@
 //= require ng-caps-lock/ng-caps-lock.min
 //= require angular-svg-round-progressbar/build/roundProgress.min
 //= require angular-cookie/angular-cookie.min
-//= require ng-token-auth/dist/ng-token-auth.min
+// require ng-token-auth/dist/ng-token-auth.min
+//= require ng-token-auth/src/ng-token-auth
 //= require angular-ripple/angular-ripple
 //= require checklist-model/checklist-model
 // require jquery.appear/jquery.appear

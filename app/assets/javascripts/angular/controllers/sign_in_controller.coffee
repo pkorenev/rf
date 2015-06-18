@@ -37,7 +37,9 @@ window.$app.controller "SignInController", [
       });
 
     $scope.authenticate_via_social = (provider)->
+      #alert("provider: #{provider}")
       promise = Auth.authenticate(provider)
+
       promise.then ()->
         if angular.isFunction($scope.closeThisDialog)
           $scope.closeThisDialog()

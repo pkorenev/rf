@@ -9,7 +9,7 @@
 
 
 $app.controller "WizardController", [
-   "$scope", "WizardTest", "ngDialog", ( $scope, WizardTest, ngDialog)->
+   "$scope", "WizardTest", "ngDialog", "$auth", "$http", "$rootScope", ( $scope, WizardTest, ngDialog, $auth, $http, $rootScope)->
 
     $scope.page_banner = {
       title: "Wizard page header"
@@ -83,9 +83,13 @@ $app.controller "WizardController", [
         parseInt(s.id) == parseInt(newValue)
       )[0]
 
-      $scope.wizard.active_step_form = $scope.wizard[$scope.wizard.active_step.key+'_form']
 
-      #$scope.wizard.active_step_form = $scope.wizard.active_step.form
+      #console.log "active_step_form_name = ", $scope.wizard.active_step
+
+      $scope.wizard.active_step_form_key = if $scope.wizard.active_step then $scope.wizard.active_step.key else undefined
+
+      if $scope.wizard.active_step_form_key
+        $scope.wizard.active_step_form = $scope.wizard[$scope.wizard.active_step_form_key+"_form"]
 
       $scope.wizard.next_step_id = newValue + 1
       $scope.wizard.next_step = $scope.wizard.configuration_steps.filter( (s)->
@@ -176,13 +180,19 @@ $app.controller "WizardController", [
       $scope.$watch("wizard.platforms[#{i}].price", (newValue, oldValue)->
         difference = newValue - oldValue
         #alert("change platform price:\nplatform_index: #{i}\nnewValue: #{newValue}\noldValue: #{oldValue}")
-        $scope.wizard.total_price = $scope.wizard.total_price + difference
+        price = 0
+        for p in $scope.wizard.platforms
+          #$scope.wizard.total_price = $scope.wizard.total_price + difference
+          price += p.price
+        $scope.wizard.total_price = price
+        #alert($scope.wizard.platforms[0].price)
       )
 
     $scope.$watch("wizard.selected_hour", (newValue, oldValue)->
       for p, i in $scope.wizard.platforms
-        p.price = p.price / (oldValue) * newValue
+        #p.price = p.price / (oldValue) * newValue
         p.hours_count = p.testers_count * newValue
+        p.price = p.hours_count * $scope.wizard.tester_hour_price
     )
     ###
     $scope.step_3_questions = [
@@ -344,7 +354,7 @@ $app.controller "WizardController", [
       $('#body').animate({scrollTop: top_to_animate})
 
     $scope.next_step = ()->
-      if $scope.wizard.active_step.valid
+      if $scope.wizard.active_step_form.$valid
         $scope.wizard.active_step.proceeded = true
         $scope.wizard.active_step_id = $scope.wizard.active_step_id + 1
 
@@ -361,4 +371,45 @@ $app.controller "WizardController", [
 
     $scope.reset = ()->
       $scope.user = angular.copy($scope.master)
+
+
+    $scope.validatePlatforms = ()->
+
+
+    $scope.saveProject = ()->
+      if $auth.user
+        alert("saveProject")
+        alert($auth.user.email)
+        data = {
+          data: $scope.wizard.data,
+          state: {
+            configure_mode: $scope.configure_mode
+          }
+        }
+
+
+        promise = $http.post "/save_project", data
+        promise.then (response)->
+          response_data = response.data
+          alert "successfully saved"
+          #console.log "response", response
+          if response_data.action == 'create'
+            alert "create"
+            console.log "create", response_data
+            $scope.wizard.data.id = response_data.id
+          else
+            alert "update"
+        promise.error ()->
+          alert "error"
+      else
+        alert "please login or register"
+      #console.log "data", $scope.wizard.data
+
+    if $rootScope.draft
+      project = $rootScope.draft
+      angular.merge($scope.wizard.data, project.data)
+      project_state = project.state
+      $scope.configure_mode = project_state.configure_mode
+    #$scope.$on "auth:login:success", $scope.saveProject
+
 ]

@@ -31,15 +31,16 @@
           form method="post" action=""
             .row
               .input.required
-                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard.product_type" columns-count="3" id="1" description=""
-                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard.product_type" columns-count="3" id="2" description=""
-                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.product_type" columns-count="3" id="3" description=""
-                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.product_type" columns-count="3" id="4" description=""
+                option_image image-path="rf-mobile-apps" name="product_type" label="Mobile apps" value="mobile" ng-model="wizard.data.top__type_of_product" columns-count="3" id="1" description=""
+                option_image image-path="rf-responsive" name="product_type" label="Responsive website" value="website" ng-model="wizard.data.top__type_of_product" columns-count="3" id="2" description=""
+                option_image image-path="rf-software" name="product_type" label="Software" value="software" ng-model="wizard.data.top__type_of_product" columns-count="3" id="3" description=""
+                option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.data.top__type_of_product" columns-count="3" id="4" description=""
         .step-nav-buttons
 
       .configuration-steps class="hide"
         wizard-step wizard="wizard" step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
-          form name="platforms_form" novalidate=""
+          form name="wizard.platforms_form" novalidate="" ng-model="wizard.platforms"
+            input.hide type="number" ng-model="wizard.total_price" required="" min="1" name="total_price"
             .row
               blue-header text="Platform / testers per platform" columns="12"
               platform show-full="" commentable="" ng-repeat="platform in wizard.platforms" ng-model="platform" min-testers="1"
@@ -111,7 +112,7 @@
                 rf-input ng-model="wizard.project_name" label="Project name"
               question text="What is version number of the new release that you'd like us to test?" required="true"
                 /input type="text" placeholder="Type version number here..." ng-model="wizard.version_number"
-                rf-input ng-model="wizard.data.pi__project_version" name="version_number"
+                rf-input ng-model="wizard.data.pi__project_version" name="version_number" required="" label="Project version"
 
               checkbox-list#pi__project-languages question="In what language(s) is the project?" name="project_languges" ng-model="wizard.data.pi__project_languages" collection="wizard.available_project_languages" required="true"
                 /checkbox-input name="project_languages" value="{{language}}" model-count="wizard.project_languages_count" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
@@ -127,8 +128,9 @@
             .questions
               question text="What methodology are you looking for?"
                 .inputs
-                  radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard.methodology_id" methodology-data="methodology" ng-repeat="methodology in wizard.available_methodology_types track by $index"
-                    textarea name="methodology_{{methodology.id}}_description" ng-model="methodology.description" placeholder="{{methodology.description_placeholder}}" id="methodology_{{methodology.id}}_description"
+                  div ng-repeat="methodology in wizard.available_methodology_types track by $index"
+                    radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard.methodology_id" methodology-data="methodology"
+                    rf-input type="text" name="methodology_{{methodology.id}}_description" ng-model="methodology.description" placeholder="{{methodology.description_placeholder}}" id="methodology_{{methodology.id}}_description" ng-required="wizard.methodology_id == methodology.id " ng-show="wizard.methodology_id == methodology.id"
 
               question text="What are the product's main components?"
                 p.light
@@ -297,7 +299,7 @@
           /= go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();")
           /go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
           /configure-button ng-show="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
-          rf-button full-width="" svg="/assets/rf-icon-rocket.svg" title="configure" ng-disabled="!(wizard.data.tot__type_of_test && wizard.product_type && !wizard.configure_mode)" ng-click="configure();"
+          rf-button full-width="" svg="/assets/rf-icon-rocket.svg" title="configure" ng-disabled="!(wizard.data.tot__type_of_test && wizard.data.top__type_of_product  && !wizard.configure_mode)" ng-click="configure();"
 
 
     #wizard-summary ng-show="wizard.show_mini_summary"
@@ -330,7 +332,7 @@
           /.total-price
             |total price: {{wizard.total_price}}
 
-        .save-button
+        .save-button ng-click="saveProject()"
           /= svg_placeholder "download"
           ng-include src="'/assets/download.svg'"
           span.button-label

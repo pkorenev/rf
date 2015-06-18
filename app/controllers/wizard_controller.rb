@@ -45,6 +45,33 @@ class WizardController < ApplicationController
     platforms = Wizard::Steps::Platforms.platforms_by_product_type(product_type)
     render json: platforms
   end
+
+  def save_project
+    data = params[:data]
+    result = {}
+    if id = data.delete(:id)
+      result[:action] = 'update'
+      SimpleWizardTest.find(id).update(data)
+    else
+      result[:action] = 'create'
+
+      t = SimpleWizardTest.create!(data)
+      result[:id] = t.id
+    end
+
+    result[:success] = true
+
+    render json: result
+  end
+
+  def dashboard_projects
+    drafted_projects = SimpleWizardTest.all
+    data = {
+        drafts: drafted_projects
+    }
+
+    render json: data
+  end
 end
 
 

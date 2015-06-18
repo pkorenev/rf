@@ -524,7 +524,6 @@ $footer-text-color:  $dark-gray-color
       color: $sky-blue-color
       text-transform: uppercase
       +font-16-semibold
-      text-decoration: none
       line-height: 16px
       vertical-align: top
   .sublinks
@@ -542,22 +541,26 @@ $footer-text-color:  $dark-gray-color
       +font-12
 
 
-
-.subscribe-block
-  label.header
-    padding-bottom: 12px
-    display: inline-block
-  .copyright
-    margin-top: 24px
+#footer
+  .subscribe-block
+    label.header
+      padding-bottom: 12px
+      display: inline-block
+    .copyright
+      margin-top: 24px
 #footer-subscribe-input
   +white-input
 #subscribe-button
+  width: 55px
   height: $simple-form-input-height
   vertical-align: top
   margin-left: 1px
   .svg-wrap
-    top: 3px
+    top: -2px
+    margin: 0
     position: relative
+    svg
+      vertical-align: initial
 
 $page-banner-height: 230px
 $page-banner-mobile-height: 150px

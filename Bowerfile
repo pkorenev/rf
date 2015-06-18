@@ -1,3 +1,4 @@
+asset "angular", "1.4"
 asset "foundation-apps"
 asset "sass-flex-mixin"
 asset "foundation"
