@@ -11,6 +11,9 @@
   .item
     margin-bottom: 15px
     margin-top: 15px
+    &.columns
+      &:last-child
+        float: left
 
 
     .progress-block
@@ -51,6 +54,7 @@
 
       .type-of-test-wrap
         line-height: 24px
+        text-align: center
       .testers, .hours
         line-height: 18px
       .type-of-test-icon, .hours-icon
@@ -104,37 +108,7 @@
         height: 50px
         line-height: 50px
         cursor: pointer
-      button
-        vertical-align: top
-        width: 160px
-        height: 50px
-        position: relative
-        padding-left: 46px
-        svg
-          position: absolute
-          width: 24px
-          height: 24px
-          left: 14px
-          top: 13px
 
-          path.my-color
-            fill: white
-          line.my-color
-            stroke: white
-          .stroke-my-color
-            stroke: white
-            stroke-width: 3px
-
-        .button-title
-          +font-18-semibold
-          text-align: left
-          padding-top: 4px
-        .button-subtitle
-          +font-14-light
-          text-transform: none
-          text-align: left
-          top: -8px
-          position: relative
 
   .project-name
     color: $sky-blue-color
@@ -204,3 +178,54 @@
     .project-name
       height: 50px
       line-height: 50px
+
+
+
+
+
+
+.rf-button
+  &.rf-button-raised
+    &.complete-draft-button
+      vertical-align: top
+      width: 160px
+      height: 50px
+      position: relative
+      padding-left: 46px
+      .svg-wrap
+        margin-left: 0
+        margin-right: 0
+        svg
+          position: absolute
+          width: 24px
+          height: 24px
+          left: 14px
+          top: 13px
+
+          path.my-color
+            fill: white
+          line.my-color
+            stroke: white
+          .stroke-my-color
+            stroke: white
+            stroke-width: 3px
+
+      .button-text-wrap
+        .inner
+          top: 0
+
+      .button-title
+        +font-18-semibold
+        text-align: left
+        padding-top: 4px
+      .button-subtitle
+        +font-14-light
+        text-transform: none
+        text-align: left
+        //top: -8px
+
+        position: relative
+
+.delete-draft-button
+  +font-14-light
+

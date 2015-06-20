@@ -1,4 +1,4 @@
-#wizard-controller ng-controller="WizardController as wizardCtrl" ng-init="openPaymentDialog()"
+#wizard-controller ng-controller="WizardController as wizardCtrl"
   .page-banner-wrap ng-include="'/assets/partials/_page_banner.html'"
   #wizard-content
     /h1
@@ -37,7 +37,7 @@
                 option_image image-path="rf-games" name="product_type" label="Games" value="games" ng-model="wizard.data.top__type_of_product" columns-count="3" id="4" description=""
         .step-nav-buttons
 
-      .configuration-steps class="hide"
+      .configuration-steps class="hide" ng-init="initConfigurationSteps()"
         wizard-step wizard="wizard" step-number="1" step-title="On what platforms would you like your product to be tested?" step-id="2" active-step-id="wizard.active_step_id" child-scope-source="controller"
           form name="wizard.platforms_form" novalidate="" ng-model="wizard.platforms"
             input.hide type="number" ng-model="wizard.total_price" required="" min="1" name="total_price"
@@ -87,8 +87,8 @@
                 p
                   |How much effort would you like each tester to spend testing tour product?
                 .available-hours
-                  label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard.hours" ng-class="wizard.selected_hour == hour ? 'selected' : 'unselected' "
-                    input ng-model="wizard.selected_hour" type="radio" id="hour-{{hour}}" value="{{hour}}"
+                  label.hour for="hour-{{hour}}" data-hours="{{hour}}"  ng-repeat="hour in wizard.hours" ng-class="wizard.data.ps__hours == hour ? 'selected' : 'unselected' "
+                    input ng-model="wizard.data.ps__hours" type="radio" id="hour-{{hour}}" value="{{hour}}"
 
           .wizard-step-footnotes
             .footnote
@@ -109,28 +109,33 @@
 
               question text="What is the name of this wonderful project?" required="true"
                 /input type="text" ng-model="wizard.project_name" placeholder="Type name of the project here..."
-                rf-input ng-model="wizard.project_name" label="Project name"
+                rf-input ng-model="wizard.data.pi__project_name" label="Project name"
               question text="What is version number of the new release that you'd like us to test?" required="true"
                 /input type="text" placeholder="Type version number here..." ng-model="wizard.version_number"
                 rf-input ng-model="wizard.data.pi__project_version" name="version_number" required="" label="Project version"
 
-              checkbox-list#pi__project-languages question="In what language(s) is the project?" name="project_languges" ng-model="wizard.data.pi__project_languages" collection="wizard.available_project_languages" required="true"
+              checkbox-list#pi__project-languages question="In what language(s) is the project?" name="project_languges" ng-model="wizard.data.pi__project_languages" collection="wizard.available_project_languages" required="true" required-error-message="Please check at least one language"
                 /checkbox-input name="project_languages" value="{{language}}" model-count="wizard.project_languages_count" ng-model="wizard.project_languages" ng-repeat="language in wizard.available_project_languages track by $index" id="{{$index+1}}"
                 /checkbox-input-collection name="project_languages" model-count="wizard.project_languages_count" model-available="wizard.available_project_languages" ng-model="wizard.project_languages"
 
               /question text="In what language(s) should the bugs be reported?" required="true"
                 .inputs.horizontal
                   checkbox-input name="report_languages" value="{{language}}" model-count="wizard.report_languages_count" ng-model="wizard.data.pi__report_languages" ng-repeat="language in wizard.available_report_languages track by $index" id="{{$index+1}}"
-              checkbox-list#pi__report-languages question="In what language(s) is the project?" name="report_languges" ng-model="wizard.data.pi__report_languages" collection="wizard.available_report_languages" required="true"
+              checkbox-list#pi__report-languages question="In what language(s) is the project?" name="report_languges" ng-model="wizard.data.pi__report_languages" collection="wizard.available_report_languages" required="true" required-error-message="Please check at least one language"
 
         wizard-step  wizard="wizard" step-number="3" step-id="4" active-step-id="wizard.active_step_id" child-scope-source="controller"
           form name="wizard.testing_type_form" novalidate=""
             .questions
               question text="What methodology are you looking for?"
                 .inputs
-                  div ng-repeat="methodology in wizard.available_methodology_types track by $index"
+                  /div ng-repeat="methodology in wizard.available_methodology_types track by $index"
                     radio-input name="methodology" value="{{methodology.id}}" id="{{methodology.id}}"  label="{{methodology.type}}" ng-model="wizard.methodology_id" methodology-data="methodology"
                     rf-input type="text" name="methodology_{{methodology.id}}_description" ng-model="methodology.description" placeholder="{{methodology.description_placeholder}}" id="methodology_{{methodology.id}}_description" ng-required="wizard.methodology_id == methodology.id " ng-show="wizard.methodology_id == methodology.id"
+                  radio-input name="methodology" value="{{'exploratory'}}" id="testing_type_form__type_of_test_exploratory"  label="Exploratory" ng-model="wizard.data.tp__type_of_testing"
+                  rf-input type="text" name="methodology_1_description" ng-model="wizard.data.tp__exploratory_instructions" label="Please provide testing instructions for the testers here..." id="methodology_1_description" ng-required="wizard.data.tp__type_of_testing == 'exploratory' " ng-show="wizard.data.tp__type_of_testing == 'exploratory'"
+
+                  radio-input name="methodology" value="{{'test_case'}}" id="testing_type_form__type_of_test_test_case"  label="Test-case driven" ng-model="wizard.data.tp__type_of_testing"
+                  /rf-input type="text" name="methodology_1_description" ng-model="wizard.data.tp__exploratory_instructions" placeholder="" id="methodology_1_description" ng-required="wizard.data.tp__type_of_testing == 'test_case' " ng-show="wizard.data.tp__type_of_testing == 'test_case'"
 
               question text="What are the product's main components?"
                 p.light
@@ -143,29 +148,36 @@
             .questions
               question text="Please provide the URL or file to be tested?"
                 .inputs
-                  input type="url" placeholder="http://domain.com"
-                  |or
-                  .button-upload
+                  /input type="url" placeholder="http://domain.com"
+                  .url-or-files
+                    .columns.large-5
+                      rf-input label="url" ng-model="wizard.data.pa__access_instructions_url"
+                    .columns.large-1.input-padding.or
+                      |or
+                    /.button-upload
+                    .columns.large-5.input-padding.button-wrap
+                      rf-button full-width="" class="rf-upload-button" title="Upload files..." svg="/assets/upload.svg"
+                    .clearfix
 
               question text="Does the product require a username or password to be accessed?"
                 .inputs
                   /radio-input name="require_auth" value="false" ng-model="wizard.auth_data.require_auth"
 
                   .input
-                    input id="require_auth_1" type="radio" name="require_auth" value="false" placeholder="Username" ng-model="wizard.auth_data.require_auth"
+                    input id="require_auth_1" type="radio" name="require_auth" ng-value="false" placeholder="Username" ng-model="wizard.data.pa__need_authorization"
                     label for="require_auth_1"
                     label for="require_auth_1"
                       = "No, it does not require a username or password"
 
                   .input
-                    input id="require_auth_2" type="radio" name="{{name}}" value="{{value}}" ng-model="wizard.auth_data.require_auth" placeholder="password"
+                    input id="require_auth_2" type="radio" name="{{name}}" ng-value="true" ng-model="wizard.data.pa__need_authorization" placeholder="password"
                     label for="require_auth_2"
                     label for="require_auth_2"
                       = "Yes, here they are:"
 
                     .input-related-content
-                      input type="text" ng-model="wizard.auth_data.username"
-                      input type="password" ng-model="wizard.auth_data.password"
+                      input type="text" ng-model="wizard.data.pa__access_user_name"
+                      input type="password" ng-model="wizard.data.pa__access_password"
 
 
 
@@ -251,7 +263,7 @@
               br
               .svg-wrap ng-include="'/assets/clock.svg'"
               .text
-                |{{wizard.selected_hour}} hours each
+                |{{wizard.data.ps__hours}} hours each
 
 
           .columns.large-12
@@ -280,7 +292,7 @@
               textarea ng-model="wizard.comment"
 
 
-    #wizard-help ng-if="wizard.show_help"
+    #wizard-help ng-if="!wizard.configure_mode"
       #wizard-help-fixed
         .header
           |Welcome!
@@ -299,16 +311,16 @@
           /= go_button("Configure", class: "wizard.type_of_test && wizard.product_type && !wizard.configure_mode ? 'visible' : 'hide'", click: "configure();")
           /go-button text="Configure"  ng-if="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
           /configure-button ng-show="wizard.type_of_test && wizard.product_type && !wizard.configure_mode" ng-click="configure();"
-          rf-button full-width="" svg="/assets/rf-icon-rocket.svg" title="configure" ng-disabled="!(wizard.data.tot__type_of_test && wizard.data.top__type_of_product  && !wizard.configure_mode)" ng-click="configure();"
+          rf-button class="rf-configure-button" full-width="" svg="/assets/rf-icon-configure.svg" title="configure" ng-disabled="!(wizard.data.tot__type_of_test && wizard.data.top__type_of_product  && !wizard.configure_mode)" ng-click="configure();"
 
 
-    #wizard-summary ng-show="wizard.show_mini_summary"
+    #wizard-summary ng-show="wizard.configure_mode"
       #wizard-summary-fixed
         .header
           |Summary
         .content
           p.test-type-and-product-type
-            = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard.type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard.product_type}}</span></span>"
+            = raw "<span class='test-type'>You ordered <span class='test name'>{{wizard.data.tot__type_of_test}} test</span></span><span class='product-type'> for <span class='name'>{{wizard.data.top__type_of_product}}</span></span>"
 
           .platforms ng-show="wizard.total_testers_count"
             .row.header
@@ -366,7 +378,7 @@
 
 
 
-          rf-button align-content="left" full-width="" svg="/assets/rf-icon-rocket.svg" title="Next step" subtitle="{{wizard.next_step.number}}. {{wizard.next_step.name}}" ng-click="next_step()" ng-show="wizard.next_step" ng-disabled="wizard.active_step_form.$invalid"
+          rf-button class="rf-next-step-button" align-content="left" full-width="" svg="/assets/rf-icon-rocket.svg" title="Next step" subtitle="{{wizard.next_step.number}}. {{wizard.next_step.name}}" ng-click="next_step()" ng-show="wizard.next_step" ng-disabled="wizard.active_step_form.$invalid"
           /next-step-button step-number="2" step-name="test name" model-active-step="wizard.active_step" model-next-step="wizard.next_step" ng-click="next_step()"
           .or-go-back-wrap ng-show="wizard.active_step_id > 2"
             |or

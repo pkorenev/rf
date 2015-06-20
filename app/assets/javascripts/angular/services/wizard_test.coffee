@@ -24,6 +24,9 @@
 #    )
 #]
 
+random_name = ()->
+  "Project-#{Math.ceil(Math.random() * 1000)  } "
+
 $app.factory "WizardTest", ($http)->
   obj =
     name: null
@@ -42,12 +45,12 @@ $app.factory "WizardTest", ($http)->
         tot__type_of_test: ""
         top__type_of_product: ""
         ps__platforms: ""
-        ps__hours: ""
-        pi__project_name: ""
+        ps__hours: 1
+        pi__project_name: random_name()
         pi__project_version: ""
         pi__project_languages: ["English"]
         pi__report_languages: ["English"]
-        tp__type_of_testing: ""
+        tp__type_of_testing: "exploratory"
         tp__exploratory_instructions: ""
         #t.has_attached_file :tp__test_case_attachment
         pa__access_instructions_url: ""

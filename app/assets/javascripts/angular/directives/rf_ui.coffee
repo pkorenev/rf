@@ -23,9 +23,10 @@ inputTypeTemplate = (type, label)->
   content = "#{label_str}#{border_wrap_str}#{input}"
   baseInputWrap(content, "string")
 
+fn_error_message = ()->
 
 baseInputWrap = (content, html_class)->
-  messages_wrap = "<div class='error-messages' ng-show='hasErrors()'><div class='error-message' ng-repeat='(error_key, error_value) in error()'>{{error_key}}</div></div>"
+  messages_wrap = "<div class='error-messages' ng-show='hasErrors()'><div class='error-message' ng-repeat='(error_key, error_value) in error()'>{{error_message(error_key)}}</div></div>"
   "<div class='rf-input #{html_class}'>#{content}#{messages_wrap}</div>"
 
 watchFocus = (element, ngModelCtrl)->
@@ -117,6 +118,10 @@ $app.directive "rfInput", ()->
     watchEmpty(scope, element, ngModelCtrl)
     watchFocus(element, ngModelCtrl)
 
+    scope.error_message = (error_key)->
+      console.log "attrs", attrs
+      attrs[error_key+"ErrorMessage"] || error_key
+
 $app.directive "validateWith", ()->
   restrict: "A"
   require: ["ngModel"]
@@ -158,7 +163,8 @@ $app.directive "checkboxList", ()->
 
     input_tpl = "<div class='checklist-item' ng-repeat='key in collection track by $index'><input id='{{build_input_id($index)}}' type='checkbox' checklist-change='onChange()' checklist-model='value' checklist-value='key' /><label for='{{build_input_id($index)}}'></label><label for='{{build_input_id($index)}}'>{{key}}</label></div>"
     inputs_wrap = "<div class='inputs horizontal'>#{input_tpl}</div>"
-    content = "#{input_label}#{inputs_wrap}"
+    messages_wrap = "<div class='error-messages' ng-show='hasErrors()'><div class='error-message' ng-repeat='(error_key, error_value) in error()'>{{error_message('hello')}}</div></div>"
+    content = "#{input_label}#{inputs_wrap}#{messages_wrap}"
     if question
       content = "<question text='#{question}' ng-required='#{required}'>#{inputs_wrap}</question>"
 
@@ -201,8 +207,15 @@ $app.directive "checkboxList", ()->
         return valid
     ###
 
+    scope.hasErrors = ()->
+      keys_count(ngModelCtrl.$error) > 0
 
+    scope.error = ()->
+      ngModelCtrl.$error
 
+    scope.error_message = (error_key)->
+      console.log "attrs", attrs
+      attrs[error_key+"ErrorMessage"] || error_key
 
 
 

@@ -167,10 +167,23 @@ window.$app.controller "DashboardController", [
     promise.then (response)->
       response_data = response.data
       $scope.drafts = response_data.drafts
+      for draft in $scope.drafts
+        #if draft
+        draft.type_of_product_logo_path = "/assets/rf-" + draft.top__type_of_product + ".svg"
+        draft.state = angular.fromJson(draft.state) || {}
+        #state.configuration_steps
 
     $scope.openDraft = (project)->
       $rootScope.draft = project
+
       $state.go "wizard"
 
+    $scope.deleteDraft = (project)->
+      data = {id: project.id}
+      promise = $http.post "/delete_dashboard_project", data
+      promise.then ()->
+        #$scope.drafts.remove(project)
+        index = $scope.drafts.indexOf(project);
+        $scope.drafts.splice(index, 1);
 
 ]

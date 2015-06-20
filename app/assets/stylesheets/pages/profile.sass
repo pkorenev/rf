@@ -52,3 +52,35 @@
 .change_password_button
   .svg-wrap
     margin-right: 20px !important
+
+.change_password_button, .contact-form-button, .faq-form-button, .rf-upload-button
+  .button-title
+    +font-21
+
+.change_password_button
+  .button-title
+    line-height: 70px
+
+.rf-button
+  &.contact-form-button, &.faq-form-button,  &.rf-upload-button
+    height: 35px
+    .button-title
+      line-height: 35px
+    .svg-wrap
+      &, &.svg-size-medium
+        line-height: 35px
+        svg
+          width: 25px
+          height: 35px
+  &.rf-upload-button
+    background-color: $sky-blue-color
+
+#contact-feedback, #faq-form
+  form
+    .columns
+      &:last-child
+        text-align: right
+
+.input-padding
+  padding-top: 20px
+  padding-bottom: 20px

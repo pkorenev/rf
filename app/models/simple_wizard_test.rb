@@ -17,12 +17,23 @@ class SimpleWizardTest < ActiveRecord::Base
   attr_accessible :pa__need_authorization
   attr_accessible :pa__comment
 
+  attr_accessible :state
+
+  before_save :generate_name
+  def generate_name
+    pi__project_name = "Project-#{rand(1000)}"
+  end
+
+  def parse_state
+    s = state
+    if s.present?
+      state = JSON.parse(s)
+    end
+  end
 
   [:tp__test_case_attachment, :pa__access_instructions_attachment].each do |attr|
     attr_accessible :"#{attr}_file_name" , :"#{attr}_content_type" , :"#{attr}_file_size", :"#{attr}_updated_at"
   end
 
-  def get_state
 
-  end
 end

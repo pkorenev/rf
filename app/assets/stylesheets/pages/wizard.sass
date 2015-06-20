@@ -849,13 +849,19 @@ button
       +flex-grow(1)
 
 .question
-  padding: 32px 0
+  padding: 32px 0 20px 0
 
   .required-symbol
     color: $yellow-orange-color
     margin-left: 3px
 
 
+checkbox-list
+  display: block
+  padding-bottom: 30px
+  .error-messages
+    color: red
+    +font-14-light-italic
 
 
 
@@ -1129,3 +1135,49 @@ body
     &:not(:first-child)
       .question
         padding-top: 3rem
+
+.rf-button
+  &.rf-configure-button
+    .svg-wrap
+      margin-left: 0
+      margin-right: 17px
+      svg
+        top: -2px
+        position: relative
+    .button-text-wrap
+      .button-title
+        +font-21
+        line-height: 70px
+
+  &.rf-next-step-button
+    .svg-wrap
+      margin-left: 0
+      margin-right: 14px
+      svg
+        position: relative
+        top: -2px
+    .button-text-wrap
+      .inner
+        top: 17px
+    .button-title
+      +font-21
+
+.wizard-step
+  .question
+    width: 95%
+    display: block
+
+    .text
+      +font-21-semibold
+      line-height: 50px
+      &.centered
+        text-align: center
+  .input
+    &.radio
+      padding-bottom: 10px
+
+.wizard-step
+  .url-or-files
+    .columns
+      &:last-child
+        float: left

@@ -163,11 +163,11 @@ $app.controller "WizardController", [
             platform_price = 0
             platform_testers_count = 0
             for inner_ps in inner_p.platform_subitems
-              platform_price += (parseInt(inner_ps.count) || 0) * $scope.wizard.item_price * $scope.wizard.selected_hour
+              platform_price += (parseInt(inner_ps.count) || 0) * $scope.wizard.item_price * $scope.wizard.data.ps__hours
               platform_testers_count += parseInt(inner_ps.count)
             inner_p.price = platform_price
             inner_p.testers_count = platform_testers_count
-            inner_p.hours_count = platform_testers_count * $scope.wizard.selected_hour
+            inner_p.hours_count = platform_testers_count * $scope.wizard.data.ps__hours
 
 
           #difference = newValue - oldValue
@@ -188,7 +188,7 @@ $app.controller "WizardController", [
         #alert($scope.wizard.platforms[0].price)
       )
 
-    $scope.$watch("wizard.selected_hour", (newValue, oldValue)->
+    $scope.$watch("wizard.data.ps__hours", (newValue, oldValue)->
       for p, i in $scope.wizard.platforms
         #p.price = p.price / (oldValue) * newValue
         p.hours_count = p.testers_count * newValue
@@ -378,12 +378,14 @@ $app.controller "WizardController", [
 
     $scope.saveProject = ()->
       if $auth.user
-        alert("saveProject")
-        alert($auth.user.email)
+        #alert("saveProject")
+        #alert($auth.user.email)
         data = {
           data: $scope.wizard.data,
           state: {
-            configure_mode: $scope.configure_mode
+            configure_mode: $scope.wizard.configure_mode
+            configuration_steps: $scope.wizard.configuration_steps
+            total_testers_count: $scope.wizard.total_testers_count
           }
         }
 
@@ -391,25 +393,35 @@ $app.controller "WizardController", [
         promise = $http.post "/save_project", data
         promise.then (response)->
           response_data = response.data
-          alert "successfully saved"
+          #alert "successfully saved"
           #console.log "response", response
           if response_data.action == 'create'
-            alert "create"
+            #alert "create"
             console.log "create", response_data
             $scope.wizard.data.id = response_data.id
           else
-            alert "update"
+            #alert "update"
         promise.error ()->
-          alert "error"
+          #alert "error"
       else
-        alert "please login or register"
+        #alert "please login or register"
       #console.log "data", $scope.wizard.data
+
+    $scope.initConfigurationSteps = ()->
+      if $scope.wizard.configure_mode
+        $(".configuration-steps").removeClass("hide")
 
     if $rootScope.draft
       project = $rootScope.draft
-      angular.merge($scope.wizard.data, project.data)
-      project_state = project.state
-      $scope.configure_mode = project_state.configure_mode
+      angular.merge($scope.wizard.data, project)
+      delete $scope.wizard.data.state
+      if project.state
+        project_state = project.state
+        $scope.wizard.configure_mode = project_state.configure_mode
+        $scope.wizard.total_testers_count = project_state.total_testers_count
+      $scope.initConfigurationSteps()
+
     #$scope.$on "auth:login:success", $scope.saveProject
+
 
 ]

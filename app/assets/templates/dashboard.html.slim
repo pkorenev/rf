@@ -17,15 +17,15 @@
                       .content
                         .type-of-test-logo ng-include="project.type_of_test_logo"
                         .project-name
-                          |{{project.project_name}}
+                          |{{project.pi__project_name}}
                         /steps-progress items="{{range(project.steps_completed[1])}}"
                         .steps-completed
                           .progress
-                            .step ng-repeat="i in range(project.steps_completed[1]) track by $index" style="width: {{100 / project.steps_completed[1]}}%;" ng-class="[($index <= project.steps_completed[0] - 1 ? 'proceeded' : 'unproceeded' )]"
+                            .step ng-repeat="step in project.state.configuration_steps track by $index" style="width: {{100 / project.state.configuration_steps.length}}%;" ng-class="[(step.proceeded ? 'proceeded' : 'unproceeded' )]"
                               .inner
                         .type-of-test-wrap
                           .type-of-test-icon
-                            img src="{{project.type_of_test_icon}}"
+                            .svg-wrap ng-include="project.type_of_product_logo_path"
                           .type-of-test
                             |{{project.type_of_test}}
                           .testing-type ng-show="project.testing_type && project.testing_type.length"
@@ -35,13 +35,13 @@
                           .testers
                             .testers-icon ng-include="'/assets/user.svg'"
                             .total-testers-count
-                              |{{project.total_testers_count_string}}
+                              |{{count = project.state.total_testers_count;  count ? count + ' testers' : 'Not specified' }}
                           .hours
                             .hours-icon ng-include="'/assets/clock.svg'"
                             .hours-count
-                              |{{project.hours_per_tester}}
+                              |{{project.ps__hours}}
                   .actions
-                    .delete-draft
+                    .delete-draft-button ng-click="deleteDraft(project)"
                       |Delete draft
                     rf-button.complete-draft-button title="Complete" subtitle="Draft" svg="/assets/finish_flag.svg" ng-click="openDraft(project)"
 

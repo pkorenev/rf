@@ -1,4 +1,7 @@
 class WizardController < ApplicationController
+
+  before_action :authenticate, only: [:dashboard_projects, :delete_dashboard_project]
+
   def index
     @template = "/assets/wizard.html"
 
@@ -48,6 +51,13 @@ class WizardController < ApplicationController
 
   def save_project
     data = params[:data]
+    if data.is_a?(Hash)
+      state = params[:state]
+      if state
+        data[:state] = state.to_json
+      end
+    end
+
     result = {}
     if id = data.delete(:id)
       result[:action] = 'update'
@@ -65,12 +75,28 @@ class WizardController < ApplicationController
   end
 
   def dashboard_projects
-    drafted_projects = SimpleWizardTest.all
+    drafted_projects = SimpleWizardTest.all.map{|t| t.parse_state; t }
     data = {
         drafts: drafted_projects
     }
 
     render json: data
+  end
+
+  def delete_dashboard_project
+    id = params[:id].try(&:to_i)
+    result = {}
+    if id && count = SimpleWizardTest.delete(id)
+      result = {count: count}
+    else
+      if id.blank?
+        result = { error: "please provide id" }
+      else
+        result = { error: "id does not exist" }
+      end
+    end
+
+    render json: result
   end
 end
 

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post "faq_request", to: "faq_articles#request_question"
   get "faq_articles", to: "faq_articles#articles"
 
+  post "/delete_dashboard_project", to: "wizard#delete_dashboard_project"
+  get "/dashboard_projects", to: "wizard#dashboard_projects"
   get "wizard/new_test_available_steps"
   get "wizard/available_platforms_by_product_type/:product_type", to: "wizard#available_platforms_by_product_type"
 
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
   get "/svg_images", to: "home#svg_images"
 
 
+  post "/save_project", to: "wizard#save_project"
   get 'wizard', to: "wizard#index"
   get "ng_wizard", to: "wizard#ng_wizard"
 

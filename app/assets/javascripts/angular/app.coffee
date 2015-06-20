@@ -17,6 +17,10 @@ $app.config(
     ($authProvider, cfpLoadingBarProvider)->
       $authProvider.configure(
         apiUrl: ''
+        authProviderPaths:
+          gplus: "/auth/gplus"
+          facebook: "/auth/facebook"
+
       )
 
 

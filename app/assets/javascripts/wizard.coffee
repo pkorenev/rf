@@ -16,6 +16,7 @@ window.current_test = null
 
 
 init_wizard_summary_fixed = ()->
+
   $summary_fixed = $('#wizard-summary-fixed')
   scroll_top = $(window).scrollTop()
   $summary = $('#wizard-summary')
@@ -23,8 +24,9 @@ init_wizard_summary_fixed = ()->
   summary_top = if summary_offset then summary_offset.top else undefined
   #fixed = scroll_top >= summary_top
   #fixed = scroll_top >= $('#header').height() + $('#wizard-banner').height()
-  fixed = scroll_top >= $('#wizard-banner').height()
+  fixed = scroll_top >= $('.page-banner').height()
 
+  console.log(fixed)
   if fixed
     $summary_fixed.addClass("fixed-top")
   else
